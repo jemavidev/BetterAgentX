@@ -1,0 +1,120 @@
+{
+  "version": "1.0.0",
+  "lastUpdated": "2026-02-28T16:45:00-05:00",
+
+  "project": {
+    "name": "BetterAgents-Claude",
+    "description": "Multi-agent orchestration system — AgentX dispatcher, 12-agent ecosystem, Memory Dashboard, session tracking, and 6-pillar safety framework",
+    "phase": "3.6 — Dashboard SAFETY tab complete",
+    "status": "active",
+    "startDate": "2026-02-26T00:00:00-05:00"
+  },
+
+  "currentFocus": {
+    "feature": "Dashboard SAFETY tab — Session Activity with prompts + per-file heat-map",
+    "objective": "Give developers full observability into every Claude Code session: what was asked, which files changed, and how large each change was",
+    "priority": "high"
+  },
+
+  "techStack": {
+    "languages": ["Bash", "JavaScript", "JSON"],
+    "frameworks": ["Node.js", "Docker"],
+    "databases": [],
+    "tools": ["jq", "Claude Code", "Git", "Docker Compose"]
+  },
+
+  "team": {
+    "size": 1,
+    "roles": ["Developer", "Architect"],
+    "activeAgents": ["coder", "architect", "critic", "devops", "writer"]
+  },
+
+  "constraints": {
+    "technical": [
+      "Must run in Docker container — no host dependencies beyond jq and Node.js",
+      "Dashboard is static HTML served by a Node.js file server — no build step allowed",
+      "All memory writes go through .claude/scripts/ helper scripts, never direct file edits",
+      "Claude Code hooks (on-session-stop, on-user-prompt, post-tool-use) drive automation"
+    ],
+    "business": [
+      "MEMORY.md must stay under 200 lines — detailed content goes in topic files",
+      "Sub-agents must never write memory files — only AgentX triggers memory writes",
+      "Dashboard must work offline — all data loaded from local JSON files"
+    ]
+  },
+
+  "nextSteps": [
+    "Phase 3.7: Populate token-accounting.json with real per-session token data from llm-usage.json",
+    "Fix TOKEN USAGE TREND chart scale — values in single-digit thousands are too small to display bars",
+    "Fix CODE QUALITY TREND — metrics-analytics.json.metrics is null, needs real source",
+    "Fix TOKEN BREAKDOWN pie chart — all values are 0% because token-accounting.json has placeholder zeros"
+  ],
+
+  "blockers": [],
+
+  "context": {
+    "stats": {
+      "completedTasks": 6,
+      "pendingTasks": 4,
+      "lastUpdate": "2026-02-28"
+    },
+    "recentDecisions": [
+      { "id": "DEC-02", "title": "Index-based onclick for session modal", "category": "implementation" },
+      { "id": "DEC-03", "title": "Per-file line counts with heat-map in SAFETY tab", "category": "architectural" },
+      { "id": "DEC-04", "title": "Backwards-compatible schema evolution for activity.files", "category": "architectural" }
+    ],
+    "activePatterns": [
+      { "id": "PAT-02", "name": "index-based-onclick", "category": "implementation" },
+      { "id": "PAT-03", "name": "backwards-compatible-schema-evolution", "category": "architectural" }
+    ],
+    "openTasks": []
+  },
+
+  "recentChanges": [
+    {
+      "name": "Fix: Prompts not rendering in session modal",
+      "file": "dashboard.html",
+      "category": "bugfix",
+      "timestamp": "2026-02-28T12:30:00-05:00",
+      "summary": "JSON-in-onclick encoding bug — user prompts with quotes or newlines silently corrupted the JS object in the HTML attribute. Fixed with index-based onclick pattern: window._safetyTabSessions[] + numeric index."
+    },
+    {
+      "name": "Feature: Per-file heat-map in SAFETY tab",
+      "file": "dashboard.html",
+      "category": "feature",
+      "timestamp": "2026-02-28T13:00:00-05:00",
+      "summary": "Heat-map colors per file: green <10 lines, yellow 10–50, red >50, purple rewrites (>200 or removed/added>70%). track-usage.sh switched from --name-only to --numstat to capture +N/-M per file."
+    },
+    {
+      "name": "Feature: Prompt capture hook (on-user-prompt.sh)",
+      "file": "on-user-prompt.sh",
+      "category": "feature",
+      "timestamp": "2026-02-28T11:00:00-05:00",
+      "summary": "on-user-prompt.sh captures first 200 chars of each user message and appends to .session-prompts-tmp. track-usage.sh consumes this file at session stop and stores prompts in llm-usage.json activity.prompts[]."
+    },
+    {
+      "name": "Feature: 3-layer memory write enforcement",
+      "file": "CLAUDE.md",
+      "category": "feature",
+      "timestamp": "2026-02-27T08:09:00-05:00",
+      "summary": "Added 4 helper scripts (add-decision.sh, add-task.sh, add-pattern.sh, update-context.sh). Added 5 mandatory trigger events to CLAUDE.md. Cross-session debt hook catches missed writes and fires a reminder at next session start."
+    }
+  ],
+
+  "current": {
+    "focus": "Dashboard SAFETY tab — Session Activity with prompts + per-file heat-map",
+    "blockers": [],
+    "nextSteps": [
+      "Phase 3.7: Populate token-accounting.json and metrics-analytics.json with real data",
+      "Fix Charts TOKEN USAGE TREND scale (values in thousands too small to display)",
+      "Fix CODE QUALITY TREND — needs real metrics source"
+    ]
+  },
+
+  "_comments": {
+    "dateFormat": "Use ISO 8601 format with timezone for timestamps: YYYY-MM-DDTHH:MM:SS-05:00",
+    "example": "2026-02-16T09:00:00-05:00",
+    "note": "Dashboard will display date and time when timestamp includes 'T', otherwise only date",
+    "dashboardFields": "nextSteps and blockers must be TOP-LEVEL arrays, not nested under current.*"
+  }
+}
