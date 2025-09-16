@@ -1,0 +1,22 @@
+services:
+  betteragents-dashboard:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: betteragents-dashboard
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./.claude/memory:/memory:ro
+      - ./templates:/templates:ro
+    environment:
+      - MEMORY_DIR=/memory
+      - TEMPLATES_DIR=/templates
+      - PORT=3000
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q --spider http://localhost:3000 || exit 1"]
+      interval: 15s
+      timeout: 5s
+      start_period: 10s
+      retries: 3
