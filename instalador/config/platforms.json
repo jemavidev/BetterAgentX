@@ -1,0 +1,17 @@
+{
+  "version": "3.8.0",
+  "platforms": {
+    "claude": {
+      "name": "Claude Code",
+      "description": "Claude Code IDE integration with full BetterAgents orchestration system",
+      "enabled": true,
+      "module": "platforms/claude"
+    },
+    "kiro": {
+      "name": "Kiro IDE",
+      "description": "Amazon Kiro IDE integration with steering files and memory bridge",
+      "enabled": true,
+      "module": "platforms/kiro"
+    }
+  }
+}
