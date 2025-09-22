@@ -1,0 +1,35 @@
+{
+  "name": "kiro",
+  "version": "3.8.0",
+  "description": "Kiro IDE integration with AgentX orchestrator, steering files, runtime mode isolation, document governance, guardian skills, and memory bridge",
+  "requires": {
+    "commands": ["jq"],
+    "optional": ["git", "node"]
+  },
+  "dependencies": [],
+  "shared": ["betteragents-core", "memory-system"],
+  "files": {
+    "orchestrator": "AGENTS.md",
+    "steering": ".kiro/steering",
+    "scripts": ".kiro/scripts"
+  },
+  "directories": [
+    ".kiro",
+    ".kiro/steering",
+    ".kiro/scripts"
+  ],
+  "hooks": {
+    "pre_install": "",
+    "post_install": "",
+    "pre_uninstall": "",
+    "post_uninstall": ""
+  },
+  "features": {
+    "steering": true,
+    "memory_bridge": true,
+    "dashboard": false,
+    "runtime_mode": true,
+    "document_governance": true,
+    "guardian_skills": true
+  }
+}
