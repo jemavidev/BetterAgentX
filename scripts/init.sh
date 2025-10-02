@@ -679,3 +679,4 @@ else
     print_info "  Docker:  docker compose up -d"
     print_info "  Node.js: bash .claude/scripts/start-dashboard.sh"
 fi
+
