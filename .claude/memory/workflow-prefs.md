@@ -54,3 +54,4 @@
 
 Cuando el usuario diga explícitamente una preferencia ("siempre usa X", "nunca hagas Y"),
 añadirla aquí con `💾 Memory Update: workflow-prefs.md — [descripción]`
+
