@@ -172,3 +172,4 @@ jq -n \
     }' > "$STATS_FILE"
 
 exit 0
+
