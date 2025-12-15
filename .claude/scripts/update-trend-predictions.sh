@@ -253,3 +253,4 @@ if [ -f "$ALERTS" ]; then
 fi
 
 echo "✅ update-trend-predictions complete"
+
