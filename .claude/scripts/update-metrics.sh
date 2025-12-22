@@ -298,3 +298,4 @@ if [ -f "$HISTORICAL" ]; then
 fi
 
 echo "✅ update-metrics complete"
+
