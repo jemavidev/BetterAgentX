@@ -356,3 +356,4 @@ category: Protocol | Script | Memory | Config | Documentation | Phase
 **Protocols:** `.claude/protocols/` | **Skills:** `.claude/commands/` | **Hooks:** `.claude/scripts/`
 
 **Version:** 3.7.0 | **Platform:** Claude Code | **Updated:** 2026-02-28
+
