@@ -61,6 +61,7 @@
 - **[Getting Started](docs/guides/getting-started.md)** - Primeros pasos
 - **[Skills Management](docs/guides/skills-management.md)** - Gestión de skills
 - **[Workflows](docs/guides/workflows.md)** - Workflows colaborativos
+- **[Memory Activation](docs/guides/memory-activation.md)** - Activación automática de memoria
 
 ---
 

@@ -3,9 +3,18 @@
 ## [3.2.0] - 2026-02-13 - Integration System
 
 ### 🎯 Objective
-Enable BetterAgentX integration into any project using symbolic links without file duplication.
+Enable BetterAgentX integration into any project using symbolic links without file duplication, with automatic memory activation.
 
 ### ✨ New Features
+
+#### Automatic Memory Activation (NEW!)
+- ✅ **Automatic memory activation on initialization**
+  - Creates `.kirorc` file with memory.enabled=true
+  - Creates `.kiro/settings/kiro.json` with memory configuration
+  - Memory files load automatically when opening Kiro
+  - No manual activation needed
+  - Improves user experience significantly
+  - `.kirorc` is included in repository (not ignored)
 
 #### Integration System
 - ✅ **init-betteragentx.sh** - Automatic integration script
