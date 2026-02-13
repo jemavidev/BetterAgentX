@@ -1,6 +1,12 @@
 # 🎯 BetterAgentX
 
-Intelligent multi-agent system for software development with automatic memory management and centralized orchestration powered by AgentX.
+**Intelligent multi-agent system for software development with automatic memory management and centralized orchestration powered by AgentX.**
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Version](https://img.shields.io/badge/version-3.2.0-blue.svg)](https://github.com/jemavidev/BetterAgentX/releases)
+[![GitHub Stars](https://img.shields.io/github/stars/jemavidev/BetterAgentX?style=social)](https://github.com/jemavidev/BetterAgentX/stargazers)
+
+> Transform your development workflow with 13 specialized AI agents working together seamlessly.
 
 ## ✨ Key Features
 

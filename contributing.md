@@ -1,6 +1,6 @@
-# 🤝 Guía de Contribución - BetterAgents
+# 🤝 Guía de Contribución - BetterAgentX
 
-¡Gracias por tu interés en contribuir a BetterAgents! Este documento te guiará en el proceso.
+¡Gracias por tu interés en contribuir a BetterAgentX! Este documento te guiará en el proceso.
 
 ---
 
@@ -298,50 +298,67 @@ git commit -m "refactor: simplifica sistema de memoria"
 ## 🏗️ Estructura del Proyecto
 
 ```
-BetterAgents/
+BetterAgentX/
 ├── .agents/
 │   └── skills/              # Skills compartidos
 │       └── ui-ux-pro-max/
 ├── .kiro/
-│   ├── memory/              # Sistema de memoria
-│   │   ├── active-context.md
-│   │   ├── decision-log.md
-│   │   ├── patterns.md
-│   │   ├── progress.md
-│   │   └── README.md
-│   ├── skills/              # Symlink a skills
 │   └── steering/
-│       └── agents/          # 12 agentes especializados
-│           ├── architect.md
-│           ├── coder.md
-│           ├── critic.md
-│           ├── data-scientist.md
-│           ├── devops.md
-│           ├── product-manager.md
-│           ├── researcher.md
-│           ├── security.md
-│           ├── teacher.md
-│           ├── tester.md
-│           ├── ux-designer.md
-│           └── writer.md
+│       ├── agents/          # 12 agentes especializados
+│       │   ├── architect.md
+│       │   ├── coder.md
+│       │   ├── critic.md
+│       │   ├── data-scientist.md
+│       │   ├── devops.md
+│       │   ├── product-manager.md
+│       │   ├── researcher.md
+│       │   ├── security.md
+│       │   ├── teacher.md
+│       │   ├── tester.md
+│       │   ├── ux-designer.md
+│       │   └── writer.md
+│       ├── agentx/          # Orquestador central
+│       │   ├── agentx.md
+│       │   └── agents-map.json
+│       └── _common/         # Configuración común
+│           ├── collaboration-rules.md
+│           ├── identity-template.md
+│           └── memory-contribution.md
+├── config/
+│   ├── betteragents.json    # Configuración principal
+│   └── agent-skills.json    # Skills recomendados
+├── docs/                    # Documentación completa
+├── scripts/
+│   ├── init-betteragentx.sh      # Inicializar integración
+│   ├── verify-betteragentx.sh    # Verificar integración
+│   ├── install.sh                # Instalación del sistema
+│   └── verify-system.sh          # Verificación del sistema
+├── templates/
+│   └── memory/              # Plantillas de memoria
 ├── .gitignore
-├── AgentX.md                # Guía de instalación
-├── betteragents.json        # Manifest del proyecto
 ├── CHANGELOG.md             # Historial de cambios
 ├── CONTRIBUTING.md          # Esta guía
-├── install.sh               # Script de instalación
+├── INDEX.md                 # Índice de documentación
+├── INTEGRATION.md           # Guía de integración
+├── QUICKSTART-INTEGRATION.md # Inicio rápido
 ├── LICENSE                  # Licencia MIT
 └── README.md                # Documentación principal
 ```
 
 ### Archivos Importantes
 
-- **betteragents.json**: Manifest con metadata del proyecto
+- **config/betteragents.json**: Configuración principal del sistema
+- **config/agent-skills.json**: Skills recomendados por agente
 - **README.md**: Documentación principal
-- **AgentX.md**: Guía de instalación completa
+- **INTEGRATION.md**: Guía completa de integración
+- **QUICKSTART-INTEGRATION.md**: Inicio rápido de integración
+- **INDEX.md**: Índice de toda la documentación
 - **CHANGELOG.md**: Historial de versiones y cambios
 - **.kiro/steering/agents/**: Los 12 agentes especializados
-- **.kiro/memory/**: Sistema de memoria persistente
+- **.kiro/steering/agentx/**: El orquestador central
+- **.kiro/steering/_common/**: Configuración común de agentes
+- **scripts/**: Scripts de instalación e integración
+- **templates/memory/**: Plantillas del sistema de memoria
 
 ---
 
@@ -404,4 +421,4 @@ Al contribuir, aceptas que tus contribuciones se licencien bajo la licencia MIT 
 
 ---
 
-**¡Gracias por contribuir a BetterAgents! 🚀**
+**¡Gracias por contribuir a BetterAgentX! 🚀**
