@@ -53,8 +53,11 @@ temp/
 .kiro/memory/
 
 # Configuración local de proyectos que integran BetterAgentX
-.kiro/settings/
+.kiro/settings/kiro.json
 .betteragentx
+
+# NOTA: .kirorc NO se ignora porque contiene configuración importante
+# para activar la memoria automáticamente
 
 # Skills symlink (creado durante instalación)
 .kiro/skills/

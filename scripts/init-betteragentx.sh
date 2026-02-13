@@ -371,6 +371,8 @@ if [ -f ".gitignore" ]; then
 .kiro/memory/
 .kiro/settings/
 .betteragentx
+
+# NOTA: .kirorc se incluye en el repositorio para activar memoria automáticamente
 EOF
         print_success ".gitignore actualizado"
     else
@@ -382,6 +384,8 @@ else
 .kiro/memory/
 .kiro/settings/
 .betteragentx
+
+# NOTA: .kirorc se incluye en el repositorio para activar memoria automáticamente
 EOF
     print_success ".gitignore creado"
 fi
@@ -436,7 +440,65 @@ fi
 echo ""
 
 # ============================================
-# RESUMEN FINAL
+# 9. ACTIVAR SISTEMA DE MEMORIA EN KIRO
+# ============================================
+print_section "9. Activando Sistema de Memoria"
+echo ""
+
+# Crear archivo de configuración de Kiro si no existe
+if [ ! -d ".kiro/settings" ]; then
+    mkdir -p .kiro/settings
+fi
+
+# Crear o actualizar configuración de Kiro para activar memoria
+if [ ! -f ".kiro/settings/kiro.json" ]; then
+    cat > .kiro/settings/kiro.json << EOF
+{
+  "memory": {
+    "enabled": true,
+    "autoLoad": true,
+    "files": [
+      ".kiro/memory/active-context.md",
+      ".kiro/memory/decision-log.md",
+      ".kiro/memory/progress.md",
+      ".kiro/memory/patterns.md"
+    ]
+  },
+  "agents": {
+    "enabled": true,
+    "autoLoad": true
+  }
+}
+EOF
+    print_success "Configuración de Kiro creada con memoria activada"
+else
+    print_info "Configuración de Kiro ya existe"
+fi
+
+# Crear archivo .kirorc en el proyecto para activar memoria automáticamente
+cat > .kirorc << EOF
+# BetterAgentX - Configuración de Kiro
+# Generado automáticamente por init-betteragentx.sh
+
+# Activar memoria automáticamente
+memory.enabled=true
+memory.autoLoad=true
+
+# Archivos de memoria a cargar
+memory.files=.kiro/memory/active-context.md,.kiro/memory/decision-log.md,.kiro/memory/progress.md,.kiro/memory/patterns.md
+
+# Activar agentes
+agents.enabled=true
+agents.autoLoad=true
+EOF
+
+print_success "Archivo .kirorc creado (memoria activada automáticamente)"
+print_info "La memoria se cargará automáticamente al abrir Kiro"
+
+echo ""
+
+# ============================================
+# 10. RESUMEN FINAL
 # ============================================
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 echo "✨ Inicialización Completada"
