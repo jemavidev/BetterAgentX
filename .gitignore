@@ -1,0 +1,77 @@
+# BetterAgents .gitignore
+
+# Node modules (si se instalan skills localmente)
+node_modules/
+package-lock.json
+yarn.lock
+
+# Archivos de configuración local
+.env
+.env.local
+.env.*.local
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+logs/
+betteragents-update.log
+
+# Sistema operativo
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+*~
+
+# IDEs y editores
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.classpath
+.settings/
+
+# Backups (si se crean manualmente)
+*.backup
+*.bak
+*.tmp
+*~
+
+# Archivos temporales
+tmp/
+temp/
+.cache/
+
+# Memoria personalizada del usuario (creada desde templates/)
+.kiro/memory/
+
+# Skills symlink (creado durante instalación)
+.kiro/skills/
+
+# Configuración local del usuario
+config/.betteragents-config
+config/local.json
+
+# Skills instalados localmente (si se descargan)
+.skills/
+.npm/
+
+# Archivos de sistema de Kiro (generados automáticamente)
+.kiro/.cache/
+.kiro/.temp/
+
+# Archivos de prueba
+test-output/
+coverage/
+.nyc_output/
+
+# Distribución
+dist/
+build/

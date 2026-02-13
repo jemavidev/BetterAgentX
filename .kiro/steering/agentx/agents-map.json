@@ -1,0 +1,76 @@
+{
+  "agents": {
+    "architect": {
+      "type": "core",
+      "keywords": ["design", "architecture", "system", "scalability", "patterns", "structure", "microservices", "monolith"],
+      "description": "System design, architecture patterns, technical planning",
+      "expertise": ["SOLID principles", "design patterns", "cloud architecture", "scalability", "trade-off analysis"]
+    },
+    "coder": {
+      "type": "core",
+      "keywords": ["implement", "code", "function", "class", "refactor", "debug", "fix", "optimize", "algorithm"],
+      "description": "Implementation, clean code, refactoring, debugging",
+      "expertise": ["clean code", "SOLID", "design patterns", "debugging", "performance optimization"]
+    },
+    "critic": {
+      "type": "core",
+      "keywords": ["review", "critique", "risks", "problems", "concerns", "validate", "challenge", "assumptions"],
+      "description": "Critical analysis, risk assessment, tenth-man rule",
+      "expertise": ["critical thinking", "risk assessment", "pre-mortem analysis", "assumption validation"]
+    },
+    "security": {
+      "type": "specialized",
+      "keywords": ["security", "vulnerability", "authentication", "authorization", "encryption", "OWASP", "audit"],
+      "description": "Security auditing, OWASP, vulnerability assessment",
+      "expertise": ["OWASP Top 10", "authentication", "authorization", "cryptography", "security auditing"]
+    },
+    "tester": {
+      "type": "core",
+      "keywords": ["test", "testing", "QA", "coverage", "edge cases", "validation", "unit test", "integration"],
+      "description": "Test strategy, TDD, quality assurance",
+      "expertise": ["TDD", "unit testing", "integration testing", "E2E testing", "test coverage"]
+    },
+    "ux-designer": {
+      "type": "specialized",
+      "keywords": ["design", "UI", "UX", "interface", "user experience", "accessibility", "WCAG", "responsive"],
+      "description": "UI/UX design, accessibility, user experience",
+      "expertise": ["UX laws", "accessibility (WCAG)", "responsive design", "design systems"]
+    },
+    "writer": {
+      "type": "core",
+      "keywords": ["document", "documentation", "README", "tutorial", "guide", "explain", "API docs"],
+      "description": "Technical documentation, API docs, tutorials",
+      "expertise": ["technical writing", "API documentation", "tutorials", "README files", "changelogs"]
+    },
+    "teacher": {
+      "type": "core",
+      "keywords": ["explain", "teach", "learn", "understand", "how does", "what is", "tutorial", "concept"],
+      "description": "Concept explanation, learning paths, tutorials",
+      "expertise": ["concept explanation", "analogies", "progressive learning", "practice exercises"]
+    },
+    "product-manager": {
+      "type": "specialized",
+      "keywords": ["feature", "user story", "roadmap", "priority", "requirements", "stakeholder", "MVP"],
+      "description": "Product strategy, user stories, prioritization",
+      "expertise": ["user stories", "RICE prioritization", "product roadmaps", "KPIs", "stakeholder management"]
+    },
+    "devops": {
+      "type": "specialized",
+      "keywords": ["deploy", "CI/CD", "docker", "kubernetes", "infrastructure", "pipeline", "cloud", "monitoring"],
+      "description": "CI/CD, infrastructure, deployment, monitoring",
+      "expertise": ["CI/CD", "Docker", "Kubernetes", "cloud platforms", "infrastructure as code", "monitoring"]
+    },
+    "data-scientist": {
+      "type": "specialized",
+      "keywords": ["data", "analysis", "machine learning", "statistics", "model", "dataset", "visualization"],
+      "description": "Data analysis, ML, statistics, visualization",
+      "expertise": ["data analysis", "machine learning", "statistics", "visualization", "feature engineering"]
+    },
+    "researcher": {
+      "type": "specialized",
+      "keywords": ["research", "compare", "evaluate", "best practices", "trends", "alternatives", "benchmark"],
+      "description": "Technology research, best practices, trend analysis",
+      "expertise": ["technology comparison", "trend analysis", "best practices research", "solution evaluation"]
+    }
+  }
+}

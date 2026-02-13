@@ -1,0 +1,72 @@
+name: Verify BetterAgents System
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+      
+    - name: Make scripts executable
+      run: chmod +x scripts/*.sh
+      
+    - name: Verify system structure
+      run: |
+        echo "Verifying BetterAgents structure..."
+        bash scripts/verify-system.sh
+      
+    - name: Check agents
+      run: |
+        echo "Checking agents..."
+        AGENT_COUNT=$(find .kiro/steering/agents -name "*.md" | wc -l)
+        if [ "$AGENT_COUNT" -ne 12 ]; then
+          echo "❌ Expected 12 agents, found $AGENT_COUNT"
+          exit 1
+        fi
+        echo "✅ All 12 agents present"
+      
+    - name: Verify configuration
+      run: |
+        echo "Verifying configuration..."
+        if [ ! -f "config/betteragents.json" ]; then
+          echo "❌ betteragents.json not found"
+          exit 1
+        fi
+        echo "✅ Configuration files present"
+      
+    - name: Check documentation
+      run: |
+        echo "Checking documentation..."
+        if [ ! -f "README.md" ]; then
+          echo "❌ README.md not found"
+          exit 1
+        fi
+        if [ ! -f "docs/installation/linux.md" ]; then
+          echo "❌ Installation guide not found"
+          exit 1
+        fi
+        echo "✅ Documentation present"
+      
+    - name: Verify scripts
+      run: |
+        echo "Verifying scripts..."
+        for script in scripts/*.sh; do
+          if [ ! -x "$script" ]; then
+            echo "❌ $script is not executable"
+            exit 1
+          fi
+        done
+        echo "✅ All scripts are executable"
+      
+    - name: Summary
+      run: |
+        echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+        echo "✅ BetterAgents System Verification Complete"
+        echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
