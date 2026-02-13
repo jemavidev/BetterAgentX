@@ -13,7 +13,7 @@ Intelligent multi-agent system for software development with automatic memory ma
 
 ## 🚀 Quick Start
 
-### Installation
+### Option A: Standalone Installation
 
 ```bash
 # Clone the repository
@@ -26,6 +26,25 @@ cd BetterAgentX
 # Install (if needed)
 ./scripts/install.sh
 ```
+
+### Option B: Integrate into Your Project (Recommended)
+
+```bash
+# 1. Clone BetterAgentX into your project
+cd your-project
+git clone https://github.com/jemavidev/BetterAgentX.git
+
+# 2. Initialize integration
+./BetterAgentX/scripts/init-betteragentx.sh
+
+# 3. Verify
+./BetterAgentX/scripts/verify-betteragentx.sh
+
+# 4. Start using
+kiro .
+```
+
+**See:** [Integration Guide](INTEGRATION.md) | [Quick Integration](QUICKSTART-INTEGRATION.md)
 
 ### Basic Usage
 
@@ -75,6 +94,46 @@ xdg-open .kiro/memory/dashboard.html
 | **DevOps** | CI/CD, infrastructure | Deployment, monitoring |
 | **Data-Scientist** | Data analysis, ML | Data analysis, models |
 | **Researcher** | Technical research | Compare technologies, best practices |
+
+## 🔧 Integration with Your Projects
+
+BetterAgentX can be integrated into any project using **symbolic links** (no file duplication):
+
+### Why Integration?
+
+- ✅ Use BetterAgentX in existing projects
+- ✅ No file duplication
+- ✅ Easy updates with `git pull`
+- ✅ Project-specific memory and configuration
+- ✅ Multiple projects can share one BetterAgentX installation
+
+### Quick Integration
+
+```bash
+# In your project directory
+git clone https://github.com/jemavidev/BetterAgentX.git
+./BetterAgentX/scripts/init-betteragentx.sh
+```
+
+This creates:
+- Symbolic links to agents, AgentX, and skills
+- Project-specific memory system
+- Local configuration files
+
+### What Gets Created
+
+```
+your-project/
+├── BetterAgentX/           # Source (shared)
+├── .kiro/
+│   ├── steering/           # → symlinks to BetterAgentX
+│   ├── memory/             # Your project's memory (local)
+│   └── settings/           # Your project's config (local)
+└── .agents/
+    └── skills/             # → symlink to BetterAgentX
+```
+
+**Learn more:** [Integration Guide](INTEGRATION.md) | [Quick Start](QUICKSTART-INTEGRATION.md)
 
 ## 💾 Memory System
 

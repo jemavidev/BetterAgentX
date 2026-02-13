@@ -52,6 +52,10 @@ temp/
 # Memoria personalizada del usuario (creada desde templates/)
 .kiro/memory/
 
+# Configuración local de proyectos que integran BetterAgentX
+.kiro/settings/
+.betteragentx
+
 # Skills symlink (creado durante instalación)
 .kiro/skills/
 

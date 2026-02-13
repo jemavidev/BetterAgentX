@@ -1,4 +1,116 @@
-# Changelog - BetterAgents
+# Changelog - BetterAgentX
+
+## [3.2.0] - 2026-02-13 - Integration System
+
+### 🎯 Objective
+Enable BetterAgentX integration into any project using symbolic links without file duplication.
+
+### ✨ New Features
+
+#### Integration System
+- ✅ **init-betteragentx.sh** - Automatic integration script
+  - Detects BetterAgentX location
+  - Creates project structure (.kiro/, .agents/)
+  - Creates symbolic links to agents, agentx, common, skills
+  - Copies personalizable configurations
+  - Initializes project-specific memory system
+  - Creates .betteragentx configuration file
+  - Updates .gitignore automatically
+
+- ✅ **verify-betteragentx.sh** - Integration verification script
+  - Verifies symbolic links
+  - Checks project structure
+  - Validates available agents
+  - Verifies memory system
+  - Diagnoses common problems
+  - Provides detailed solutions
+
+#### Complete Documentation
+- ✅ **INTEGRATION.md** - Complete integration guide
+  - Key concepts (symbolic links)
+  - Integration methods (automatic, submodule, manual)
+  - Complete project structure
+  - Configuration and personalization
+  - Memory system per project
+  - Update and maintenance
+  - Troubleshooting
+  - Use cases (new project, existing, monorepo)
+
+- ✅ **QUICKSTART-INTEGRATION.md** - Quick start in 3 steps
+  - Option A: New project
+  - Option B: Existing project
+  - Option C: Git submodule
+  - Structure created
+  - Installation verification
+  - Personalization
+  - Common problems
+
+- ✅ **INDEX.md** - Complete documentation navigation
+  - Quick start
+  - Integration
+  - Agents
+  - Memory system
+  - Guides
+  - Scripts
+  - Configuration
+  - Examples
+
+#### README Updates
+- ✅ Added integration section
+- ✅ Two installation options (standalone vs integrated)
+- ✅ Integration benefits explanation
+- ✅ Created structure visualization
+
+#### .gitignore Updates
+- ✅ Ignores .kiro/settings/ (local configurations)
+- ✅ Ignores .betteragentx (integration config)
+- ✅ Maintains .kiro/memory/ ignored
+
+### 🔧 Technical Improvements
+
+#### Symbolic Links System
+- No file duplication
+- Automatic updates with git pull
+- Separation between source and configuration
+- Multiple projects can share one BetterAgentX
+
+#### Project-Specific Memory
+- Each project has its own memory
+- Initialized from templates
+- Not uploaded to Git
+- Personalizable per project
+
+#### Local Configuration
+- Personalizable configurations per project
+- Not uploaded to Git
+- Copied from BetterAgentX templates
+
+### 📊 Benefits
+
+- ✅ Use BetterAgentX in any project
+- ✅ No file duplication
+- ✅ Easy updates
+- ✅ Project-specific memory
+- ✅ Local configurations
+- ✅ Multiple projects sharing BetterAgentX
+
+### 🎯 Use Cases
+
+1. **New Project** - Initialize with BetterAgentX from start
+2. **Existing Project** - Add BetterAgentX to existing project
+3. **Monorepo** - Use in monorepo root
+4. **Multiple Projects** - Share one BetterAgentX between projects
+
+### 📚 New Files
+
+- `scripts/init-betteragentx.sh` - Integration initialization
+- `scripts/verify-betteragentx.sh` - Integration verification
+- `INTEGRATION.md` - Complete guide
+- `QUICKSTART-INTEGRATION.md` - Quick start
+- `INDEX.md` - Documentation navigation
+- `PUSH-INSTRUCTIONS.md` - GitHub push instructions
+
+---
 
 ## [3.0.0] - 2026-02-12 - Radical Simplification + GitHub Guide
 
