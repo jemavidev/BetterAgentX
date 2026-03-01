@@ -212,3 +212,4 @@ if [[ ${#FAILED[@]} -gt 0 ]]; then
 fi
 
 print_success "All platforms installed. Happy coding!"
+
