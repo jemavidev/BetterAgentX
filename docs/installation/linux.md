@@ -1,211 +1,211 @@
-# 🚀 Guía de Instalación - BetterAgents
+# 🚀 Installation Guide - BetterAgents
 
-**Sistema de 12 agentes especializados de IA para Claude Code**
+**System of 12 specialized AI agents for Claude Code**
 
-**Plataforma:** Ubuntu/Debian (Linux con base .deb)  
-**Tiempo estimado:** 10-15 minutos  
-**Nivel:** Principiante a Avanzado
-
----
-
-## 📋 Tabla de Contenidos
-
-1. [Requisitos del Sistema](#requisitos-del-sistema)
-2. [Instalación Rápida](#instalación-rápida)
-3. [Instalación Paso a Paso](#instalación-paso-a-paso)
-4. [Instalación de Skills](#instalación-de-skills)
-5. [Verificación](#verificación)
-6. [Uso del Sistema](#uso-del-sistema)
-7. [Solución de Problemas](#solución-de-problemas)
-8. [Actualización](#actualización)
+**Platform:** Ubuntu/Debian (Linux with .deb base)
+**Estimated time:** 10-15 minutes
+**Level:** Beginner to Advanced
 
 ---
 
-## 📦 Requisitos del Sistema
+## 📋 Table of Contents
 
-### Sistema Operativo
-- ✅ Ubuntu 20.04 LTS o superior
-- ✅ Debian 11 o superior
-- ✅ Linux Mint 20 o superior
-- ✅ Pop!_OS 20.04 o superior
+1. [System Requirements](#system-requirements)
+2. [Quick Installation](#quick-installation)
+3. [Step-by-Step Installation](#step-by-step-installation)
+4. [Skills Installation](#skills-installation)
+5. [Verification](#verification)
+6. [Using the System](#using-the-system)
+7. [Troubleshooting](#troubleshooting)
+8. [Updating](#updating)
 
-### Hardware Mínimo
+---
+
+## 📦 System Requirements
+
+### Operating System
+- ✅ Ubuntu 20.04 LTS or higher
+- ✅ Debian 11 or higher
+- ✅ Linux Mint 20 or higher
+- ✅ Pop!_OS 20.04 or higher
+
+### Minimum Hardware
 - CPU: 2 cores
 - RAM: 4GB
-- Disco: 1GB libre
+- Disk: 1GB free
 
-### Software Requerido
-| Software | Versión Mínima | Instalación |
-|----------|----------------|-------------|
-| **Claude Code** | Última | [claude.ai/claude-code](https://claude.ai/claude-code) |
-| **Node.js** | 18.x | Se instala en la guía |
-| **npm** | 9.x | Incluido con Node.js |
-| **Git** | 2.x | Se instala en la guía |
+### Required Software
+| Software | Minimum Version | Installation |
+|----------|-----------------|-------------|
+| **Claude Code** | Latest | [claude.ai/claude-code](https://claude.ai/claude-code) |
+| **Node.js** | 18.x | Installed in this guide |
+| **npm** | 9.x | Included with Node.js |
+| **Git** | 2.x | Installed in this guide |
 
 ---
 
-## ⚡ Instalación Rápida
+## ⚡ Quick Installation
 
-Para usuarios con experiencia que ya tienen Node.js 18+ y Claude Code instalados:
+For experienced users who already have Node.js 18+ and Claude Code installed:
 
-**Opción A — Instalador autocontenido (recomendado):**
+**Option A — Self-contained installer (recommended):**
 ```bash
-# 1. Copiar instalador a tu proyecto
-cp -r instalador/ /path/to/tu-proyecto/
-cd /path/to/tu-proyecto
+# 1. Copy installer to your project
+cp -r installer/ /path/to/your-project/
+cd /path/to/your-project
 
-# 2. Ejecutar instalación automática
-bash instalador/install.sh
+# 2. Run automatic installation
+bash installer/install.sh
 
-# 3. Abrir Claude Code
+# 3. Open Claude Code
 claude .
 ```
 
-**Opción B — Instalador basado en repositorio:**
+**Option B — Repository-based installer:**
 ```bash
-# 1. Clonar el repositorio
+# 1. Clone the repository
 git clone https://github.com/jemavidev/BetterAgentX.git
 
-# 2. Ejecutar instalación automática desde tu proyecto
-cd /path/to/tu-proyecto
+# 2. Run automatic installation from your project
+cd /path/to/your-project
 bash /path/to/BetterAgentX/scripts/init.sh
 
-# 3. Abrir Claude Code
+# 3. Open Claude Code
 claude .
 ```
 
-**¡Listo!** Los 12 agentes están disponibles.
+**Done!** All 12 agents are available.
 
 ---
 
-## 🔧 Instalación Paso a Paso
+## 🔧 Step-by-Step Installation
 
-### Paso 1: Actualizar el Sistema
+### Step 1: Update the System
 
 ```bash
-# Actualizar lista de paquetes
+# Update package list
 sudo apt update
 
-# Actualizar paquetes instalados (opcional pero recomendado)
+# Upgrade installed packages (optional but recommended)
 sudo apt upgrade -y
 ```
 
 ---
 
-### Paso 2: Instalar Git
+### Step 2: Install Git
 
 ```bash
-# Verificar si Git está instalado
+# Check if Git is installed
 git --version
 
-# Si no está instalado:
+# If not installed:
 sudo apt install git -y
 
-# Verificar instalación
+# Verify installation
 git --version
-# Debería mostrar: git version 2.x.x
+# Should show: git version 2.x.x
 ```
 
 ---
 
-### Paso 3: Instalar Node.js y npm
+### Step 3: Install Node.js and npm
 
-#### Opción A: Instalación con nvm (Recomendado)
+#### Option A: Installation with nvm (Recommended)
 
 ```bash
-# 1. Descargar e instalar nvm
+# 1. Download and install nvm
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
 
-# 2. Cargar nvm en la sesión actual
+# 2. Load nvm in the current session
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 
-# 3. Instalar Node.js 20 LTS
+# 3. Install Node.js 20 LTS
 nvm install 20
 
-# 4. Verificar instalación
-node --version  # Debería mostrar v20.x.x
-npm --version   # Debería mostrar 10.x.x
+# 4. Verify installation
+node --version  # Should show v20.x.x
+npm --version   # Should show 10.x.x
 ```
 
-#### Opción B: Instalación desde NodeSource
+#### Option B: Installation from NodeSource
 
 ```bash
-# 1. Agregar repositorio de NodeSource
+# 1. Add NodeSource repository
 curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
 
-# 2. Instalar Node.js
+# 2. Install Node.js
 sudo apt install -y nodejs
 
-# 3. Verificar instalación
+# 3. Verify installation
 node --version
 npm --version
 ```
 
 ---
 
-### Paso 4: Instalar Claude Code
+### Step 4: Install Claude Code
 
-#### Descargar Claude Code
+#### Download Claude Code
 
-1. Visita [claude.ai/claude-code](https://claude.ai/claude-code)
-2. Descarga la versión para Linux (.deb)
-3. Instala el paquete:
+1. Visit [claude.ai/claude-code](https://claude.ai/claude-code)
+2. Download the Linux version (.deb)
+3. Install the package:
 
 ```bash
-# Navega a la carpeta de descargas
+# Navigate to the downloads folder
 cd ~/Downloads
 
-# Instala el paquete .deb (reemplaza X.X.X con la versión descargada)
+# Install the .deb package (replace X.X.X with the downloaded version)
 npm install -g @anthropic-ai/claude-code
 
-# Si hay errores de dependencias, ejecuta:
+# If there are dependency errors, run:
 sudo apt install -f -y
 
-# Verificar instalación
+# Verify installation
 claude --version
 ```
 
-#### Alternativa: Instalación desde terminal
+#### Alternative: Terminal installation
 
 ```bash
-# Si Claude Code proporciona un script de instalación
+# If Claude Code provides an installation script
 npm install -g @anthropic-ai/claude-code # | bash
 
-# O usando snap (si está disponible)
+# Or using snap (if available)
 # snap not available — use npm install above
 ```
 
 ---
 
-### Paso 5: Clonar el Repositorio
+### Step 5: Clone the Repository
 
 ```bash
-# 1. Navegar a tu carpeta de proyectos
+# 1. Navigate to your projects folder
 cd ~/Documents
 mkdir -p GIT
 cd GIT
 
-# 2. Clonar BetterAgents
+# 2. Clone BetterAgents
 git clone https://github.com/jemavidev/BetterAgentX.git
 
-# 3. Entrar al directorio
+# 3. Enter the directory
 cd BetterAgentX
 
-# 4. Verificar contenido
+# 4. Verify contents
 ls -la
-# Deberías ver: .agents/, .claude/, README.md, etc.
+# You should see: .agents/, .claude/, README.md, etc.
 ```
 
 ---
 
-### Paso 6: Verificar Estructura
+### Step 6: Verify Structure
 
 ```bash
-# Verificar que los 12 agentes están presentes
+# Verify that all 12 agents are present
 ls -1 .claude/agents/
 
-# Deberías ver:
+# You should see:
 # architect.md
 # coder.md
 # critic.md
@@ -219,20 +219,20 @@ ls -1 .claude/agents/
 # ux-designer.md
 # writer.md
 
-# Contar agentes
+# Count agents
 ls -1 .claude/agents/ | wc -l
-# Debería mostrar: 12
+# Should show: 12
 ```
 
 ---
 
-### Paso 7: Verificar Sistema de Memoria
+### Step 7: Verify Memory System
 
 ```bash
-# Verificar archivos de memoria
+# Verify memory files
 ls -la .claude/memory/
 
-# Deberías ver:
+# You should see:
 # MEMORY.md
 # session-last.md
 # active-context.json
@@ -247,14 +247,14 @@ ls -la .claude/memory/
 
 ---
 
-## 📚 Instalación de Skills
+## 📚 Skills Installation
 
-Los skills son opcionales pero mejoran significativamente las capacidades de los agentes.
+Skills are optional but significantly enhance agent capabilities.
 
-### Skills Esenciales (Recomendado)
+### Essential Skills (Recommended)
 
 ```bash
-# Instalar los 5 skills más importantes
+# Install the 5 most important skills
 npx skills add wshobson/agents/architecture-patterns
 npx skills add obra/superpowers/systematic-debugging
 npx skills add vercel-labs/agent-skills/vercel-react-best-practices
@@ -262,118 +262,118 @@ npx skills add anthropics/skills/webapp-testing
 npx skills add anthropics/skills/doc-coauthoring
 ```
 
-### Instalación Completa de Skills
+### Full Skills Installation
 
-Para instalar todos los skills recomendados (~60 skills):
+To install all recommended skills (~60 skills):
 
 ```bash
-# Ejecutar script de instalación de skills
+# Run the skills installation script
 chmod +x install-skills.sh
 ./install-skills.sh
 ```
 
-El script te preguntará:
-1. **Instalar todos** - Recomendado para uso completo
-2. **Instalar por agente** - Selectivo
-3. **Instalar esenciales** - Solo los 5 básicos
+The script will ask you:
+1. **Install all** - Recommended for full usage
+2. **Install by agent** - Selective
+3. **Install essentials** - Only the 5 basic ones
 
-### Verificar Skills Instalados
+### Verify Installed Skills
 
 ```bash
-# Listar skills instalados
+# List installed skills
 npx skills list
 
-# Buscar skills disponibles
+# Search for available skills
 npx skills find
 
-# Ver información de un skill
+# View information about a skill
 npx skills info wshobson/agents/architecture-patterns
 ```
 
 ---
 
-## ✅ Verificación
+## ✅ Verification
 
-### Script de Verificación Automática
+### Automatic Verification Script
 
 ```bash
-# Crear script de verificación
+# Create verification script
 cat > verify.sh << 'EOF'
 #!/bin/bash
 
-echo "🔍 Verificando instalación de BetterAgents..."
+echo "🔍 Verifying BetterAgents installation..."
 echo ""
 
-# Verificar Node.js
+# Verify Node.js
 echo "=== Node.js ==="
 if command -v node &> /dev/null; then
     echo "✅ Node.js: $(node --version)"
 else
-    echo "❌ Node.js no está instalado"
+    echo "❌ Node.js is not installed"
 fi
 
-# Verificar npm
+# Verify npm
 if command -v npm &> /dev/null; then
     echo "✅ npm: $(npm --version)"
 else
-    echo "❌ npm no está instalado"
+    echo "❌ npm is not installed"
 fi
 echo ""
 
-# Verificar Claude Code
+# Verify Claude Code
 echo "=== Claude Code ==="
 if command -v claude &> /dev/null; then
     echo "✅ Claude Code: $(claude --version)"
 else
-    echo "❌ Claude Code no está instalado"
+    echo "❌ Claude Code is not installed"
 fi
 echo ""
 
-# Verificar estructura
-echo "=== Estructura del Proyecto ==="
+# Verify structure
+echo "=== Project Structure ==="
 if [ -d ".claude/steering/agents" ]; then
     AGENT_COUNT=$(ls -1 .claude/agents/*.md 2>/dev/null | wc -l)
-    echo "✅ Agentes instalados: $AGENT_COUNT/12"
-    
+    echo "✅ Agents installed: $AGENT_COUNT/12"
+
     if [ "$AGENT_COUNT" -eq 12 ]; then
-        echo "✅ Todos los agentes están presentes"
+        echo "✅ All agents are present"
     else
-        echo "⚠️  Faltan agentes"
+        echo "⚠️  Some agents are missing"
     fi
 else
-    echo "❌ Carpeta de agentes no encontrada"
+    echo "❌ Agents folder not found"
 fi
 echo ""
 
-# Verificar memoria
-echo "=== Sistema de Memoria ==="
+# Verify memory
+echo "=== Memory System ==="
 if [ -d ".claude/memory" ]; then
     MEMORY_COUNT=$(ls -1 .claude/memory/*.md 2>/dev/null | wc -l)
-    echo "✅ Archivos de memoria: $MEMORY_COUNT/5"
+    echo "✅ Memory files: $MEMORY_COUNT/5"
 else
-    echo "❌ Sistema de memoria no encontrado"
+    echo "❌ Memory system not found"
 fi
 echo ""
 
-# Verificar skills
+# Verify skills
 echo "=== Skills ==="
 if [ -d ".agents/skills" ]; then
-    echo "✅ Carpeta de skills presente"
+    echo "✅ Skills folder present"
 else
-    echo "⚠️  Carpeta de skills no encontrada"
+    echo "⚠️  Skills folder not found"
 fi
 echo ""
 
-# Resumen
-echo "=== Resumen ==="
+# Summary
+echo "=== Summary ==="
 if [ "$AGENT_COUNT" -eq 12 ] && command -v claude &> /dev/null && command -v node &> /dev/null; then
-    echo "✅ ¡Instalación completa y exitosa!"
+    echo "✅ Installation complete and successful!"
     echo ""
-    echo "🚀 Para empezar, ejecuta:"
+    echo "🚀 To get started, run:"
     echo "   claude ."
 else
-    echo "⚠️  La instalación está incompleta"
-    echo "   Revisa los errores arriba"
+    echo "⚠️  Installation is incomplete"
+    echo "   Check the errors above"
 fi
 EOF
 
@@ -381,130 +381,130 @@ chmod +x verify.sh
 ./verify.sh
 ```
 
-### Verificación Manual
+### Manual Verification
 
 ```bash
-# 1. Verificar Node.js y npm
+# 1. Verify Node.js and npm
 node --version && npm --version
 
-# 2. Verificar Claude Code
+# 2. Verify Claude Code
 claude --version
 
-# 3. Contar agentes
+# 3. Count agents
 ls -1 .claude/agents/*.md | wc -l
-# Debe mostrar: 12
+# Should show: 12
 
-# 4. Verificar memoria
+# 4. Verify memory
 ls -1 .claude/memory/*.md | wc -l
-# Debe mostrar: 5
+# Should show: 5
 
-# 5. Ver tamaño del proyecto
+# 5. View project size
 du -sh .
-# Debe mostrar: ~850KB
+# Should show: ~850KB
 ```
 
 ---
 
-## 🚀 Uso del Sistema
+## 🚀 Using the System
 
-### Iniciar Claude Code
+### Start Claude Code
 
 ```bash
-# Desde el directorio del proyecto
+# From the project directory
 cd ~/Documents/GIT/BetterAgents
 claude .
 ```
 
-### Usar los Agentes
+### Using the Agents
 
-En el chat de Claude Code, menciona al agente con `@`:
+In the Claude Code chat, invoke an agent with `/`:
 
 ```
-/architect Diseña un sistema de autenticación con JWT
+/architect Design an authentication system with JWT
 ```
 
-Respuesta esperada:
+Expected response:
 ```
 ---
 🧠 AgentX/Architect
 ---
 
-[Respuesta estructurada del agente...]
+[Structured agent response...]
 ```
 
-### Los 12 Agentes Disponibles
+### The 12 Available Agents
 
-| Comando | Agente | Especialidad |
-|---------|--------|--------------|
-| `/architect` | 🏗️ Architect | Diseño de sistemas y arquitectura |
-| `/coder` | 💻 Coder | Implementación de código |
-| `/critic` | 🎭 Critic | Análisis crítico (Tenth Man Rule) |
-| `/tester` | 🧪 Tester | Testing y QA |
-| `/writer` | ✍️ Writer | Documentación técnica |
-| `/researcher` | 🔍 Researcher | Investigación y análisis |
-| `/teacher` | 👨‍🏫 Teacher | Explicaciones didácticas |
-| `/devops` | 🚀 DevOps | Infraestructura y deployment |
-| `/security` | 🔒 Security | Seguridad y vulnerabilidades |
-| `/ux-designer` | 🎨 UX Designer | Diseño UI/UX |
-| `/data-scientist` | 📊 Data Scientist | Análisis de datos |
-| `/product-manager` | 📋 Product Manager | Gestión de producto |
+| Command | Agent | Specialty |
+|---------|-------|-----------|
+| `/architect` | 🏗️ Architect | System design and architecture |
+| `/coder` | 💻 Coder | Code implementation |
+| `/critic` | 🎭 Critic | Critical analysis (Tenth Man Rule) |
+| `/tester` | 🧪 Tester | Testing and QA |
+| `/writer` | ✍️ Writer | Technical documentation |
+| `/researcher` | 🔍 Researcher | Research and analysis |
+| `/teacher` | 👨‍🏫 Teacher | Didactic explanations |
+| `/devops` | 🚀 DevOps | Infrastructure and deployment |
+| `/security` | 🔒 Security | Security and vulnerabilities |
+| `/ux-designer` | 🎨 UX Designer | UI/UX design |
+| `/data-scientist` | 📊 Data Scientist | Data analysis |
+| `/product-manager` | 📋 Product Manager | Product management |
 
-### Workflow Colaborativo
+### Collaborative Workflow
 
 ```
-1. /architect → Diseña la arquitectura
-2. /critic → Revisa y encuentra problemas
-3. /security → Analiza vulnerabilidades
-4. /coder → Implementa el código
-5. /tester → Define estrategia de testing
-6. /writer → Documenta la solución
+1. /architect → Design the architecture
+2. /critic → Review and find issues
+3. /security → Analyze vulnerabilities
+4. /coder → Implement the code
+5. /tester → Define testing strategy
+6. /writer → Document the solution
 ```
 
-### Usar el Sistema de Memoria
+### Using the Memory System
 
 ```bash
-# Ver contexto actual
+# View current context
 cat .claude/memory/MEMORY.md
 
-# Agregar tarea
-bash .claude/scripts/add-task.sh TASK-01 "Mi tarea" in_progress coder
+# Add a task
+bash .claude/scripts/add-task.sh TASK-01 "My task" in_progress coder
 
-# Agregar decisión
-bash .claude/scripts/add-decision.sh DEC-01 "Usar JWT" "Stateless auth" architect
+# Add a decision
+bash .claude/scripts/add-decision.sh DEC-01 "Use JWT" "Stateless auth" architect
 
-# Agregar patrón
-bash .claude/scripts/add-pattern.sh "Mi patrón" architecture "Descripción" architect
+# Add a pattern
+bash .claude/scripts/add-pattern.sh "My pattern" architecture "Description" architect
 
-# Abrir dashboard
+# Open dashboard
 bash .claude/scripts/start-dashboard.sh
 ```
 
 ---
 
-## 🔧 Solución de Problemas
+## 🔧 Troubleshooting
 
-### Problema: "claude: command not found"
+### Problem: "claude: command not found"
 
-**Solución:**
+**Solution:**
 ```bash
-# Verificar si Claude Code está instalado
+# Check if Claude Code is installed
 which claude
 
-# Si no está en el PATH, agregar manualmente
+# If not in PATH, add it manually
 echo 'export PATH="$PATH:/opt/claude/bin"' >> ~/.bashrc
 source ~/.bashrc
 
-# O reinstalar Claude Code
+# Or reinstall Claude Code
 sudo dpkg -i ~/Downloads/claude-*.deb
 ```
 
 ---
 
-### Problema: "node: command not found"
+### Problem: "node: command not found"
 
-**Solución:**
+**Solution:**
 ```bash
-# Reinstalar Node.js con nvm
+# Reinstall Node.js with nvm
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
 source ~/.bashrc
 nvm install 20
@@ -512,19 +512,19 @@ nvm install 20
 
 ---
 
-### Problema: "No se encuentran los agentes"
+### Problem: "Agents not found"
 
-**Solución:**
+**Solution:**
 ```bash
-# Verificar que estás en el directorio correcto
+# Verify you are in the correct directory
 pwd
-# Debe mostrar: /home/tu-usuario/Documents/GIT/BetterAgents
+# Should show: /home/your-user/Documents/GIT/BetterAgents
 
-# Verificar estructura
+# Verify structure
 ls -la .claude/agents/
 
-# Si la carpeta está vacía, el repositorio no se clonó correctamente
-# Volver a clonar:
+# If the folder is empty, the repository was not cloned correctly
+# Clone again:
 cd ..
 rm -rf BetterAgents
 git clone https://github.com/jemavidev/BetterAgentX.git
@@ -533,298 +533,298 @@ cd BetterAgentX
 
 ---
 
-### Problema: "npx: command not found"
+### Problem: "npx: command not found"
 
-**Solución:**
+**Solution:**
 ```bash
-# npx viene con npm, verificar npm
+# npx comes with npm — verify npm
 npm --version
 
-# Si npm está instalado pero npx no funciona
+# If npm is installed but npx does not work
 npm install -g npx
 
-# O actualizar npm
+# Or update npm
 npm install -g npm@latest
 ```
 
 ---
 
-### Problema: Permisos denegados
+### Problem: Permission denied
 
-**Solución:**
+**Solution:**
 ```bash
-# Si tienes problemas de permisos con npm
+# If you have permission issues with npm
 mkdir ~/.npm-global
 npm config set prefix '~/.npm-global'
 echo 'export PATH=~/.npm-global/bin:$PATH' >> ~/.bashrc
 source ~/.bashrc
 
-# Reinstalar paquetes globales si es necesario
+# Reinstall global packages if necessary
 npm install -g npx
 ```
 
 ---
 
-### Problema: Skills no se instalan
+### Problem: Skills not installing
 
-**Solución:**
+**Solution:**
 ```bash
-# Verificar conexión a internet
+# Verify internet connection
 ping -c 3 google.com
 
-# Limpiar caché de npm
+# Clear npm cache
 npm cache clean --force
 
-# Intentar instalar skill específico con verbose
+# Try installing a specific skill with verbose output
 npx skills add wshobson/agents/architecture-patterns --verbose
 
-# Si persiste, verificar versión de Node.js
+# If the problem persists, verify Node.js version
 node --version
-# Debe ser 18.x o superior
+# Must be 18.x or higher
 ```
 
 ---
 
-### Problema: Claude Code no abre el proyecto
+### Problem: Claude Code does not open the project
 
-**Solución:**
+**Solution:**
 ```bash
-# Verificar que estás en el directorio correcto
+# Verify you are in the correct directory
 pwd
 
-# Intentar abrir con ruta absoluta
+# Try opening with an absolute path
 claude ~/Documents/GIT/BetterAgents
 
-# Verificar logs de Claude Code
+# Check Claude Code logs
 claude --help
 
-# Reinstalar Claude Code si es necesario
+# Reinstall Claude Code if necessary
 sudo apt remove claude-code
 sudo dpkg -i ~/Downloads/claude-*.deb
 ```
 
 ---
 
-## 🔄 Actualización
+## 🔄 Updating
 
-### Actualizar BetterAgents
+### Update BetterAgents
 
 ```bash
-# Navegar al directorio
+# Navigate to the directory
 cd ~/Documents/GIT/BetterAgents
 
-# Guardar cambios locales (si los hay)
+# Save local changes (if any)
 git stash
 
-# Actualizar desde GitHub
+# Update from GitHub
 git pull origin main
 
-# Restaurar cambios locales
+# Restore local changes
 git stash pop
 
-# Verificar actualización
+# Verify update
 cat betteragents.json | grep version
 ```
 
-### Actualizar Skills (Recomendado)
+### Update Skills (Recommended)
 
-BetterAgents incluye un script dedicado para mantener los skills actualizados:
+BetterAgents includes a dedicated script to keep skills up to date:
 
 ```bash
-# Ejecutar script de actualización
+# Run the update script
 ./update-skills.sh
 ```
 
-El script:
-1. ✅ Verifica skills instalados
-2. ✅ Detecta actualizaciones disponibles
-3. ✅ Actualiza todos los skills automáticamente
-4. ✅ Muestra resumen de cambios
+The script:
+1. ✅ Verifies installed skills
+2. ✅ Detects available updates
+3. ✅ Updates all skills automatically
+4. ✅ Shows a summary of changes
 
-#### Actualización Manual de Skills
+#### Manual Skills Update
 
 ```bash
-# Verificar actualizaciones disponibles
+# Check for available updates
 npx skills check
 
-# Actualizar todos los skills
+# Update all skills
 npx skills update
 
-# Actualizar skill específico
+# Update a specific skill
 npx skills update wshobson/agents/architecture-patterns
 
-# Ver skills instalados
+# View installed skills
 npx skills list
 ```
 
-#### Frecuencia Recomendada
+#### Recommended Frequency
 
-- **Semanal:** Para proyectos activos
-- **Mensual:** Para proyectos en mantenimiento
-- **Antes de iniciar nuevo proyecto:** Siempre
+- **Weekly:** For active projects
+- **Monthly:** For projects in maintenance
+- **Before starting a new project:** Always
 
-#### Automatizar Actualizaciones (Opcional)
+#### Automate Updates (Optional)
 
-Puedes crear un cron job para actualizar automáticamente:
+You can create a cron job to update automatically:
 
 ```bash
-# Editar crontab
+# Edit crontab
 crontab -e
 
-# Añadir línea para actualizar cada lunes a las 9 AM
+# Add a line to update every Monday at 9 AM
 0 9 * * 1 cd ~/Documents/GIT/BetterAgents && ./update-skills.sh -y >> ~/betteragents-update.log 2>&1
 ```
 
-### Actualizar Node.js
+### Update Node.js
 
 ```bash
-# Con nvm
+# With nvm
 nvm install 20
 nvm use 20
 
-# Verificar versión
+# Verify version
 node --version
 ```
 
-### Actualizar Claude Code
+### Update Claude Code
 
 ```bash
-# Descargar nueva versión desde claude.ai/claude-code
-# Luego instalar:
-sudo dpkg -i ~/Downloads/claude-nueva-version.deb
+# Download the new version from claude.ai/claude-code
+# Then install:
+sudo dpkg -i ~/Downloads/claude-new-version.deb
 ```
 
 ---
 
-## 📊 Comandos Útiles
+## 📊 Useful Commands
 
-### Información del Sistema
+### System Information
 
 ```bash
-# Ver versión de BetterAgents
+# View BetterAgents version
 cat betteragents.json | grep version
 
-# Ver tamaño del proyecto
+# View project size
 du -sh .
 
-# Contar archivos
+# Count files
 find . -type f | wc -l
 
-# Ver estructura completa
+# View full structure
 tree -L 3 -a
 ```
 
-### Gestión de Skills
+### Skills Management
 
 ```bash
-# Listar skills instalados
+# List installed skills
 npx skills list
 
-# Buscar skills
+# Search for skills
 npx skills find architecture
 
-# Ver info de skill
+# View skill info
 npx skills info wshobson/agents/architecture-patterns
 
-# Verificar actualizaciones
+# Check for updates
 npx skills check
 
-# Actualizar todos los skills
+# Update all skills
 npx skills update
 
-# Actualizar skill específico
+# Update a specific skill
 npx skills update wshobson/agents/architecture-patterns
 
-# Desinstalar skill
+# Uninstall a skill
 npx skills remove wshobson/agents/architecture-patterns
 
-# Instalar nuevo skill
-npx skills add nuevo/skill
+# Install a new skill
+npx skills add new/skill
 ```
 
-### Script de Actualización
+### Update Script
 
 ```bash
-# Actualizar skills automáticamente
+# Update skills automatically
 ./update-skills.sh
 
-# El script:
-# - Verifica skills instalados
-# - Detecta actualizaciones disponibles
-# - Actualiza todos los skills
-# - Muestra resumen
+# The script:
+# - Verifies installed skills
+# - Detects available updates
+# - Updates all skills
+# - Shows summary
 ```
 
-### Mantenimiento
+### Maintenance
 
 ```bash
-# Limpiar caché de npm
+# Clear npm cache
 npm cache clean --force
 
-# Verificar integridad
+# Verify integrity
 ./verify.sh
 
-# Backup del sistema de memoria
+# Backup the memory system
 cp -r .claude/memory .claude/memory.backup
 
-# Restaurar memoria
+# Restore memory
 cp -r .claude/memory.backup .claude/memory
 ```
 
-### Gestión de Proyectos (Dashboard Multi-Proyecto)
+### Project Management (Multi-Project Dashboard)
 
-Cuando BetterAgents está corriendo en varios proyectos, un único contenedor central los sirve a todos.
+When BetterAgents is running across multiple projects, a single central container serves them all.
 
-**Registrar un proyecto:**
+**Register a project:**
 ```bash
-bash instalador/.claude/scripts/generate-central-compose.sh \
-  "<project-name>" "<ruta-absoluta>/.claude/memory"
+bash installer/.claude/scripts/generate-central-compose.sh \
+  "<project-name>" "<absolute-path>/.claude/memory"
 docker compose -f ~/.betteragents/docker-compose.yml down && \
 docker compose -f ~/.betteragents/docker-compose.yml up -d
 ```
 
-**Desregistrar / eliminar un proyecto:**
+**Unregister / remove a project:**
 ```bash
-bash instalador/.claude/scripts/generate-central-compose.sh \
+bash installer/.claude/scripts/generate-central-compose.sh \
   "<project-name>" "" --unregister
 docker compose -f ~/.betteragents/docker-compose.yml down && \
 docker compose -f ~/.betteragents/docker-compose.yml up -d
-# O desde el propio proyecto:
-bash instalador/install.sh --unregister
+# Or from the project itself:
+bash installer/install.sh --unregister
 ```
 
-Todos los proyectos activos son visibles en `http://localhost:3000` usando el selector de proyectos del dashboard.
+All active projects are visible at `http://localhost:3000` using the project selector in the dashboard.
 
 ---
 
-## 🎯 Próximos Pasos
+## 🎯 Next Steps
 
-Después de la instalación exitosa:
+After a successful installation:
 
-1. **Familiarízate con los agentes**
+1. **Get familiar with the agents**
    ```
-   /teacher Explícame cómo funcionan los agentes
+   /teacher Explain to me how the agents work
    ```
 
-2. **Configura tu primer proyecto**
+2. **Set up your first project**
    ```
    nano .claude/memory/active-context.md
    ```
 
-3. **Prueba un workflow completo**
+3. **Try a complete workflow**
    ```
-   /architect Diseña un sistema simple
-   /critic Revisa el diseño
-   /coder Implementa una función básica
+   /architect Design a simple system
+   /critic Review the design
+   /coder Implement a basic function
    ```
 
-4. **Instala skills adicionales**
+4. **Install additional skills**
    ```bash
    npx skills find
-   npx skills add [skill-que-necesites]
+   npx skills add [skill-you-need]
    ```
 
-5. **Lee la documentación completa**
+5. **Read the full documentation**
    ```bash
    cat README.md
    cat .claude/memory/README.md
@@ -832,49 +832,49 @@ Después de la instalación exitosa:
 
 ---
 
-## 📚 Recursos Adicionales
+## 📚 Additional Resources
 
-- **Documentación de Claude Code:** [claude.ai/claude-code/docs](https://claude.ai/claude-code/docs)
-- **Skills disponibles:** [skills.sh](https://skills.sh)
-- **Repositorio GitHub:** [github.com/jemavidev/BetterAgentX](https://github.com/jemavidev/BetterAgentX)
-- **Reportar issues:** [github.com/jemavidev/BetterAgentX/issues](https://github.com/jemavidev/BetterAgentX/issues)
-
----
-
-## 🤝 Contribuir
-
-¿Quieres mejorar BetterAgents?
-
-1. Fork el repositorio
-2. Crea una rama: `git checkout -b feature/mejora`
-3. Commit cambios: `git commit -am 'Añade nueva feature'`
-4. Push: `git push origin feature/mejora`
-5. Abre un Pull Request
+- **Claude Code documentation:** [claude.ai/claude-code/docs](https://claude.ai/claude-code/docs)
+- **Available skills:** [skills.sh](https://skills.sh)
+- **GitHub Repository:** [github.com/jemavidev/BetterAgentX](https://github.com/jemavidev/BetterAgentX)
+- **Report issues:** [github.com/jemavidev/BetterAgentX/issues](https://github.com/jemavidev/BetterAgentX/issues)
 
 ---
 
-## 📄 Licencia
+## 🤝 Contributing
 
-MIT License - Ver [license](license) para más detalles
+Want to improve BetterAgents?
+
+1. Fork the repository
+2. Create a branch: `git checkout -b feature/improvement`
+3. Commit changes: `git commit -am 'Add new feature'`
+4. Push: `git push origin feature/improvement`
+5. Open a Pull Request
 
 ---
 
-## ✨ ¡Listo!
+## 📄 License
 
-Tu sistema BetterAgents está instalado y funcionando. 
+MIT License - See [license](license) for more details
 
-**Comando para empezar:**
+---
+
+## ✨ All done!
+
+Your BetterAgents system is installed and running.
+
+**Command to get started:**
 ```bash
 claude .
 ```
 
-**Primer comando de prueba:**
+**First test command:**
 ```
-/architect Hola! ¿Puedes explicarme cómo funcionas?
+/architect Hello! Can you explain how you work?
 ```
 
 ---
 
-**¿Problemas?** Revisa la sección de [Solución de Problemas](#solución-de-problemas) o abre un issue en GitHub.
+**Having trouble?** Check the [Troubleshooting](#troubleshooting) section or open an issue on GitHub.
 
-**¡Feliz coding con tus 12 agentes especializados! 🚀**
+**Happy coding with your 12 specialized agents! 🚀**

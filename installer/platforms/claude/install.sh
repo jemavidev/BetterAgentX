@@ -111,7 +111,7 @@ if [ -f "$INSTALLER_DIR/CLAUDE.md" ]; then
     cp "$INSTALLER_DIR/CLAUDE.md" "CLAUDE.md"
     print_success "CLAUDE.md installed (AgentX orchestrator)"
 else
-    print_error "CLAUDE.md not found in installer — instalador/ folder may be incomplete"
+    print_error "CLAUDE.md not found in installer — installer/ folder may be incomplete"
     exit 1
 fi
 
@@ -412,7 +412,7 @@ GITIGNORE_ENTRIES='
 !.claude/memory/MEMORY.md
 .claude/cache/
 .claude/backups/
-instalador/
+installer/
 '
 
 if [ ! -f ".gitignore" ]; then

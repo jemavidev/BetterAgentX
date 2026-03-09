@@ -422,7 +422,7 @@ function toggleTheme() {
 }
 ```
 
-## 🚀 Próximos Pasos
+## 🚀 Next Steps
 
 Para implementar el dashboard:
 

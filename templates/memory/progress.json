@@ -79,7 +79,7 @@
     },
     {
       "id": "TASK-06",
-      "title": "Sync all artifacts to instalador and templates",
+      "title": "Sync all artifacts to installer and templates",
       "status": "completed",
       "agent": "coder",
       "priority": "medium",
@@ -89,8 +89,8 @@
       "duration": 15,
       "tags": ["sync", "installer", "docs"],
       "triviality": { "score": 4, "automated": true },
-      "description": "Sync all artifacts to instalador and templates",
-      "outcome": "Synced dashboard.html to instalador/templates/memory/ and templates/memory/ — md5 checksums verified identical across all 3 locations. Synced track-usage.sh and on-user-prompt.sh to instalador/.claude/scripts/ and templates/.claude/scripts/. Writer agent updated README.md with per-file heat-map feature section and updated docs/memory/README.md with SAFETY tab modal documentation including heat-map color thresholds."
+      "description": "Sync all artifacts to installer and templates",
+      "outcome": "Synced dashboard.html to installer/templates/memory/ and templates/memory/ — md5 checksums verified identical across all 3 locations. Synced track-usage.sh and on-user-prompt.sh to installer/.claude/scripts/ and templates/.claude/scripts/. Writer agent updated README.md with per-file heat-map feature section and updated docs/memory/README.md with SAFETY tab modal documentation including heat-map color thresholds."
     }
   ],
   "milestones": [

@@ -76,7 +76,7 @@ done
 
 # Validate that core config exists
 if [[ ! -f "$SCRIPT_DIR/config/betteragents.json" ]]; then
-    print_error "Installer is missing config/betteragents.json — the instalador/ folder may be incomplete"
+    print_error "Installer is missing config/betteragents.json — the installer/ folder may be incomplete"
     exit 1
 fi
 
@@ -86,14 +86,14 @@ TARGET_ABS="$(cd "$TARGET_DIR" && pwd)"
 if [[ "$SCRIPT_DIR" == "$TARGET_ABS" ]]; then
     print_error "The installer is running from inside the target project directory."
     echo ""
-    echo "  Correct usage — keep the instalador/ folder intact and run from outside:"
+    echo "  Correct usage — keep the installer/ folder intact and run from outside:"
     echo ""
     echo "    cd /path/to/your-project"
-    echo "    bash instalador/install.sh"
+    echo "    bash installer/install.sh"
     echo ""
     echo "  Or point to the target explicitly:"
     echo ""
-    echo "    bash /path/to/instalador/install.sh --target=/path/to/your-project"
+    echo "    bash /path/to/installer/install.sh --target=/path/to/your-project"
     echo ""
     exit 1
 fi

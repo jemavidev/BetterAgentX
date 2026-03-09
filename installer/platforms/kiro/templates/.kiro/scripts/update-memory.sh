@@ -33,7 +33,7 @@ shift || true
 check_bridge() {
     if [[ ! -d "$CLAUDE_SCRIPTS" ]]; then
         echo -e "${YELLOW}⚠  Claude memory bridge not found at $CLAUDE_SCRIPTS${NC}"
-        echo -e "${YELLOW}   Install Claude platform first: bash instalador/install.sh --platform=claude --target=.${NC}"
+        echo -e "${YELLOW}   Install Claude platform first: bash installer/install.sh --platform=claude --target=.${NC}"
         exit 1
     fi
 }

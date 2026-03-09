@@ -62,7 +62,7 @@ fi
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 echo ""
 
-# Verificar directorio
+# Verify directory
 if [ ! -f "$PROJECT_ROOT/config/betteragents.json" ]; then
     print_error "Not found config/betteragents.json"
     print_error "Make sure you're in the BetterAgentX root directory"
@@ -82,7 +82,7 @@ WARNINGS_FOUND=0
 print_section "1. File Structure"
 echo ""
 
-# Verificar agentes
+# Verify agents
 if [ -d "$PROJECT_ROOT/.claude/agents" ]; then
     AGENT_COUNT=$(ls -1 "$PROJECT_ROOT/.claude/agents"/*.md 2>/dev/null | wc -l)
     debug "Found $AGENT_COUNT agent files in $PROJECT_ROOT/.claude/agents"
@@ -102,7 +102,7 @@ else
     ISSUES_FOUND=$((ISSUES_FOUND + 1))
 fi
 
-# Verificar memoria
+# Verify memory
 if [ -d "$PROJECT_ROOT/.claude/memory" ]; then
     MEMORY_COUNT=$(find "$PROJECT_ROOT/.claude/memory" -maxdepth 1 -name "*.json" -type f 2>/dev/null | wc -l)
     debug "Memory JSON files found: $MEMORY_COUNT"
@@ -113,18 +113,18 @@ if [ -d "$PROJECT_ROOT/.claude/memory" ]; then
         done
     fi
     if [ "$MEMORY_COUNT" -eq 4 ]; then
-        print_success "Sistema de memoria completo (4 archivos JSON)"
+        print_success "Memory system complete (4 JSON files)"
     else
-        print_warning "Sistema de memoria: $MEMORY_COUNT archivos JSON encontrados"
+        print_warning "Memory system: $MEMORY_COUNT JSON files found"
         debug "Expected: 4 JSON files (active-context.json, decision-log.json, patterns.json, progress.json)"
     fi
 else
-    print_warning "Sistema de memoria no found"
+    print_warning "Memory system not found"
     debug "Expected path: $PROJECT_ROOT/.claude/memory"
     WARNINGS_FOUND=$((WARNINGS_FOUND + 1))
 fi
 
-# Verificar skills
+# Verify skills
 if [ -d "$PROJECT_ROOT/.claude/skills" ]; then
     print_success "Skills folder present"
 else
@@ -132,7 +132,7 @@ else
     WARNINGS_FOUND=$((WARNINGS_FOUND + 1))
 fi
 
-# Verificar symlink (legacy check for .agents/skills)
+# Verify symlink (legacy check for .agents/skills)
 if [ -L "$PROJECT_ROOT/.agents/skills" ]; then
     print_success "Legacy symlink present (.agents/skills)"
 else
@@ -144,7 +144,7 @@ echo ""
 # ============================================
 # 2. VERIFICAR AGENTES
 # ============================================
-print_section "2. Análisis de Agentes"
+print_section "2. Agent Analysis"
 echo ""
 
 AGENTS_OK=0
@@ -162,7 +162,7 @@ for agent_file in "$PROJECT_ROOT/.claude/agents"/*.md; do
             print_success "$agent_name: Estructura completa (orchestrator)"
             AGENTS_OK=$((AGENTS_OK + 1))
         else
-            print_warning "$agent_name: Faltan secciones"
+            print_warning "$agent_name: Missing required sections"
             debug "  Expected: ## ROLE DEFINITION"
             if [ "$DEBUG_MODE" = true ]; then
                 echo "  First 10 lines of $agent_file:"
@@ -174,7 +174,7 @@ for agent_file in "$PROJECT_ROOT/.claude/agents"/*.md; do
         continue
     fi
     
-    # Verificar secciones requeridas para agentes especializados
+    # Verify required sections para agentes especializados
     has_role=$(grep -ciE "^## Role" "$agent_file" 2>/dev/null || echo "0")
     has_expertise=$(grep -ciE "^## Expertise" "$agent_file" 2>/dev/null || echo "0")
     
@@ -188,7 +188,7 @@ for agent_file in "$PROJECT_ROOT/.claude/agents"/*.md; do
         print_success "$agent_name: Estructura completa"
         AGENTS_OK=$((AGENTS_OK + 1))
     else
-        print_warning "$agent_name: Faltan secciones"
+        print_warning "$agent_name: Missing required sections"
         debug "  Expected: ## Role and ## Expertise"
         if [ "$DEBUG_MODE" = true ]; then
             echo "  Headers found in $agent_file:"
@@ -200,9 +200,9 @@ for agent_file in "$PROJECT_ROOT/.claude/agents"/*.md; do
 done
 
 echo ""
-print_info "Agentes OK: $AGENTS_OK/13"
+print_info "Agents OK: $AGENTS_OK/13"
 if [ "$AGENTS_ISSUES" -gt 0 ]; then
-    print_warning "Agentes con issues: $AGENTS_ISSUES"
+    print_warning "Agents with issues: $AGENTS_ISSUES"
 fi
 
 echo ""
@@ -210,7 +210,7 @@ echo ""
 # ============================================
 # 3. VERIFICAR SKILLS RECOMENDADOS
 # ============================================
-print_section "3. Skills Recomendados en Agentes"
+print_section "3. Recommended Skills in Agents"
 echo ""
 
 # Extraer todos los recommended skills
@@ -220,13 +220,13 @@ if [ -z "$TOTAL_SKILLS" ]; then
 fi
 print_info "Total de recommended skills: $TOTAL_SKILLS"
 
-# Verificar sintaxis correcta
+# Verify correct syntax
 WRONG_SYNTAX=$(grep -hc "npx skillsadd" "$PROJECT_ROOT/.claude/agents"/*.md 2>/dev/null | awk '{s+=$1} END {print s}')
 if [ -z "$WRONG_SYNTAX" ]; then
     WRONG_SYNTAX=0
 fi
 if [ "$WRONG_SYNTAX" -gt 0 ] 2>/dev/null; then
-    print_error "Encontrados $WRONG_SYNTAX comandos con sintaxis incorrecta (skillsadd)"
+    print_error "Found $WRONG_SYNTAX commands with incorrect syntax (skillsadd)"
     print_info "Debería ser: 'npx skills add' (con espacio)"
     ISSUES_FOUND=$((ISSUES_FOUND + 1))
 else
@@ -275,7 +275,7 @@ echo ""
 # ============================================
 # 5. VERIFICAR COMPLEMENTARIEDAD
 # ============================================
-print_section "5. Análisis de Complementariedad"
+print_section "5. Complementarity Analysis"
 echo ""
 
 print_info "Verificando workflows complementarios..."
@@ -296,9 +296,9 @@ done
 
 echo ""
 if [ "$WORKFLOW_OK" = true ]; then
-    print_success "Workflow básico completo"
+    print_success "Basic workflow complete"
 else
-    print_error "Workflow básico incompleto"
+    print_error "Basic workflow incomplete"
 fi
 
 echo ""
@@ -361,7 +361,7 @@ echo ""
 if [ -f "$PROJECT_ROOT/config/.betteragents-config" ]; then
     print_success "Archivo de configuración presente"
     
-    # Verificar configuración
+    # Verify configuration
     AUTO_UPDATE=$(grep "AUTO_UPDATE_SKILLS" "$PROJECT_ROOT/config/.betteragents-config" | cut -d'=' -f2)
     UPDATE_FREQ=$(grep "UPDATE_CHECK_FREQUENCY" "$PROJECT_ROOT/config/.betteragents-config" | cut -d'=' -f2)
     
@@ -384,7 +384,7 @@ echo ""
 # ============================================
 # 9. VERIFICAR COMPATIBILIDAD DE SKILLS
 # ============================================
-print_section "9. Compatibilidad de Skills por Agente"
+print_section "9. Agent-Skill Compatibility"
 echo ""
 
 # Mapeo de agentes y sus recommended skills
@@ -427,7 +427,7 @@ echo "📊 VERIFICATION SUMMARY"
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 echo ""
 
-print_info "Agentes: $AGENTS_OK/12 OK"
+print_info "Agents: $AGENTS_OK/12 OK"
 print_info "Scripts: $SCRIPTS_OK/${#SCRIPTS[@]} OK"
 print_info "Documentación: $DOCS_OK/${#DOCS[@]} OK"
 print_info "Compatibilidad: $COMPATIBILITY_OK/${#AGENT_SKILLS[@]} OK"

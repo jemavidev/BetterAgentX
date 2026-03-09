@@ -399,15 +399,15 @@ PROJECT_NAME="${PROJECT_NAME:-project}"
 
 DOCKER_INSTALLED=0
 
-if [ -f "$BETTERAGENTS_DIR/instalador/Dockerfile" ]; then
-    cp "$BETTERAGENTS_DIR/instalador/Dockerfile" "Dockerfile"
+if [ -f "$BETTERAGENTS_DIR/installer/Dockerfile" ]; then
+    cp "$BETTERAGENTS_DIR/installer/Dockerfile" "Dockerfile"
     DOCKER_INSTALLED=$((DOCKER_INSTALLED + 1))
     print_success "Dockerfile installed"
 fi
 
-if [ -f "$BETTERAGENTS_DIR/instalador/docker-compose.yml" ]; then
+if [ -f "$BETTERAGENTS_DIR/installer/docker-compose.yml" ]; then
     if [ ! -f "docker-compose.yml" ]; then
-        cp "$BETTERAGENTS_DIR/instalador/docker-compose.yml" "docker-compose.yml"
+        cp "$BETTERAGENTS_DIR/installer/docker-compose.yml" "docker-compose.yml"
         DOCKER_INSTALLED=$((DOCKER_INSTALLED + 1))
         print_success "docker-compose.yml installed"
     else
@@ -453,7 +453,7 @@ fi
 
 print_success "Container: betteragents-${PROJECT_NAME}  →  http://localhost:${ASSIGNED_PORT}"
 [ "${ASSIGNED_PORT}" != "3000" ] && print_info "Port 3000 was in use — assigned port ${ASSIGNED_PORT} automatically"
-[ "$DOCKER_INSTALLED" -eq 0 ] && print_info "No Docker assets found in instalador/ (optional)"
+[ "$DOCKER_INSTALLED" -eq 0 ] && print_info "No Docker assets found in installer/ (optional)"
 
 echo ""
 

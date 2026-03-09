@@ -130,7 +130,7 @@ Sub-agents must NEVER write memory. AgentX MUST write after:
 ## Installer Project Structure
 
 ```
-instalador/
+installer/
 ├── install.sh              ← Dispatcher: routes to platform modules
 ├── CLAUDE.md               ← Claude Code orchestrator
 ├── AGENTS.md               ← This file (universal orchestrator)

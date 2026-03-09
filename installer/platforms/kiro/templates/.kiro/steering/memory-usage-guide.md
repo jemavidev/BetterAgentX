@@ -140,7 +140,7 @@ bash .kiro/scripts/update-memory.sh context focus "Test"
 **What memory bridge requires:**
 - Claude platform installed (`.claude/scripts/` must exist)
 - `jq` installed
-- Run: `bash instalador/install.sh --platform=claude --target=.`
+- Run: `bash installer/install.sh --platform=claude --target=.`
 
 ---
 

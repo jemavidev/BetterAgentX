@@ -7,22 +7,22 @@ Supports: **Claude Code** | **Kiro IDE** | (extensible to Cursor, Windsurf, etc.
 
 ```bash
 # Claude Code (default)
-bash instalador/install.sh --platform=claude --target=/path/to/project
+bash installer/install.sh --platform=claude --target=/path/to/project
 
 # Kiro IDE
-bash instalador/install.sh --platform=kiro --target=/path/to/project
+bash installer/install.sh --platform=kiro --target=/path/to/project
 
 # Both platforms
-bash instalador/install.sh --platform=both --target=/path/to/project
+bash installer/install.sh --platform=both --target=/path/to/project
 
 # Interactive platform selection
-bash instalador/install.sh --interactive
+bash installer/install.sh --interactive
 ```
 
 ## Architecture
 
 ```
-instalador/
+installer/
 ├── install.sh              ← Multi-platform dispatcher
 ├── lib/                    ← Shared libraries (core, registry, config, ui)
 ├── config/
@@ -81,16 +81,16 @@ bash reset-memory.sh
 bash reset-memory.sh --full
 
 # Update existing installation (skips existing memory)
-bash instalador/install.sh --platform=claude --target=/path/to/project
+bash installer/install.sh --platform=claude --target=/path/to/project
 
 # Unregister from central dashboard
-bash instalador/install.sh --unregister --target=/path/to/project
+bash installer/install.sh --unregister --target=/path/to/project
 
 # Validate Kiro installation
-bash instalador/platforms/kiro/validate.sh /path/to/project
+bash installer/platforms/kiro/validate.sh /path/to/project
 
 # Uninstall Kiro
-bash instalador/platforms/kiro/uninstall.sh /path/to/project
+bash installer/platforms/kiro/uninstall.sh /path/to/project
 ```
 
 ## Adding a New Platform

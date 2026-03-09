@@ -55,15 +55,15 @@ All of this happens automatically. No manual agent selection needed.
 
 ### Option A — Self-Contained Installer (Recommended)
 
-No need to clone the repository first. Just copy the `instalador/` folder into your project:
+No need to clone the repository first. Just copy the `installer/` folder into your project:
 
 ```bash
 # 1. Copy the installer to your project
-cp -r instalador/ /path/to/your-project/
+cp -r installer/ /path/to/your-project/
 
 # 2. Run from your project root
 cd /path/to/your-project
-bash instalador/install.sh
+bash installer/install.sh
 
 # 3. Open your project in Claude Code
 claude .
@@ -172,7 +172,7 @@ Running BetterAgents across multiple projects? A single central container serves
 ```bash
 # Each project registers automatically on install.
 # To unregister a project:
-bash instalador/install.sh --unregister
+bash installer/install.sh --unregister
 
 # View all projects at: http://localhost:3000
 ```
@@ -243,9 +243,9 @@ bash reset-memory.sh
 bash reset-memory.sh --full
 
 # Unregister from central dashboard
-bash instalador/install.sh --unregister
+bash installer/install.sh --unregister
 # or directly:
-bash instalador/.claude/scripts/generate-central-compose.sh "<project-name>" "" --unregister
+bash installer/.claude/scripts/generate-central-compose.sh "<project-name>" "" --unregister
 docker compose -f ~/.betteragents/docker-compose.yml down && \
 docker compose -f ~/.betteragents/docker-compose.yml up -d
 ```
@@ -304,6 +304,14 @@ MIT License — see [license](license) file.
 
 **Version:** 3.7.0 (Claude Code Edition)
 **Platform:** Claude Code
+
+---
+
+## Credits
+
+Built by **[JEMAVI](https://jemavi.co)** — [jemavi.co](https://jemavi.co)
+
+[![JEMAVI](https://img.shields.io/badge/Author-JEMAVI.co-blue.svg)](https://jemavi.co)
 
 
 

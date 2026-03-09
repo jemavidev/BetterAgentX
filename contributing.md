@@ -1,310 +1,310 @@
-# 🤝 Guía de Contribución - BetterAgentX
+# 🤝 Contributing Guide - BetterAgentX
 
-¡Gracias por tu interés en contribuir a BetterAgentX! Este documento te guiará en el proceso.
+Thank you for your interest in contributing to BetterAgentX! This document will guide you through the process.
 
 ---
 
-## 📋 Tabla de Contenidos
+## 📋 Table of Contents
 
-1. [Código de Conducta](#código-de-conducta)
-2. [Cómo Contribuir](#cómo-contribuir)
-3. [Reportar Bugs](#reportar-bugs)
-4. [Sugerir Mejoras](#sugerir-mejoras)
+1. [Code of Conduct](#code-of-conduct)
+2. [How to Contribute](#how-to-contribute)
+3. [Reporting Bugs](#reporting-bugs)
+4. [Suggesting Improvements](#suggesting-improvements)
 5. [Pull Requests](#pull-requests)
-6. [Guía de Estilo](#guía-de-estilo)
-7. [Estructura del Proyecto](#estructura-del-proyecto)
+6. [Style Guide](#style-guide)
+7. [Project Structure](#project-structure)
 
 ---
 
-## 📜 Código de Conducta
+## 📜 Code of Conduct
 
-Este proyecto sigue un código de conducta simple:
+This project follows a simple code of conduct:
 
-- Sé respetuoso y profesional
-- Acepta críticas constructivas
-- Enfócate en lo mejor para el proyecto
-- Ayuda a otros contribuidores
+- Be respectful and professional
+- Accept constructive criticism
+- Focus on what is best for the project
+- Help other contributors
 
 ---
 
-## 🚀 Cómo Contribuir
+## 🚀 How to Contribute
 
-### 1. Fork el Repositorio
+### 1. Fork the Repository
 
 ```bash
-# Haz fork desde GitHub
-# Luego clona tu fork
+# Fork from GitHub
+# Then clone your fork
 git clone https://github.com/jemavidev/BetterAgentX.git
 cd BetterAgentX
 ```
 
-### 2. Crea una Rama
+### 2. Create a Branch
 
 ```bash
-# Crea una rama descriptiva
-git checkout -b feature/nueva-funcionalidad
-# o
-git checkout -b fix/correccion-bug
-# o
-git checkout -b docs/mejora-documentacion
+# Create a descriptive branch
+git checkout -b feature/new-feature
+# or
+git checkout -b fix/bug-fix
+# or
+git checkout -b docs/improve-documentation
 ```
 
-### 3. Haz tus Cambios
+### 3. Make Your Changes
 
-- Sigue la [Guía de Estilo](#guía-de-estilo)
-- Prueba tus cambios
-- Documenta lo que hiciste
+- Follow the [Style Guide](#style-guide)
+- Test your changes
+- Document what you did
 
 ### 4. Commit
 
 ```bash
-# Añade tus cambios
+# Stage your changes
 git add .
 
-# Commit con mensaje descriptivo
-git commit -m "feat: añade nueva funcionalidad X"
-# o
-git commit -m "fix: corrige bug en agente Y"
-# o
-git commit -m "docs: actualiza README con Z"
+# Commit with a descriptive message
+git commit -m "feat: add new feature X"
+# or
+git commit -m "fix: fix bug in agent Y"
+# or
+git commit -m "docs: update README with Z"
 ```
 
-### 5. Push y Pull Request
+### 5. Push and Pull Request
 
 ```bash
-# Push a tu fork
-git push origin feature/nueva-funcionalidad
+# Push to your fork
+git push origin feature/new-feature
 
-# Luego abre un Pull Request en GitHub
+# Then open a Pull Request on GitHub
 ```
 
 ---
 
-## 🐛 Reportar Bugs
+## 🐛 Reporting Bugs
 
-### Antes de Reportar
+### Before Reporting
 
-1. Verifica que no sea un problema de configuración
-2. Busca en los issues existentes
-3. Prueba con la última versión
+1. Verify it is not a configuration issue
+2. Search existing issues
+3. Test with the latest version
 
-### Cómo Reportar
+### How to Report
 
-Abre un issue con:
+Open an issue with:
 
-**Título:** Descripción breve del bug
+**Title:** Brief description of the bug
 
-**Descripción:**
+**Description:**
 ```markdown
-## Descripción del Bug
-[Descripción clara del problema]
+## Bug Description
+[Clear description of the problem]
 
-## Pasos para Reproducir
-1. Paso 1
-2. Paso 2
-3. Paso 3
+## Steps to Reproduce
+1. Step 1
+2. Step 2
+3. Step 3
 
-## Comportamiento Esperado
-[Qué debería pasar]
+## Expected Behavior
+[What should happen]
 
-## Comportamiento Actual
-[Qué pasa realmente]
+## Actual Behavior
+[What actually happens]
 
-## Entorno
+## Environment
 - OS: Ubuntu 22.04
 - Claude Code: v1.2.3
 - Node.js: v20.0.0
 - BetterAgents: v3.0.0
 
 ## Logs/Screenshots
-[Si aplica]
+[If applicable]
 ```
 
 ---
 
-## 💡 Sugerir Mejoras
+## 💡 Suggesting Improvements
 
-### Ideas Bienvenidas
+### Welcome Ideas
 
-- Nuevos agentes especializados
-- Mejoras a agentes existentes
-- Nuevas funcionalidades
-- Mejoras de documentación
-- Optimizaciones de rendimiento
+- New specialized agents
+- Improvements to existing agents
+- New features
+- Documentation improvements
+- Performance optimizations
 
-### Formato de Sugerencia
+### Suggestion Format
 
 ```markdown
-## Título de la Sugerencia
+## Suggestion Title
 
-### Problema que Resuelve
-[Qué problema o necesidad aborda]
+### Problem It Solves
+[What problem or need it addresses]
 
-### Solución Propuesta
-[Cómo funcionaría]
+### Proposed Solution
+[How it would work]
 
-### Alternativas Consideradas
-[Otras opciones que pensaste]
+### Alternatives Considered
+[Other options you thought about]
 
-### Beneficios
-- Beneficio 1
-- Beneficio 2
+### Benefits
+- Benefit 1
+- Benefit 2
 
-### Posibles Desventajas
-- Desventaja 1
-- Desventaja 2
+### Potential Drawbacks
+- Drawback 1
+- Drawback 2
 ```
 
 ---
 
 ## 🔀 Pull Requests
 
-### Checklist antes de PR
+### Pre-PR Checklist
 
-- [ ] El código funciona correctamente
-- [ ] Seguiste la guía de estilo
-- [ ] Actualizaste la documentación si es necesario
-- [ ] Añadiste/actualizaste tests si aplica
-- [ ] El commit message es descriptivo
-- [ ] No hay conflictos con main
+- [ ] The code works correctly
+- [ ] You followed the style guide
+- [ ] You updated the documentation if necessary
+- [ ] You added/updated tests if applicable
+- [ ] The commit message is descriptive
+- [ ] There are no conflicts with main
 
-### Proceso de Review
+### Review Process
 
-1. Un mantenedor revisará tu PR
-2. Puede haber comentarios o solicitudes de cambios
-3. Haz los cambios solicitados
-4. Una vez aprobado, se hará merge
+1. A maintainer will review your PR
+2. There may be comments or change requests
+3. Make the requested changes
+4. Once approved, it will be merged
 
-### Tipos de Contribuciones
+### Types of Contributions
 
-#### Nuevos Agentes
+#### New Agents
 
-Si quieres añadir un nuevo agente:
+If you want to add a new agent:
 
-1. Crea el archivo en `.claude/steering/agents/nuevo-agente.md`
-2. Sigue la estructura de agentes existentes
-3. Incluye:
+1. Create the file at `.claude/steering/agents/new-agent.md`
+2. Follow the structure of existing agents
+3. Include:
    - Identity section
    - Role description
    - Expertise areas
    - Guidelines
    - Output formats
-   - Skills recomendados
-4. Actualiza `betteragents.json`
-5. Actualiza `README.md`
+   - Recommended skills
+4. Update `betteragents.json`
+5. Update `README.md`
 
-#### Mejoras a Agentes Existentes
+#### Improvements to Existing Agents
 
-1. Identifica qué agente mejorar
-2. Haz cambios incrementales
-3. Documenta por qué la mejora es necesaria
-4. Prueba que el agente sigue funcionando
+1. Identify which agent to improve
+2. Make incremental changes
+3. Document why the improvement is needed
+4. Test that the agent still works correctly
 
-#### Documentación
+#### Documentation
 
-1. Identifica qué documentar
-2. Usa Markdown claro y conciso
-3. Incluye ejemplos cuando sea posible
-4. Verifica ortografía y gramática
+1. Identify what to document
+2. Use clear and concise Markdown
+3. Include examples where possible
+4. Check spelling and grammar
 
 #### Bugs
 
-1. Identifica la causa raíz
-2. Implementa la solución más simple
-3. Explica por qué tu solución funciona
-4. Añade tests si es posible
+1. Identify the root cause
+2. Implement the simplest solution
+3. Explain why your solution works
+4. Add tests if possible
 
 ---
 
-## 📝 Guía de Estilo
+## 📝 Style Guide
 
-### Archivos Markdown
+### Markdown Files
 
 ```markdown
-# Título Principal (H1)
+# Main Title (H1)
 
-## Sección (H2)
+## Section (H2)
 
-### Subsección (H3)
+### Subsection (H3)
 
-- Usa listas para items múltiples
-- Mantén líneas cortas (80-100 caracteres)
-- Usa bloques de código con lenguaje especificado
+- Use lists for multiple items
+- Keep lines short (80-100 characters)
+- Use code blocks with specified language
 
 \`\`\`bash
-# Ejemplo de código
-echo "Hola"
+# Code example
+echo "Hello"
 \`\`\`
 
-**Negrita** para énfasis importante
-*Cursiva* para énfasis suave
-`código inline` para comandos o código
+**Bold** for important emphasis
+*Italic* for soft emphasis
+`inline code` for commands or code
 ```
 
-### Estructura de Agentes
+### Agent Structure
 
 ```markdown
-# 🎯 Agent: Nombre del Agente
+# 🎯 Agent: Agent Name
 
 ## Identity
-[Formato de identificación]
+[Identification format]
 
 ## Role
-[Descripción del rol]
+[Role description]
 
 ## Expertise
-[Áreas de expertise]
+[Expertise areas]
 
 ## Core Principles
-[Principios fundamentales]
+[Fundamental principles]
 
 ## Guidelines
-[Guías de comportamiento]
+[Behavioral guidelines]
 
 ## Output Format
-[Formatos de respuesta]
+[Response formats]
 
 ## Available Skills
-[Skills recomendados]
+[Recommended skills]
 
 ## Remember
-[Puntos clave]
+[Key points]
 ```
 
 ### Commits
 
-Usa [Conventional Commits](https://www.conventionalcommits.org/):
+Use [Conventional Commits](https://www.conventionalcommits.org/):
 
 ```
-feat: añade nueva funcionalidad
-fix: corrige un bug
-docs: cambios en documentación
-style: formato, punto y coma, etc
-refactor: refactorización de código
-test: añade tests
-chore: tareas de mantenimiento
+feat: add new feature
+fix: fix a bug
+docs: documentation changes
+style: formatting, semicolons, etc
+refactor: code refactoring
+test: add tests
+chore: maintenance tasks
 ```
 
-Ejemplos:
+Examples:
 ```bash
-git commit -m "feat: añade agente de ML Engineer"
-git commit -m "fix: corrige formato de respuesta en Architect"
-git commit -m "docs: actualiza guía de instalación"
-git commit -m "refactor: simplifica sistema de memoria"
+git commit -m "feat: add ML Engineer agent"
+git commit -m "fix: fix response format in Architect"
+git commit -m "docs: update installation guide"
+git commit -m "refactor: simplify memory system"
 ```
 
 ---
 
-## 🏗️ Estructura del Proyecto
+## 🏗️ Project Structure
 
 ```
 BetterAgentX/
 ├── .agents/
-│   └── skills/              # Skills compartidos
+│   └── skills/              # Shared skills
 │       └── ui-ux-pro-max/
 ├── .claude/
 │   └── steering/
-│       ├── agents/          # 12 agentes especializados
+│       ├── agents/          # 12 specialized agents
 │       │   ├── architect.md
 │       │   ├── coder.md
 │       │   ├── critic.md
@@ -317,105 +317,105 @@ BetterAgentX/
 │       │   ├── tester.md
 │       │   ├── ux-designer.md
 │       │   └── writer.md
-│       └── _common/         # Configuración común
+│       └── _common/         # Common configuration
 │           ├── collaboration-rules.md
 │           ├── identity-template.md
 │           └── memory-contribution.md
 ├── config/
-│   ├── betteragents.json    # Configuración principal
-│   └── agent-skills.json    # Skills recomendados
-├── docs/                    # Documentación completa
+│   ├── betteragents.json    # Main configuration
+│   └── agent-skills.json    # Recommended skills
+├── docs/                    # Full documentation
 ├── scripts/
-│   ├── init-betteragentx.sh      # Inicializar integración
-│   ├── verify-betteragentx.sh    # Verificar integración
-│   ├── install.sh                # Instalación del sistema
-│   └── verify-system.sh          # Verificación del sistema
+│   ├── init-betteragentx.sh      # Initialize integration
+│   ├── verify-betteragentx.sh    # Verify integration
+│   ├── install.sh                # System installation
+│   └── verify-system.sh          # System verification
 ├── templates/
-│   └── memory/              # Plantillas de memoria
+│   └── memory/              # Memory templates
 ├── .gitignore
-├── CHANGELOG.md             # Historial de cambios
-├── CONTRIBUTING.md          # Esta guía
-├── INDEX.md                 # Índice de documentación
-├── INTEGRATION.md           # Guía de integración
-├── QUICKSTART-INTEGRATION.md # Inicio rápido
-├── LICENSE                  # Licencia MIT
-└── README.md                # Documentación principal
+├── CHANGELOG.md             # Change history
+├── CONTRIBUTING.md          # This guide
+├── INDEX.md                 # Documentation index
+├── INTEGRATION.md           # Integration guide
+├── QUICKSTART-INTEGRATION.md # Quick start
+├── LICENSE                  # MIT License
+└── README.md                # Main documentation
 ```
 
-### Archivos Importantes
+### Important Files
 
-- **config/betteragents.json**: Configuración principal del sistema
-- **config/agent-skills.json**: Skills recomendados por agente
-- **README.md**: Documentación principal
-- **INTEGRATION.md**: Guía completa de integración
-- **QUICKSTART-INTEGRATION.md**: Inicio rápido de integración
-- **INDEX.md**: Índice de toda la documentación
-- **CHANGELOG.md**: Historial de versiones y cambios
-- **CLAUDE.md**: El orquestador central (AgentX)
-- **.claude/agents/**: Los 12 agentes especializados
+- **config/betteragents.json**: Main system configuration
+- **config/agent-skills.json**: Recommended skills per agent
+- **README.md**: Main documentation
+- **INTEGRATION.md**: Full integration guide
+- **QUICKSTART-INTEGRATION.md**: Quick start integration
+- **INDEX.md**: Index of all documentation
+- **CHANGELOG.md**: Version and change history
+- **CLAUDE.md**: The central orchestrator (AgentX)
+- **.claude/agents/**: The 12 specialized agents
 - **.claude/commands/**: 76+ slash commands
-- **scripts/**: Scripts de instalación e integración
-- **templates/memory/**: Plantillas del sistema de memoria
+- **scripts/**: Installation and integration scripts
+- **templates/memory/**: Memory system templates
 
 ---
 
 ## 🧪 Testing
 
-### Probar Agentes
+### Testing Agents
 
 ```bash
-# Abrir Kiro
+# Open Kiro
 kiro .
 
-# Probar cada agente
-@architect Hola, ¿funcionas correctamente?
-@coder Hola, ¿funcionas correctamente?
+# Test each agent
+@architect Hello, are you working correctly?
+@coder Hello, are you working correctly?
 # ... etc
 ```
 
-### Verificar Estructura
+### Verify Structure
 
 ```bash
-# Ejecutar script de verificación
+# Run verification script
 ./verify.sh
 
-# O manualmente
-ls -1 .claude/steering/agents/*.md | wc -l  # Debe ser 12
-ls -1 .claude/memory/*.md | wc -l           # Debe ser 5
+# Or manually
+ls -1 .claude/steering/agents/*.md | wc -l  # Should be 12
+ls -1 .claude/memory/*.md | wc -l           # Should be 5
 ```
 
 ---
 
-## 📚 Recursos
+## 📚 Resources
 
-- [Documentación de Kiro](https://kiro.ai/docs)
+- [Kiro Documentation](https://kiro.ai/docs)
 - [Skills.sh](https://skills.sh)
 - [Markdown Guide](https://www.markdownguide.org/)
 - [Conventional Commits](https://www.conventionalcommits.org/)
 
 ---
 
-## ❓ Preguntas
+## ❓ Questions
 
-Si tienes preguntas:
+If you have questions:
 
-1. Revisa la documentación existente
-2. Busca en issues cerrados
-3. Abre un issue con tu pregunta
-4. Únete a las discusiones en GitHub
-
----
-
-## 🎉 Reconocimientos
-
-Todos los contribuidores serán reconocidos en el README.md
+1. Review the existing documentation
+2. Search closed issues
+3. Open an issue with your question
+4. Join the discussions on GitHub
 
 ---
 
-## 📄 Licencia
+## 🎉 Recognition
 
-Al contribuir, aceptas que tus contribuciones se licencien bajo la licencia MIT del proyecto.
+All contributors will be recognized in README.md
 
 ---
 
-**¡Gracias por contribuir a BetterAgentX! 🚀**
+## 📄 License
+
+By contributing, you agree that your contributions will be licensed under the project's MIT license.
+
+---
+
+**Thank you for contributing to BetterAgentX! 🚀**

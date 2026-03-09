@@ -210,7 +210,7 @@ A single central container serves N projects simultaneously:
 # All projects visible at http://localhost:3000 (project selector dropdown).
 
 # Unregister a project:
-bash instalador/install.sh --unregister
+bash installer/install.sh --unregister
 # or (repo-based):
 bash scripts/init.sh --unregister
 ```
@@ -219,7 +219,7 @@ bash scripts/init.sh --unregister
 
 **Add a project:**
 ```bash
-bash instalador/.claude/scripts/generate-central-compose.sh \
+bash installer/.claude/scripts/generate-central-compose.sh \
   "<project-name>" "<absolute-path>/.claude/memory"
 docker compose -f ~/.betteragents/docker-compose.yml down && \
 docker compose -f ~/.betteragents/docker-compose.yml up -d
@@ -227,12 +227,12 @@ docker compose -f ~/.betteragents/docker-compose.yml up -d
 
 **Remove a project:**
 ```bash
-bash instalador/.claude/scripts/generate-central-compose.sh \
+bash installer/.claude/scripts/generate-central-compose.sh \
   "<project-name>" "" --unregister
 docker compose -f ~/.betteragents/docker-compose.yml down && \
 docker compose -f ~/.betteragents/docker-compose.yml up -d
 # Or from the project itself:
-bash instalador/install.sh --unregister
+bash installer/install.sh --unregister
 ```
 
 ---

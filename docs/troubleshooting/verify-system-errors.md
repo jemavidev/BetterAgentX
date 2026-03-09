@@ -81,7 +81,7 @@ bash scripts/verify-system.sh --debug 2>&1 | grep "Found.*agent files"
 grep "AgentX" CLAUDE.md | head -3
 
 # Si falta, reinstalar:
-bash instalador/install.sh
+bash installer/install.sh
 ```
 
 **Debug:**
@@ -207,7 +207,7 @@ echo $PATH
 
 ---
 
-## Verificación Manual Paso a Paso
+## Manual Step-by-Step Verification
 
 Si el script falla completamente, puedes verificar manualmente:
 

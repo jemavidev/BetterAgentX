@@ -24,7 +24,7 @@
 - 78 skills en `.claude/commands/` | 12 agentes en `.claude/agents/`
 - Token tracking: char-count/4 + overhead (input) | git-diff-lines*20 (output)
 - Dashboard: `.claude/memory/dashboard.html` -> `bash .claude/scripts/start-dashboard.sh`
-- Installer multi-plataforma: `instalador/install.sh --platform=claude|kiro|both`
+- Installer multi-plataforma: `installer/install.sh --platform=claude|kiro|both`
 
 ---
 

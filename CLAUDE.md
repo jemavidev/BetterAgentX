@@ -18,7 +18,7 @@ Begin every substantive response with:
 
 ## 4-D METHODOLOGY
 
-| Paso | Acción |
+| Step | Action |
 |------|--------|
 | 1. DECONSTRUCT | Extract intent, stack, complexity, domain |
 | 2. DIAGNOSE | Ambiguity >30% → clarify. Security → flag. Architecture → Critic Gate |
@@ -50,32 +50,32 @@ Route: `Task(subagent_type="agent-name", prompt="[CONTEXT]\n...\n[SKILLS]\n...\n
 
 ## DISPATCH RULES (agent-first policy)
 
-| Score | Acción |
+| Score | Action |
 |-------|--------|
-| 5 — trivial puro ("ok", "sí", saludos) | Responder directo |
-| 4 — simple, 1 archivo, <5 líneas | **Ofrecer sub-agente** + opción de responder directo |
-| 2–3 — moderado | **Despachar automáticamente** con nota de routing |
-| 0–1 — complejo, multi-archivo, arquitectura | Despachar automáticamente con nota de routing |
+| 5 — trivial ("ok", "yes", greetings) | Respond directly |
+| 4 — simple, 1 file, <5 lines | **Offer sub-agent** + option to respond directly |
+| 2–3 — moderate | **Dispatch automatically** with routing note |
+| 0–1 — complex, multi-file, architecture | Dispatch automatically with routing note |
 
-**Formato de oferta de sub-agente (score 2–3):**
+**Sub-agent offer format (score 2–3):**
 ```
-🎯 **[Agente]** — [razón en 1 línea]
+🎯 **[Agent]** — [one-line reason]
 Skills: [skill1], [skill2]
-→ ¿Despacho o respondo directo?
+→ Dispatch or respond directly?
 ```
 
-**Tabla de routing rápido:**
-| Tarea | Agente |
+**Quick routing table:**
+| Task | Agent |
 |-------|--------|
-| Implementar, debug, refactor | `coder` |
-| Diseño sistema, API, arquitectura | `architect` → Critic gate |
-| Tests, TDD, cobertura | `tester` |
+| Implement, debug, refactor | `coder` |
+| System design, API, architecture | `architect` → Critic gate |
+| Tests, TDD, coverage | `tester` |
 | Docs, README, changelogs | `writer` |
 | CI/CD, Docker, infra | `devops` |
-| Análisis crítico, riesgos | `critic` |
-| Research, comparaciones | `researcher` |
-| Auth, seguridad, OWASP | `security` |
-| UI/UX, accesibilidad | `ux-designer` |
+| Critical analysis, risks | `critic` |
+| Research, comparisons | `researcher` |
+| Auth, security, OWASP | `security` |
+| UI/UX, accessibility | `ux-designer` |
 
 - **Clarify first:** ambiguity >30% OR missing stack/requirements
 
@@ -85,7 +85,7 @@ Skills: [skill1], [skill2]
 
 ### 0. Session Start
 Read `.claude/memory/MEMORY.md` + `.claude/memory/session-last.md` every session before first response.
-`session-last.md` contiene el resumen de la última sesión — contexto crítico para continuar sin amnesia.
+`session-last.md` contains the last session summary — critical context to avoid inter-dispatch amnesia.
 Read JSON files only when deeper detail is needed.
 
 ### 0.5. Triviality Gate
@@ -107,7 +107,7 @@ LastSession: {1-line summary from session-last.md}
 [/CONTEXT]
 ```
 Sub-agents run in isolated context — they NEVER inherit CLAUDE.md. Injection is mandatory.
-Include `LastSession` line to prevent amnesia across despachos.
+Include `LastSession` line to prevent context loss between dispatches.
 
 ### 2. Skill Injection (max 3 per dispatch)
 ```bash
@@ -229,9 +229,9 @@ No exceptions for "small" or "obvious" changes. Score → act → show `💾`.
 
 | File | Purpose |
 |------|---------|
-| `MEMORY.md` | Auto-loaded summary (keep <120 lines — índice compacto) |
-| `session-last.md` | Resumen de última sesión — leer siempre al inicio |
-| `workflow-prefs.md` | Preferencias estables del usuario — no cambia por sesión |
+| `MEMORY.md` | Auto-loaded summary (keep <120 lines — compact index) |
+| `session-last.md` | Last session summary — always read at start |
+| `workflow-prefs.md` | Stable user preferences — does not change per session |
 | `active-context.json` | Current project state |
 | `decision-log.json` | Architecture decisions |
 | `progress.json` | Task tracking |

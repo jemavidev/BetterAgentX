@@ -12,7 +12,7 @@ yarn-debug.log*
 yarn-error.log*
 logs/
 
-# Sistema operativo
+# Operating system
 .DS_Store
 .DS_Store?
 ._*
@@ -22,7 +22,7 @@ ehthumbs.db
 Thumbs.db
 *~
 
-# IDEs y editores
+# IDEs and editors
 .vscode/
 .idea/
 *.swp
@@ -32,7 +32,7 @@ Thumbs.db
 .classpath
 .settings/
 
-# Archivos temporales
+# Temporary files
 tmp/
 temp/
 .cache/
@@ -49,7 +49,7 @@ coverage/
 dist/
 build/
 
-# Documentación archivada (no esencial para funcionamiento)
+# Archived documentation (non-essential)
 docs-archive/
 
 # BetterAgents - Claude Code Edition
