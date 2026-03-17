@@ -1,0 +1,201 @@
+{
+  "name": "BetterAgents",
+  "version": "4.0.0",
+  "platform": "claude-code",
+  "description": "Multi-agent orchestration system for Claude Code with AgentX as central orchestrator and persistent memory system",
+  "author": "jemavidev",
+  "repository": "https://github.com/jemavidev/BetterAgentX",
+  "agents": {
+    "agentx": {
+      "file": "CLAUDE.md",
+      "type": "orchestrator",
+      "description": "Central orchestrator \u2014 analyzes, validates and routes queries to specialized agents",
+      "isDefault": true,
+      "routing": "always-loaded"
+    },
+    "architect": {
+      "file": ".claude/agents/architect.md",
+      "type": "core",
+      "description": "System design and architecture",
+      "subagentType": "architect"
+    },
+    "coder": {
+      "file": ".claude/agents/coder.md",
+      "type": "core",
+      "description": "Clean code implementation and refactoring",
+      "subagentType": "coder"
+    },
+    "critic": {
+      "file": ".claude/agents/critic.md",
+      "type": "core",
+      "description": "Critical analysis applying Tenth Man Rule",
+      "subagentType": "critic"
+    },
+    "tester": {
+      "file": ".claude/agents/tester.md",
+      "type": "core",
+      "description": "Testing, QA and test strategy",
+      "subagentType": "tester"
+    },
+    "writer": {
+      "file": ".claude/agents/writer.md",
+      "type": "core",
+      "description": "Technical documentation and tutorials",
+      "subagentType": "writer"
+    },
+    "researcher": {
+      "file": ".claude/agents/researcher.md",
+      "type": "core",
+      "description": "Technology research and comparative analysis",
+      "subagentType": "researcher"
+    },
+    "teacher": {
+      "file": ".claude/agents/teacher.md",
+      "type": "core",
+      "description": "Didactic explanations and learning paths",
+      "subagentType": "teacher"
+    },
+    "devops": {
+      "file": ".claude/agents/devops.md",
+      "type": "specialized",
+      "description": "Infrastructure, CI/CD and deployment",
+      "subagentType": "devops"
+    },
+    "security": {
+      "file": ".claude/agents/security.md",
+      "type": "specialized",
+      "description": "Security auditing and vulnerability analysis",
+      "subagentType": "security"
+    },
+    "ux-designer": {
+      "file": ".claude/agents/ux-designer.md",
+      "type": "specialized",
+      "description": "UI/UX design and accessibility",
+      "subagentType": "ux-designer"
+    },
+    "data-scientist": {
+      "file": ".claude/agents/data-scientist.md",
+      "type": "specialized",
+      "description": "Data analysis and machine learning",
+      "subagentType": "data-scientist"
+    },
+    "product-manager": {
+      "file": ".claude/agents/product-manager.md",
+      "type": "specialized",
+      "description": "Product management and prioritization",
+      "subagentType": "product-manager"
+    }
+  },
+  "features": {
+    "agentx": {
+      "enabled": true,
+      "description": "Intelligent orchestrator with 4-D methodology",
+      "routing": "Task(subagent_type='agent-name', prompt='...')",
+      "capabilities": [
+        "Intent analysis",
+        "Completeness validation",
+        "Intelligent routing",
+        "Multi-agent workflows",
+        "Automatic memory management"
+      ]
+    },
+    "memory": {
+      "enabled": true,
+      "description": "Persistent memory system",
+      "autoLoad": ".claude/memory/MEMORY.md",
+      "files": {
+        "summary": ".claude/memory/MEMORY.md",
+        "active-context": ".claude/memory/active-context.json",
+        "progress": ".claude/memory/progress.json",
+        "decision-log": ".claude/memory/decision-log.json",
+        "patterns": ".claude/memory/patterns.json",
+        "llm-usage": ".claude/memory/llm-usage.json",
+        "memory-stats": ".claude/memory/memory-stats.json",
+        "project-metrics": ".claude/memory/project-metrics.json"
+      },
+      "dashboard": ".claude/memory/dashboard.html"
+    },
+    "commands": {
+      "enabled": true,
+      "description": "Slash commands for direct agent invocation",
+      "directory": ".claude/commands",
+      "list": [
+        "/architect",
+        "/coder",
+        "/critic",
+        "/security",
+        "/tester",
+        "/ux-designer",
+        "/writer",
+        "/teacher",
+        "/product-manager",
+        "/devops",
+        "/data-scientist",
+        "/researcher",
+        "/memory",
+        "/metrics"
+      ]
+    },
+    "hooks": {
+      "enabled": true,
+      "description": "Automated hooks via Claude Code settings",
+      "configFile": ".claude/settings.local.json",
+      "hooks": {
+        "Stop": "bash .claude/scripts/on-session-stop.sh",
+        "PostToolUse": "bash .claude/scripts/on-file-change.sh"
+      }
+    },
+    "skills": {
+      "enabled": true,
+      "directory": ".claude/commands",
+      "autoUpdate": false
+    }
+  },
+  "directories": {
+    "orchestrator": "CLAUDE.md",
+    "agents": ".claude/agents",
+    "commands": ".claude/commands",
+    "memory": ".claude/memory",
+    "scripts": ".claude/scripts",
+    "skills": ".claude/commands",
+    "config": "config",
+    "docs": "docs",
+    "examples": "examples",
+    "templates": "templates"
+  },
+  "metadata": {
+    "created": "2026-02-12",
+    "lastModified": "2026-03-17",
+    "totalAgents": 12,
+    "version": "4.0.0",
+    "migration": "kiro-code \u2192 claude-code",
+    "features": [
+      "AgentX Orchestrator",
+      "Persistent Memory System",
+      "Interactive Dashboard",
+      "12 Specialized Agents",
+      "14 Slash Commands",
+      "Automated Hooks",
+      "Anti-Loop Detection",
+      "Plan Mode Enforcement",
+      "Post-Change Verification",
+      "Triviality Filtering"
+    ],
+    "recentUpdates": {
+      "version_3_3_0": "Added 6-pillar safety framework (anti-looping, plan-mode, verification, triviality filtering)",
+      "protocols": [
+        "anti-loop-detection.md",
+        "plan-mode-enforcement.md",
+        "post-change-verification.md",
+        "triviality-filter.md"
+      ],
+      "skills": [
+        "anti-loop-validator",
+        "plan-mode-enforcer",
+        "post-change-validator",
+        "triviality-detector"
+      ],
+      "config": ".claudecode.json"
+    }
+  }
+}

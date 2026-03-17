@@ -1,0 +1,45 @@
+{
+  "name": "claude",
+  "version": "3.7.0",
+  "description": "Claude Code IDE integration with AgentX orchestrator, 12 agents, 76+ skills, memory system, and dashboard",
+  "requires": {
+    "commands": ["jq"],
+    "optional": ["git", "docker", "node"]
+  },
+  "dependencies": [],
+  "shared": ["betteragents-core", "memory-system", "dashboard"],
+  "files": {
+    "orchestrator": "CLAUDE.md",
+    "agents": ".claude/agents",
+    "commands": ".claude/commands",
+    "protocols": ".claude/protocols",
+    "memory": ".claude/memory",
+    "scripts": ".claude/scripts",
+    "settings": ".claude/settings.local.json",
+    "config": ".claudecode.json"
+  },
+  "directories": [
+    ".claude/agents",
+    ".claude/commands",
+    ".claude/protocols",
+    ".claude/memory",
+    ".claude/scripts",
+    ".claude/skills",
+    ".claude/cache",
+    ".claude/backups"
+  ],
+  "hooks": {
+    "pre_install": "",
+    "post_install": "register_central_container",
+    "pre_uninstall": "unregister_central_container",
+    "post_uninstall": ""
+  },
+  "features": {
+    "agents": 12,
+    "commands": 76,
+    "protocols": 7,
+    "memory": true,
+    "dashboard": true,
+    "docker": true
+  }
+}

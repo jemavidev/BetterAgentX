@@ -1,0 +1,39 @@
+{
+  "name": "kiro",
+  "version": "3.7.0",
+  "description": "Kiro IDE integration with AgentX orchestrator, steering files, skills, and memory bridge",
+  "requires": {
+    "commands": ["jq"],
+    "optional": ["git", "node"]
+  },
+  "dependencies": [],
+  "shared": ["betteragents-core", "memory-system"],
+  "files": {
+    "orchestrator": "AGENTS.md",
+    "agents": ".kiro/agents",
+    "skills": ".kiro/skills",
+    "steering": ".kiro/steering",
+    "scripts": ".kiro/scripts"
+  },
+  "directories": [
+    ".kiro",
+    ".kiro/agents",
+    ".kiro/skills",
+    ".kiro/steering",
+    ".kiro/scripts",
+    ".kiro/settings"
+  ],
+  "hooks": {
+    "pre_install": "",
+    "post_install": "",
+    "pre_uninstall": "",
+    "post_uninstall": ""
+  },
+  "features": {
+    "agents": "custom",
+    "skills": true,
+    "steering": true,
+    "memory_bridge": true,
+    "dashboard": false
+  }
+}

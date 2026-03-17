@@ -1,0 +1,22 @@
+# ─── Local memory (project-specific runtime data) ────────────────────────────
+.claude/memory/
+
+# ─── Local config (machine-specific, contains permissions) ───────────────────
+.claude/settings.local.json
+.claude/.betteragents-mode
+
+# ─── Cache files ──────────────────────────────────────────────────────────────
+.claude/cache/
+.betteragents/sync/.sync-cache.json
+.betteragents/sync/.agents-md-cache.json
+
+# ─── Runtime / generated ──────────────────────────────────────────────────────
+.kiro/
+node_modules/
+*.log
+.env
+.env.local
+
+# ─── OS ───────────────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db

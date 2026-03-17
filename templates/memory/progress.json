@@ -1,0 +1,148 @@
+{
+  "version": "1.0.0",
+  "lastUpdated": "2026-02-28T16:30:00-0500",
+  "tasks": [
+    {
+      "id": "TASK-01",
+      "title": "Implement 3-layer memory write enforcement",
+      "status": "completed",
+      "agent": "agentx",
+      "priority": "high",
+      "date": "2026-02-27T08:17:24-0500",
+      "createdAt": "2026-02-27T08:17:24-0500",
+      "updatedAt": "2026-02-27T08:17:24-0500",
+      "duration": 45,
+      "tags": ["memory", "hooks", "compliance"],
+      "triviality": { "score": 0, "automated": false },
+      "description": "Helper scripts + CLAUDE.md triggers + cross-session debt hook",
+      "outcome": "Created 4 helper scripts in .claude/scripts/ (add-decision.sh, add-task.sh, add-pattern.sh, update-context.sh). Added 5 mandatory trigger events to CLAUDE.md with format templates and timing rules. Built cross-session debt hook: on-session-stop.sh detects empty semantic files and writes .memory-debt.md; on-user-prompt.sh at next session start injects the reminder then deletes it. Enforcement fires exactly once per missed session — no repeated nagging."
+    },
+    {
+      "id": "TASK-02",
+      "title": "Update documentation for memory enforcement",
+      "status": "completed",
+      "agent": "agentx",
+      "priority": "medium",
+      "date": "2026-02-27T08:17:34-0500",
+      "createdAt": "2026-02-27T08:17:34-0500",
+      "updatedAt": "2026-02-27T08:17:34-0500",
+      "duration": 20,
+      "tags": ["docs", "memory"],
+      "triviality": { "score": 3, "automated": false },
+      "description": "quick-reference.md, tools-usage-guide.md, changelog.md",
+      "outcome": "Updated quick-reference.md with memory trigger table (when/what/how to write). Updated tools-usage-guide.md with script invocation examples for all 4 helper scripts. Updated changelog.md with Phase 3.6 entry documenting 3-layer enforcement and cross-session debt pattern. All docs linked from MEMORY.md index."
+    },
+    {
+      "id": "TASK-03",
+      "title": "Fix Session Activity prompts not rendering in modal",
+      "status": "completed",
+      "agent": "coder",
+      "priority": "high",
+      "date": "2026-02-28T12:30:00-0500",
+      "createdAt": "2026-02-28T15:33:33-0500",
+      "updatedAt": "2026-02-28T15:33:33-0500",
+      "duration": 30,
+      "tags": ["bugfix", "dashboard", "safety-tab"],
+      "triviality": { "score": 2, "automated": false },
+      "description": "Fix Session Activity prompts not rendering in modal",
+      "outcome": "Root cause: onclick='openSessionModal(${JSON.stringify(s).replace(/\"/g, \"&quot;\")})' — user prompts containing quotes, newlines, or JSON silently corrupted the JS object in the HTML attribute. Fix applied in dashboard.html: (1) added window._safetyTabSessions = reversed before .map(), (2) changed onclick to pass numeric index i, (3) updated openSessionModal to check typeof s === 'number' and retrieve window._safetyTabSessions[i]. Removed the old encoded approach entirely. All prompts now render regardless of special characters."
+    },
+    {
+      "id": "TASK-04",
+      "title": "Implement per-file line counts with heat-map colors",
+      "status": "completed",
+      "agent": "coder",
+      "priority": "medium",
+      "date": "2026-02-28T13:00:00-0500",
+      "createdAt": "2026-02-28T15:33:33-0500",
+      "updatedAt": "2026-02-28T15:33:33-0500",
+      "duration": 40,
+      "tags": ["feature", "dashboard", "heat-map", "track-usage"],
+      "triviality": { "score": 1, "automated": false },
+      "description": "Implement per-file line counts with heat-map colors",
+      "outcome": "track-usage.sh: replaced git diff --name-only + string array with git diff --numstat HEAD + jq object loop producing {path, added, removed} per file (max 20). Binary files return '-' from numstat — handled with tonumber? // 0. dashboard.html: heat-map background colors applied per file in SAFETY tab modal — green rgba(16,185,129,0.08) for <10 total lines, yellow rgba(245,158,11,0.12) for 10–50, red rgba(239,68,68,0.12) for >50, purple rgba(139,92,246,0.15) for rewrites (>200 or removed/added>70%). Old string[] session entries still render filename-only — backwards compatible."
+    },
+    {
+      "id": "TASK-05",
+      "title": "Debug 'Loading session history...' — sessionsEl null issue",
+      "status": "completed",
+      "agent": "coder",
+      "priority": "high",
+      "date": "2026-02-28T13:45:00-0500",
+      "createdAt": "2026-02-28T15:33:33-0500",
+      "updatedAt": "2026-02-28T15:33:33-0500",
+      "duration": 25,
+      "tags": ["debug", "dashboard", "safety-tab"],
+      "triviality": { "score": 3, "automated": false },
+      "description": "Debug Loading session history — sessionsEl null issue",
+      "outcome": "Symptom: stats row correctly showed '43 sessions, 467 files' but the session list div stayed as static placeholder text. Debug steps: (1) added try-catch around sessionsEl.innerHTML assignment with inline error display in red, (2) added debug line to safetyLastUpdated div showing 'el=found|not-found | n=count'. Debug output showed el=found, n=43 — element reachable and data present. Root cause confirmed: old JSON-in-onclick render threw a runtime JS error before assigning innerHTML. New index-based onclick code resolved it. Container restarted, sessions rendered correctly. Debug lines removed post-fix."
+    },
+    {
+      "id": "TASK-06",
+      "title": "Sync all artifacts to installer and templates",
+      "status": "completed",
+      "agent": "coder",
+      "priority": "medium",
+      "date": "2026-02-28T14:30:00-0500",
+      "createdAt": "2026-02-28T15:33:33-0500",
+      "updatedAt": "2026-02-28T15:33:33-0500",
+      "duration": 15,
+      "tags": ["sync", "installer", "docs"],
+      "triviality": { "score": 4, "automated": true },
+      "description": "Sync all artifacts to installer and templates",
+      "outcome": "Synced dashboard.html to installer/templates/memory/ and templates/memory/ — md5 checksums verified identical across all 3 locations. Synced track-usage.sh and on-user-prompt.sh to installer/.claude/scripts/ and templates/.claude/scripts/. Writer agent updated README.md with per-file heat-map feature section and updated docs/memory/README.md with SAFETY tab modal documentation including heat-map color thresholds."
+    }
+  ],
+  "milestones": [
+    {
+      "id": "MS-01",
+      "title": "Phase 3.6 — Dashboard SAFETY tab complete",
+      "date": "2026-02-28T14:30:00-0500",
+      "status": "completed",
+      "tasks": ["TASK-03", "TASK-04", "TASK-05", "TASK-06"]
+    }
+  ],
+  "summary": {
+    "totalTasks": 6,
+    "byStatus": {
+      "todo": 0,
+      "in-progress": 0,
+      "blocked": 0,
+      "completed": 6,
+      "cancelled": 0
+    },
+    "byPriority": {
+      "critical": 0,
+      "high": 2,
+      "medium": 3,
+      "low": 0
+    },
+    "byAgent": {
+      "agentx": 2,
+      "coder": 4
+    },
+    "completionRate": 100,
+    "averageCompletionTime": 29
+  },
+  "timeline": {
+    "projectStart": "2026-02-26T00:00:00-0500",
+    "currentPhase": "3.6 — Dashboard SAFETY tab enhancements",
+    "nextMilestone": "Phase 3.7 — Populate token-accounting.json and metrics-analytics.json with real data",
+    "estimatedCompletion": ""
+  },
+  "_comments": {
+    "dateFormat": "Use ISO 8601 format with timezone for timestamps: YYYY-MM-DDTHH:MM:SS-05:00",
+    "example": "2026-02-16T09:30:00-05:00",
+    "note": "Dashboard will display date and time when timestamp includes 'T', otherwise only date"
+  },
+  "metadata": {
+    "totalTokens": 0,
+    "totalEntries": 6,
+    "avgTokensPerEntry": 0,
+    "lastUpdated": "2026-02-28T16:30:00-0500",
+    "tokensByAgent": {
+      "agentx": 0,
+      "coder": 0
+    }
+  }
+}

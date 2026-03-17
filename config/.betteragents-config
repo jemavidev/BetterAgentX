@@ -1,0 +1,135 @@
+# BetterAgents - Configuración del Sistema
+# Este archivo controla el comportamiento del sistema BetterAgents
+
+# ============================================
+# CONFIGURACIÓN GENERAL
+# ============================================
+
+# Versión del sistema
+VERSION=2.1.0
+
+# Nombre del proyecto
+PROJECT_NAME=BetterAgents
+
+# Repositorio
+REPOSITORY_URL=https://github.com/yourusername/BetterAgents
+
+# ============================================
+# AGENTX (ORQUESTADOR)
+# ============================================
+
+# Habilitar AgentX como orquestador por defecto
+AGENTX_ENABLED=true
+
+# Temperatura para decisiones de enrutamiento (0.0-1.0)
+AGENTX_TEMPERATURE=0.3
+
+# Umbral de ambigüedad para solicitar clarificación (0-100)
+AGENTX_AMBIGUITY_THRESHOLD=30
+
+# Habilitar workflows multi-agente
+AGENTX_MULTI_AGENT_WORKFLOWS=true
+
+# ============================================
+# SISTEMA DE MEMORIA
+# ============================================
+
+# Habilitar sistema de memoria automática
+MEMORY_ENABLED=true
+
+# Directorio de memoria
+MEMORY_DIR=.kiro/memory
+
+# Actualización automática de memoria por AgentX
+MEMORY_AUTO_UPDATE=true
+
+# Solicitar confirmación antes de documentar (true/false)
+MEMORY_ASK_BEFORE_SAVE=false
+
+# Archivos de memoria (formato JSON)
+MEMORY_ACTIVE_CONTEXT=active-context.json
+MEMORY_PROGRESS=progress.json
+MEMORY_DECISION_LOG=decision-log.json
+MEMORY_PATTERNS=patterns.json
+
+# Dashboard de memoria
+MEMORY_DASHBOARD=dashboard.html
+
+# ============================================
+# SKILLS (HABILIDADES)
+# ============================================
+
+# Actualización automática de skills
+AUTO_UPDATE_SKILLS=false
+
+# Frecuencia de verificación (en días)
+UPDATE_CHECK_FREQUENCY=7
+
+# Última verificación (timestamp)
+LAST_UPDATE_CHECK=0
+
+# Notificar cuando hay actualizaciones disponibles
+NOTIFY_UPDATES=true
+
+# Actualizar skills automáticamente sin preguntar
+SILENT_UPDATE=false
+
+# Skills a excluir de actualizaciones automáticas (separados por coma)
+EXCLUDE_SKILLS=""
+
+# Directorio de skills
+SKILLS_DIR=.agents/skills
+
+# ============================================
+# AGENTES
+# ============================================
+
+# Número total de agentes (incluyendo AgentX)
+TOTAL_AGENTS=13
+
+# Agentes core (7)
+CORE_AGENTS=architect,coder,critic,tester,writer,researcher,teacher
+
+# Agentes especializados (5)
+SPECIALIZED_AGENTS=devops,security,ux-designer,data-scientist,product-manager
+
+# Directorio de agentes
+AGENTS_DIR=.kiro/steering/agents
+
+# ============================================
+# LOGGING Y DEBUGGING
+# ============================================
+
+# Nivel de log (debug, info, warning, error)
+LOG_LEVEL=info
+
+# Guardar logs de actualización
+SAVE_LOGS=true
+
+# Ruta de logs
+LOG_PATH=./betteragents.log
+
+# Habilitar modo debug
+DEBUG_MODE=false
+
+# Guardar logs de enrutamiento de AgentX
+AGENTX_LOG_ROUTING=true
+
+# Guardar logs de actualizaciones de memoria
+MEMORY_LOG_UPDATES=true
+
+# ============================================
+# CONFIGURACIÓN AVANZADA
+# ============================================
+
+# Timeout para operaciones (segundos)
+OPERATION_TIMEOUT=300
+
+# Máximo de intentos de retry
+MAX_RETRIES=3
+
+# Habilitar caché de respuestas
+ENABLE_CACHE=false
+
+# Tiempo de vida del caché (minutos)
+CACHE_TTL=60

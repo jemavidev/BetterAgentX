@@ -1,0 +1,24 @@
+{
+  "name": "platform-name",
+  "version": "1.0.0",
+  "description": "Platform description",
+  "requires": {
+    "commands": ["jq"],
+    "optional": ["git", "docker"]
+  },
+  "dependencies": [],
+  "shared": ["betteragents-core", "memory-system"],
+  "files": {
+    "orchestrator": "PLATFORM.md",
+    "agents": ".platform/agents",
+    "commands": ".platform/commands",
+    "memory": ".platform/memory",
+    "scripts": ".platform/scripts"
+  },
+  "hooks": {
+    "pre_install": "",
+    "post_install": "",
+    "pre_uninstall": "",
+    "post_uninstall": ""
+  }
+}

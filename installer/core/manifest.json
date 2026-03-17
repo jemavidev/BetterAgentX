@@ -1,0 +1,21 @@
+{
+  "name": "core",
+  "version": "4.0.0",
+  "description": "BetterAgents universal core — memory system, scripts, dashboard (platform-agnostic)",
+  "requires": {
+    "commands": ["jq"],
+    "optional": ["git", "node", "docker"]
+  },
+  "files": {
+    "memory": ".betteragents/memory",
+    "scripts": ".betteragents/scripts",
+    "templates": ".betteragents/templates",
+    "state": ".betteragents/state.json"
+  },
+  "directories": [
+    ".betteragents",
+    ".betteragents/memory",
+    ".betteragents/scripts",
+    ".betteragents/templates"
+  ]
+}

@@ -1,0 +1,122 @@
+{
+  "version": "1.0.0",
+  "lastUpdated": "2026-02-28T16:30:00-0500",
+  "decisions": [
+    {
+      "id": "DEC-01",
+      "title": "3-layer memory write enforcement",
+      "date": "2026-02-27T08:09:10-0500",
+      "timestamp": "2026-02-27T08:09:10-0500",
+      "agent": "agentx",
+      "status": "implemented",
+      "tags": ["memory", "hooks", "compliance"],
+      "context": "Agents completed tasks but left decision-log, progress, and patterns.json empty across sessions. Dashboard showed no historical data despite days of active usage. No automatic mechanism existed to enforce memory writes.",
+      "decision": "Implement 3-layer enforcement: (1) 4 helper scripts in .claude/scripts/ — add-decision.sh, add-task.sh, add-pattern.sh, update-context.sh. (2) 5 mandatory trigger events defined in CLAUDE.md with explicit timing and output format. (3) Cross-session debt hook — on-session-stop.sh detects empty files and writes .memory-debt.md; on-user-prompt.sh at next session start injects the reminder then deletes it. Debt fires exactly once per missed session.",
+      "rationale": "No automatic mechanism existed to write semantic memory files — helper scripts + CLAUDE.md triggers + cross-session debt hook ensures compliance",
+      "consequences": {
+        "positive": [
+          "Memory files stay populated across sessions without manual intervention",
+          "Dashboard always shows real data from day one of usage",
+          "Cross-session amnesia eliminated — debt hook catches omissions and fires exactly once"
+        ],
+        "negative": [
+          "Each task completion requires AgentX to run an extra shell command before moving on"
+        ],
+        "risks": [
+          "Scripts must exist at expected paths or enforcement silently fails — mitigated by init.sh pre-flight check"
+        ]
+      }
+    },
+    {
+      "id": "DEC-02",
+      "title": "Index-based onclick for session modal",
+      "date": "2026-02-28T12:30:00-0500",
+      "timestamp": "2026-02-28T15:33:09-0500",
+      "agent": "coder",
+      "status": "implemented",
+      "tags": ["dashboard", "bugfix", "safety-tab", "javascript"],
+      "context": "Session Activity modal showed blank prompts despite correct data in llm-usage.json. Root cause: onclick='openSessionModal(${JSON.stringify(s).replace(/\"/g, \"&quot;\")})' — user prompt text containing quotes, newlines, or template literals corrupted the JS object literal embedded in the HTML attribute. Bug was silent — no error, just blank modal.",
+      "decision": "Store rendered sessions in window._safetyTabSessions[] before .map(). Pass numeric index i in onclick string. Handler checks typeof s === 'number' and retrieves window._safetyTabSessions[i]. No serialization or encoding required anywhere in the flow.",
+      "rationale": "JSON-in-attribute encoding (replacing \" with &quot;) is fragile — any special char in prompt text corrupts the JS object. Solution: store sessions in window._safetyTabSessions[], pass index i in onclick. Zero encoding needed.",
+      "consequences": {
+        "positive": [
+          "Prompts with any special characters (quotes, JSON, code snippets) render correctly",
+          "Simpler code — removed all encoding/decoding logic entirely",
+          "Modal works for all session types including those with multi-line or structured prompts"
+        ],
+        "negative": [],
+        "risks": [
+          "Global array must be assigned before any card is clicked — mitigated by assigning before .map() call, never after"
+        ]
+      }
+    },
+    {
+      "id": "DEC-03",
+      "title": "Per-file line counts with heat-map in SAFETY tab",
+      "date": "2026-02-28T13:00:00-0500",
+      "timestamp": "2026-02-28T15:33:18-0500",
+      "agent": "architect",
+      "status": "implemented",
+      "tags": ["dashboard", "feature", "heat-map", "safety-tab", "track-usage"],
+      "context": "Files Modified list in session modal showed only filenames — no indication of change magnitude. A one-line typo fix looked identical to a 500-line architectural rewrite. No visual signal to identify high-risk sessions worth reviewing.",
+      "decision": "Switch track-usage.sh from git diff --name-only to git diff --numstat HEAD. Build {path, added, removed} objects per file using a jq loop. Dashboard applies heat-map background colors: green rgba(16,185,129,0.08) for <10 lines changed, yellow for 10–50, red for >50, purple for rewrites (>200 total or removed/added ratio >70%). Binary files return '-' from numstat — handled with jq's tonumber? // 0 fallback.",
+      "rationale": "git diff --numstat captures added/removed lines per file as {path,added,removed} objects. Dashboard renders heat-map: green<10, yellow 10-50, red>50, purple=rewrite(>200 or removed/added>70%). Backwards compatible: old string[] sessions still render.",
+      "consequences": {
+        "positive": [
+          "Visual indicator of change magnitude — identify risky sessions at a glance without opening files",
+          "High deletion-rate rewrites flagged in purple — signals sessions worth reviewing for regressions",
+          "Zero migration effort for existing 42 sessions — old string[] format renders filename-only gracefully"
+        ],
+        "negative": [
+          "Binary files (images, compiled assets) always show +0/-0 — misleading for asset-heavy sessions"
+        ],
+        "risks": []
+      }
+    },
+    {
+      "id": "DEC-04",
+      "title": "Backwards-compatible schema evolution for activity.files",
+      "date": "2026-02-28T13:15:00-0500",
+      "timestamp": "2026-02-28T15:33:23-0500",
+      "agent": "architect",
+      "status": "implemented",
+      "tags": ["architecture", "schema", "backwards-compat", "llm-usage"],
+      "context": "Changing activity.files from string[] to object[] {path, added, removed} would break all 42 existing session entries in llm-usage.json. A migration script risked corrupting historical session data — the only source of truth for past activity.",
+      "decision": "Dashboard renderer detects format per entry with typeof f === 'object'. Old string[] entries render filename only (legacy display). New object entries render filename + +N/-M with heat-map colors. track-usage.sh writes new format for all sessions going forward. Existing sessions untouched — migration is lazy on read, not on write.",
+      "rationale": "Changed activity.files from string[] to object[] {path,added,removed}. Dashboard detects format with typeof f==='object' and renders accordingly. Old sessions show filename only; new sessions show +N/-M with color. No migration needed.",
+      "consequences": {
+        "positive": [
+          "Zero risk to historical data — 42 existing sessions remain readable and correctly displayed",
+          "No migration script needed — eliminates one-time data corruption window",
+          "New sessions immediately show rich format without any transition period"
+        ],
+        "negative": [
+          "Two rendering code paths in dashboard.html must be maintained as long as old sessions exist"
+        ],
+        "risks": [
+          "Future schema changes to activity.files must extend the typeof check pattern — risk of forgetting and breaking old sessions again"
+        ]
+      }
+    }
+  ],
+  "summary": {
+    "totalDecisions": 4,
+    "byStatus": {
+      "proposed": 0,
+      "approved": 0,
+      "implemented": 4,
+      "rejected": 0,
+      "superseded": 0
+    },
+    "byAgent": {
+      "agentx": 1,
+      "coder": 1,
+      "architect": 2
+    }
+  },
+  "_comments": {
+    "dateFormat": "Use ISO 8601 format with timezone for timestamps: YYYY-MM-DDTHH:MM:SS-05:00",
+    "example": "2026-02-16T14:30:00-05:00",
+    "note": "Dashboard will display date and time when timestamp includes 'T', otherwise only date"
+  }
+}

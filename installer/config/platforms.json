@@ -1,0 +1,47 @@
+{
+  "version": "2.0.0",
+  "core": {
+    "name": "BetterAgents Core",
+    "description": "Universal layer — memory, scripts, dashboard (always installed)",
+    "module": "core",
+    "required": true
+  },
+  "platforms": {
+    "claude": {
+      "name": "Claude Code",
+      "description": "Claude Code IDE — AgentX orchestrator, 12 agents, 76+ commands, hooks",
+      "enabled": true,
+      "module": "platforms/claude",
+      "install_dir": ".claude",
+      "orchestrator": "CLAUDE.md",
+      "version_file": ".claude/.version"
+    },
+    "kiro": {
+      "name": "Kiro IDE",
+      "description": "Kiro IDE — AgentX via AGENTS.md, steering files, skills",
+      "enabled": true,
+      "module": "platforms/kiro",
+      "install_dir": ".kiro",
+      "orchestrator": "AGENTS.md",
+      "version_file": ".kiro/.version"
+    },
+    "cursor": {
+      "name": "Cursor",
+      "description": "Cursor IDE — AgentX via .cursorrules (coming soon)",
+      "enabled": false,
+      "module": "platforms/cursor",
+      "install_dir": ".cursor",
+      "orchestrator": ".cursorrules",
+      "version_file": ".cursor/.version"
+    },
+    "windsurf": {
+      "name": "Windsurf",
+      "description": "Windsurf IDE — AgentX via .windsurfrules (coming soon)",
+      "enabled": false,
+      "module": "platforms/windsurf",
+      "install_dir": ".windsurf",
+      "orchestrator": ".windsurfrules",
+      "version_file": ".windsurf/.version"
+    }
+  }
+}

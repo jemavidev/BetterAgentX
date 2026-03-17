@@ -1,0 +1,57 @@
+{
+  "lastUpdated": "",
+  "version": "4.0.0",
+  "summary": {
+    "phase": "",
+    "projectName": "",
+    "currentFocus": "",
+    "trend": "stable",
+    "systemHealth": "initializing"
+  },
+  "tasks": {
+    "total": 0,
+    "completed": 0,
+    "inProgress": 0,
+    "pending": 0,
+    "totalTokens": 0,
+    "avgTokens": 0
+  },
+  "knowledge": {
+    "decisions": 0,
+    "patterns": 0,
+    "patternApplications": 0
+  },
+  "tokens": {
+    "allocated": 200000,
+    "used": 0,
+    "remaining": 200000,
+    "utilizationPct": 0,
+    "runwayDays": 999
+  },
+  "efficiency": {
+    "avgTokensPerTask": 0,
+    "tokenReductionPct": 0,
+    "codeVerificationRate": 0,
+    "trend": "stable"
+  },
+  "safety": {
+    "loopDetections": 0,
+    "planModeTriggered": 0,
+    "verificationsPassed": 0,
+    "activeAlerts": 0,
+    "criticalAlerts": 0
+  },
+  "agentMetrics": {},
+  "codebase": {
+    "totalFiles": 0,
+    "totalSizeKB": 0,
+    "byCategory": {},
+    "memoryFiles": {
+      "decisions": 0,
+      "tasks": 0,
+      "completedTasks": 0,
+      "patterns": 0
+    }
+  },
+  "recentChanges": []
+}

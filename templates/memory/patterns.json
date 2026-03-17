@@ -1,0 +1,118 @@
+{
+  "version": "1.0.0",
+  "lastUpdated": "2026-02-28T16:30:00-0500",
+  "patterns": [
+    {
+      "id": "PAT-01",
+      "name": "memory-debt-cross-session",
+      "title": "Memory Debt Cross-Session Enforcement",
+      "category": "architectural",
+      "date": "2026-02-27T08:19:06-0500",
+      "createdAt": "2026-02-27T08:19:06-0500",
+      "agent": "agentx",
+      "applications": 1,
+      "usageCount": 1,
+      "tags": ["memory", "hooks", "enforcement", "cross-session"],
+      "description": "Hook on session-stop writes .memory-debt.md if semantic files empty; hook on user-prompt injects+deletes it at next session start — enforcement fires exactly once",
+      "context": "Agents finish sessions without writing semantic memory files. Days later, a new session starts with empty decision-log, progress, and patterns — as if no work was done. Standard reminders in CLAUDE.md are ignored when the session never reaches that point.",
+      "solution": "on-session-stop.sh scans decision-log.json, progress.json, and patterns.json — if all contain only baseline/template entries, writes .memory-debt.md with a timestamped debt reminder. on-user-prompt.sh at the very next session's first user message: reads the debt file, prepends its content to the prompt context, then deletes .memory-debt.md. Debt fires exactly once — no repeated warnings, no stale state across multiple sessions."
+    },
+    {
+      "id": "PAT-02",
+      "name": "index-based-onclick",
+      "title": "Index-Based Onclick for Data-Rich Cards",
+      "category": "implementation",
+      "date": "2026-02-28T12:30:00-0500",
+      "createdAt": "2026-02-28T15:33:47-0500",
+      "agent": "agentx",
+      "applications": 1,
+      "usageCount": 1,
+      "tags": ["dashboard", "javascript", "onclick", "data-binding", "encoding"],
+      "description": "Store rendered items in a global array (window._safetyTabSessions); pass array index in onclick instead of serializing the full object to HTML attributes. Avoids encoding bugs with special characters in user-generated content.",
+      "context": "HTML onclick attributes cannot safely carry arbitrary user-generated text. JSON.stringify + HTML-encoding attempts (replacing \" with &quot;) are fragile — any unescaped quote, newline, backslash, or template literal in the data silently corrupts the JS object literal. Bug is invisible: no console error, modal just opens blank.",
+      "solution": "Before rendering cards, store all data objects in a window global array (e.g. window._safetyTabSessions = data). In each card's onclick, pass only the numeric index: onclick='openModal(${i})'. Handler checks typeof arg === 'number' and retrieves window._array[i]. Zero serialization. Works for any payload including user prompts, JSON objects, file paths with spaces, or code snippets."
+    },
+    {
+      "id": "PAT-03",
+      "name": "backwards-compatible-schema-evolution",
+      "title": "Backwards-Compatible JSON Schema Evolution",
+      "category": "architectural",
+      "date": "2026-02-28T13:15:00-0500",
+      "createdAt": "2026-02-28T15:33:47-0500",
+      "agent": "agentx",
+      "applications": 1,
+      "usageCount": 1,
+      "tags": ["architecture", "json", "schema", "backwards-compat", "migration"],
+      "description": "Add new fields as objects alongside old string fields. Use typeof checks in renderer to support both formats. Never break old data — migrate lazily on read, not on write.",
+      "context": "A JSON field needs to evolve from a scalar (string) to a rich object (e.g. string → {path, added, removed}). Existing records use the old format. A migration script risks corrupting the only historical record — and may not be worth running for cosmetic improvements.",
+      "solution": "Write new format for all new records going forward. Renderer detects format per entry with typeof f === 'object'. Objects get the rich treatment (heat-map, +N/-M display). Strings fall back to the legacy display (filename only). Old data is never touched. Migration is lazy and implicit — entries naturally upgrade as they are re-written by newer code. Only viable when the legacy display is still acceptable (degraded but not broken)."
+    }
+  ],
+  "categories": {
+    "architectural": [
+      {
+        "id": "PAT-01",
+        "name": "memory-debt-cross-session",
+        "title": "Memory Debt Cross-Session Enforcement",
+        "category": "architectural",
+        "date": "2026-02-27T08:19:06-0500",
+        "agent": "agentx",
+        "applications": 1,
+        "tags": ["memory", "hooks", "enforcement", "cross-session"],
+        "context": "Agents finish sessions without writing semantic memory files. Days later, a new session starts with empty decision-log, progress, and patterns — as if no work was done.",
+        "solution": "on-session-stop.sh scans memory files — if empty, writes .memory-debt.md. on-user-prompt.sh at next session prepends the debt reminder to context then deletes it. Fires exactly once."
+      },
+      {
+        "id": "PAT-03",
+        "name": "backwards-compatible-schema-evolution",
+        "title": "Backwards-Compatible JSON Schema Evolution",
+        "category": "architectural",
+        "date": "2026-02-28T13:15:00-0500",
+        "agent": "agentx",
+        "applications": 1,
+        "tags": ["architecture", "json", "schema", "backwards-compat"],
+        "context": "Evolving a JSON field from scalar to object would break existing historical records.",
+        "solution": "Write new format for new records. Renderer checks typeof per entry — objects get rich display, strings get legacy display. Lazy migration on read, never on write."
+      }
+    ],
+    "design": [],
+    "implementation": [
+      {
+        "id": "PAT-02",
+        "name": "index-based-onclick",
+        "title": "Index-Based Onclick for Data-Rich Cards",
+        "category": "implementation",
+        "date": "2026-02-28T12:30:00-0500",
+        "agent": "agentx",
+        "applications": 1,
+        "tags": ["dashboard", "javascript", "onclick", "data-binding"],
+        "context": "HTML onclick attributes cannot safely carry JSON with special characters — encoding attempts silently corrupt the object.",
+        "solution": "Store objects in window global array. Pass index in onclick. Handler retrieves window._array[i]. Zero encoding required."
+      }
+    ],
+    "testing": [],
+    "deployment": [],
+    "security": []
+  },
+  "summary": {
+    "totalPatterns": 3,
+    "byCategory": {
+      "architectural": 2,
+      "implementation": 1
+    },
+    "byAgent": {
+      "agentx": 3
+    },
+    "mostUsed": ["memory-debt-cross-session", "index-based-onclick", "backwards-compatible-schema-evolution"]
+  },
+  "_comments": {
+    "dateFormat": "Use ISO 8601 format with timezone for timestamps: YYYY-MM-DDTHH:MM:SS-05:00",
+    "example": "2026-02-16T10:30:00-05:00",
+    "note": "Dashboard will display date and time when timestamp includes 'T', otherwise only date"
+  },
+  "suggestions": [],
+  "metadata": {
+    "lastPatternScan": "2026-02-28T16:30:00-0500",
+    "suggestionCount": 0
+  }
+}
