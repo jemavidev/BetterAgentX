@@ -57,7 +57,7 @@ Universal AGENTS.md format, modular plugin-based installer, full multi-platform 
 
 ### 📊 System State
 - 12 specialized agents + AgentX orchestrator
-- 77 slash commands / skills in `.claude/commands/`
+- 79 slash commands / skills in `.claude/commands/`
 - 6 safety protocols active
 - Multi-platform: Claude Code (full) + Kiro (full)
 

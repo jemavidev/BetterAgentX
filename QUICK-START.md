@@ -30,7 +30,7 @@ claude .
 ```bash
 git clone https://github.com/jemavidev/BetterAgentX.git
 cd /path/to/your-project
-bash /path/to/BetterAgents/scripts/init.sh
+bash /path/to/BetterAgentX/installer/install.sh
 claude .
 ```
 
@@ -136,7 +136,7 @@ bash scripts/verify-system.sh
 
 # Or manually check:
 ls .claude/agents/          # Should show 12 agents
-ls .claude/commands/ | wc -l  # Should show 77 commands
+ls .claude/commands/ | wc -l  # Should show 79 commands
 cat .claude/memory/MEMORY.md  # Should show project context
 ```
 

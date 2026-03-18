@@ -1,8 +1,8 @@
 # BetterAgents Core System Reference
 
-**Version:** 3.7.0  
-**Platform:** Claude Code (Source of Truth)  
-**Last Updated:** 2026-03-02
+**Version:** 4.0.0
+**Platform:** Claude Code + Kiro (Multi-Platform)
+**Last Updated:** 2026-03-18
 
 ---
 
@@ -111,7 +111,7 @@ description: When to use this agent and what it specializes in
 ### 3. Skills System
 
 **Location:** `.claude/commands/*.md`  
-**Count:** 76+ skills  
+**Count:** 79 skills  
 **Format:** Markdown with YAML frontmatter
 
 #### Skill Structure

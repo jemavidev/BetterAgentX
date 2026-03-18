@@ -1,8 +1,8 @@
 # BetterAgents Multi-Platform System
 
-**Version:** 1.0.0  
-**Status:** Phase 1 Complete  
-**Platforms:** Claude Code (source) → Kiro (adapter)
+**Version:** 4.0.0
+**Status:** Production Ready
+**Platforms:** Claude Code + Kiro (multi-platform modular installer)
 
 ---
 
@@ -74,7 +74,7 @@ bash .betteragents/sync/auto-sync.sh --watch
 - **Location:** `.claude/`
 - **Orchestrator:** `CLAUDE.md`
 - **Agents:** 12 in `.claude/agents/`
-- **Skills:** 76+ in `.claude/commands/`
+- **Skills:** 79 in `.claude/commands/`
 - **Memory:** `.claude/memory/*.json`
 
 ### ✅ Kiro (Adapter)
@@ -82,7 +82,7 @@ bash .betteragents/sync/auto-sync.sh --watch
 - **Location:** `.kiro/`
 - **Orchestrator:** `KIRO.md`
 - **Agents:** 12 in `.kiro/agents/`
-- **Skills:** 76+ in `.kiro/skills/`
+- **Skills:** 79 in `.kiro/skills/`
 - **Memory:** Steering files in `.kiro/steering/`
 
 ### 🚧 Windsurf (Planned)
@@ -243,7 +243,7 @@ node .betteragents/sync/memory-bridge.js read MEMORY.md
 
 ### ✅ Phase 2: Claude → Kiro Translator (Complete)
 - [x] Agent translation (12 agents)
-- [x] Skill translation (76 skills)
+- [x] Skill translation (79 skills)
 - [x] Memory to steering translation
 - [x] Orchestrator adaptation
 

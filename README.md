@@ -100,7 +100,7 @@ git clone https://github.com/jemavidev/BetterAgentX.git
 
 # 2. Run from your project
 cd /path/to/your-project
-bash /path/to/BetterAgentX/scripts/init.sh
+bash /path/to/BetterAgentX/installer/install.sh
 
 # 3. Open your project in Claude Code
 claude .
@@ -233,7 +233,7 @@ YourProject/
     │   ├── architect.md
     │   ├── coder.md
     │   └── ... (12 total)
-    ├── commands/                # 77 slash commands / skills
+    ├── commands/                # 79 slash commands / skills
     │   ├── architect.md         # /architect
     │   ├── memory.md            # /memory
     │   └── ...
