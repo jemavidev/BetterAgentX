@@ -173,9 +173,12 @@ fi
 
 print_success "Installation complete!"
 
-# Auto-cleanup: remove the installer folder after successful installation
-# Uses a deferred subshell so the script finishes before the folder is deleted
-INSTALLER_DIR="$SCRIPT_DIR"
-(sleep 0.5 && rm -rf "$INSTALLER_DIR") &
-disown
-print_info "Installer folder will be removed automatically."
+# Auto-cleanup: only remove installer if it lives INSIDE the target directory
+# (i.e., the user downloaded the installer directly into their project)
+# If the installer is external to the target (e.g., cloned repo), do NOT delete it
+if [[ "$SCRIPT_DIR" == "$TARGET_DIR"* ]] && [[ "$SCRIPT_DIR" != "$TARGET_DIR" ]]; then
+    INSTALLER_DIR="$SCRIPT_DIR"
+    (sleep 0.5 && rm -rf "$INSTALLER_DIR") &
+    disown
+    print_info "Installer folder will be removed automatically."
+fi
