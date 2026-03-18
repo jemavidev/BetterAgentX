@@ -182,13 +182,49 @@ if [ "$PORT_IN_USE" = true ]; then
     echo ""
 fi
 
-echo -e "${GREEN}📊 Starting Node.js dashboard...${NC}"
-print_dashboard_box
-echo -e "${YELLOW}💡 Tips:${NC}"
-echo "  • Press Ctrl+C to stop"
-echo "  • Data auto-refreshes every 30 seconds"
-echo "  • Install Docker for persistent background dashboard"
-echo ""
+echo -e "${GREEN}📊 Starting Node.js dashboard in background...${NC}"
 
+# Log file location
+LOG_FILE="/tmp/betteragents-dashboard.log"
+
+# Enable multi-project mode if ~/.betteragents/projects.json has 2+ entries
+CENTRAL_PROJECTS="$HOME/.betteragents/projects.json"
+EXTRA_ENV=""
+if [ -f "$CENTRAL_PROJECTS" ]; then
+    PROJECT_COUNT=$(node -e "try{const d=JSON.parse(require('fs').readFileSync('$CENTRAL_PROJECTS'));console.log((d.projects||[]).length)}catch(e){console.log(0)}" 2>/dev/null || echo 0)
+    if [ "$PROJECT_COUNT" -gt 1 ] 2>/dev/null; then
+        EXTRA_ENV="MULTI_PROJECT=true PROJECTS_JSON=$CENTRAL_PROJECTS"
+        echo -e "${BLUE}   → Multi-project mode: ${PROJECT_COUNT} projects from $CENTRAL_PROJECTS${NC}"
+    fi
+fi
+
+# Start server with nohup (detached, persistent)
 cd "$PROJECT_ROOT"
-PORT="${PORT}" node "$SCRIPT_DIR/serve-dashboard.js"
+nohup env PORT="${PORT}" $EXTRA_ENV node "$SCRIPT_DIR/serve-dashboard.js" > "$LOG_FILE" 2>&1 &
+SERVER_PID=$!
+
+# Wait a moment to ensure it started
+sleep 2
+
+# Verify it's running
+if ps -p $SERVER_PID > /dev/null 2>&1; then
+    echo -e "${GREEN}✅ Dashboard started successfully${NC}"
+    print_dashboard_box
+    echo -e "${YELLOW}💡 Info:${NC}"
+    echo "  • Running in background (PID: $SERVER_PID)"
+    echo "  • Log file: $LOG_FILE"
+    echo "  • Data auto-refreshes every 30 seconds"
+    echo ""
+    echo -e "${BLUE}To stop the dashboard:${NC}"
+    echo "  kill $SERVER_PID"
+    echo "  # or"
+    echo "  pkill -f serve-dashboard.js"
+    echo ""
+    
+    # Try to open browser
+    open_browser
+else
+    echo -e "${RED}❌ Failed to start dashboard${NC}"
+    echo "Check log: $LOG_FILE"
+    exit 1
+fi
