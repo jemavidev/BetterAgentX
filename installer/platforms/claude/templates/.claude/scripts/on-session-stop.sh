@@ -120,6 +120,28 @@ MANDATORY: Before responding to the user, update memory files:
 
 Use 'jq .tasks .betteragents/memory/progress.json' to check current state.
 DEBT
+
+    # Output to stdout so Claude sees it and cannot ignore it
+    # Exit 1 blocks the session stop and forces Claude to respond
+    cat <<MSG
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+⚠️  MEMORY DEBT — SESSION CANNOT CLOSE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Files changed this session : $GIT_CHANGES
+Tasks logged               : $TASK_COUNT
+Decisions logged           : $DECISION_COUNT
+
+AgentX: You MUST log this session's work before closing.
+Run the Memory Self-Assessment Gate (Protocol §5b) NOW:
+
+  bash .betteragents/scripts/add-task.sh TASK-NN "<title>" completed <agent> "<outcome>" <priority> "<tags>" <minutes>
+  bash .betteragents/scripts/add-decision.sh DEC-NN "<title>" "<context>" <agent> implemented "<tags>"
+
+After writing memory, respond "✅ Memory written" to close the session.
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+MSG
+    exit 1
 fi
 
 exit 0
