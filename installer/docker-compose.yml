@@ -6,9 +6,9 @@ services:
     ports:
       - "${BETTERAGENTS_PORT:-3000}:3000"
     volumes:
-      - ./.claude/memory:/memory:ro
-      - ./templates:/templates:ro
-      - ./.claude/scripts/serve-dashboard.js:/app/serve-dashboard.js:ro
+      - ./.betteragents/memory:/memory:ro
+      - ./.betteragents/templates:/templates:ro
+      - ./.betteragents/scripts/serve-dashboard.js:/app/serve-dashboard.js:ro
     environment:
       - MEMORY_DIR=/memory
       - TEMPLATES_DIR=/templates

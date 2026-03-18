@@ -7,6 +7,8 @@ services:
     ports:
       - "3000:3000"
     volumes:
+      # Dev mode: memory lives in .claude/memory (BetterAgents-K source repo)
+      # Installed projects: use .betteragents/memory — see installer/docker-compose.yml
       - ./.claude/memory:/memory:ro
       - ./templates:/templates:ro
     environment:

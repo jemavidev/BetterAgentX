@@ -210,7 +210,8 @@ elif confirm "Register this project in the central Docker dashboard?" "y"; then
                 print_info "Start dashboard: bash $TARGET_DIR/.betteragents/scripts/start-dashboard.sh"
             fi
         else
-            print_info "Docker not available — use Node.js fallback:"
+            check_or_install_docker
+            print_info "Node.js fallback (no Docker required):"
             print_info "bash $TARGET_DIR/.betteragents/scripts/start-dashboard.sh"
         fi
     else

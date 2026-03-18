@@ -6,7 +6,7 @@ FROM node:20-alpine
 WORKDIR /app
 
 # Copy only the server script (no package.json needed — zero deps)
-COPY .claude/scripts/serve-dashboard.js ./serve-dashboard.js
+COPY .betteragents/scripts/serve-dashboard.js ./serve-dashboard.js
 
 # Run as non-root node user (included in node:alpine images)
 USER node
