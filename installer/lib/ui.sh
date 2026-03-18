@@ -51,51 +51,72 @@ confirm() {
 }
 
 # Multi-select platform picker
+# All display output goes to stderr; only the selected platform names go to stdout
 select_platforms() {
     local registry="${1:-$SCRIPT_DIR/config/platforms.json}"
-    local available_platforms=$(jq -r '.platforms | keys[]' "$registry")
+    local available_platforms
+    available_platforms=$(jq -r '.platforms | keys[]' "$registry")
     local selected=()
-    
-    echo
-    print_info "Select platforms to install (space to toggle, enter to confirm):"
-    echo
-    
-    # Simple implementation - can be enhanced with arrow key navigation
+
+    # Build enabled platforms array
     local platforms_array=()
     while IFS= read -r platform; do
         if is_platform_enabled "$platform" "$registry"; then
             platforms_array+=("$platform")
         fi
     done <<< "$available_platforms"
-    
-    # Display options
-    local i=1
-    for platform in "${platforms_array[@]}"; do
-        local name=$(get_platform_property "$platform" "name" "$registry")
-        echo "  ${CYAN}${i})${NC} ${name} (${platform})"
-        ((i++))
-    done
-    echo "  ${CYAN}0)${NC} All platforms"
-    echo
-    
-    # Get selection
-    read -p "$(echo -e "${YELLOW}?${NC} Enter numbers separated by spaces (e.g., 1 2): ")" selection
-    
-    if [[ "$selection" == "0" ]]; then
-        selected=("${platforms_array[@]}")
-    else
-        for num in $selection; do
-            if [[ "$num" =~ ^[0-9]+$ ]] && [[ $num -gt 0 ]] && [[ $num -le ${#platforms_array[@]} ]]; then
-                selected+=("${platforms_array[$((num-1))]}")
-            fi
+
+    # Loop until valid selection
+    while true; do
+        echo >&2
+        echo -e "${CYAN}  Select platform(s) to install:${NC}" >&2
+        echo >&2
+
+        local i=1
+        for platform in "${platforms_array[@]}"; do
+            local name
+            name=$(get_platform_property "$platform" "name" "$registry")
+            echo -e "    ${CYAN}${i})${NC}  ${name}" >&2
+            ((i++))
         done
-    fi
-    
-    if [[ ${#selected[@]} -eq 0 ]]; then
-        print_error "No platforms selected"
-        return 1
-    fi
-    
+        echo -e "    ${CYAN}0)${NC}  All platforms (install everything)" >&2
+        echo >&2
+        echo -e "    Example: ${CYAN}1${NC} = first only | ${CYAN}1 2${NC} = both | ${CYAN}0${NC} = all" >&2
+        echo >&2
+
+        local selection
+        read -r -p "$(echo -e "${YELLOW}?${NC} Your choice [0]: ")" selection >&2
+        selection="${selection:-0}"
+
+        selected=()
+        local valid=true
+        if [[ "$selection" == "0" ]]; then
+            selected=("${platforms_array[@]}")
+        else
+            for num in $selection; do
+                if [[ "$num" =~ ^[0-9]+$ ]] && [[ $num -gt 0 ]] && [[ $num -le ${#platforms_array[@]} ]]; then
+                    selected+=("${platforms_array[$((num-1))]}")
+                else
+                    echo -e "${YELLOW}⚠${NC}  Invalid option '$num' — valid: 0-${#platforms_array[@]}" >&2
+                    valid=false
+                    break
+                fi
+            done
+        fi
+
+        [[ "$valid" == "false" ]] && continue
+        [[ ${#selected[@]} -eq 0 ]] && { echo -e "${YELLOW}⚠${NC}  No platforms selected — try again" >&2; continue; }
+
+        echo >&2
+        echo -e "  ${GREEN}Selected:${NC} ${selected[*]}" >&2
+
+        local confirm_reply
+        read -r -p "$(echo -e "${YELLOW}?${NC} Confirm? [Y/n]: ")" confirm_reply >&2
+        confirm_reply="${confirm_reply:-y}"
+        [[ "${confirm_reply,,}" == "y"* ]] && break
+    done
+
+    # Only platform names to stdout (captured by caller as PLATFORMS variable)
     echo "${selected[@]}"
 }
 
