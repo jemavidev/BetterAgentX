@@ -1414,7 +1414,7 @@
         <!-- FOOTER -->
         <div class="footer">
             <p>🧠 Memory Dashboard — Last updated: <span id="footerTimestamp">-</span></p>
-            <p>Data source: .claude/memory/ | Refresh: <span id="refreshInterval">Manual</span></p>
+            <p>Data source: <span id="footerDataSource">BetterAgents Memory</span> | Refresh: <span id="refreshInterval">Manual</span></p>
             <p class="footer-credit">Built by <a href="https://jemavi.co" target="_blank" rel="noopener noreferrer">JEMAVI.CO</a></p>
         </div>
     </div>
@@ -1422,7 +1422,7 @@
     <script>
         // ====== CONFIGURATION ======
         const CONFIG = {
-            memoryPath: '.claude/memory/',
+            memoryPath: 'memory/',
             autoRefreshInterval: 30000, // 30 seconds
             autoRefreshEnabled: false
         };
@@ -1638,13 +1638,13 @@
 
         async function loadMemoryData() {
             try {
-                // Try to load all memory files from .claude/memory/
+                // Try to load all memory files from BetterAgents memory/
                 // Support both HTTP server (localhost:3000) and relative paths
                 const isLocalServer = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
                 // In multi-project mode, use project-scoped path when a project is selected
                 const baseUrl = isLocalServer
                     ? (currentProject ? `/memory/${currentProject}/` : '/memory/')
-                    : '../.claude/memory/';
+                    : '../memory/';
 
                 // Load real memory stats (primary source for TOKENS tab)
                 const memStatsResponse = await fetch(`${baseUrl}memory-stats.json`);
