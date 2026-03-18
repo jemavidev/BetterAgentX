@@ -11,7 +11,8 @@
 .betteragents/sync/.agents-md-cache.json
 
 # ─── Runtime / generated ──────────────────────────────────────────────────────
-.kiro/
+# Ignore .kiro/ at root (installed runtime data), but NOT inside installer templates
+/.kiro/
 node_modules/
 *.log
 .env
