@@ -173,6 +173,57 @@ fi
 
 print_success "Installation complete!"
 
+# ── STEP 3: Register project in central Docker dashboard ─────────────────────
+echo
+show_header "Docker Dashboard Registration"
+
+# Derive a slug from the target directory name
+DEFAULT_PROJECT_NAME=$(basename "$TARGET_DIR" \
+    | tr '[:upper:]' '[:lower:]' \
+    | sed 's/[^a-z0-9]/-/g; s/--*/-/g; s/^-//; s/-$//')
+
+COMPOSE_SCRIPT="$TARGET_DIR/.betteragents/scripts/generate-central-compose.sh"
+MEMORY_PATH="$TARGET_DIR/.betteragents/memory"
+
+if [[ ! -f "$COMPOSE_SCRIPT" ]]; then
+    print_warning "generate-central-compose.sh not found — skipping Docker registration"
+elif confirm "Register this project in the central Docker dashboard?" "y"; then
+    PROJECT_NAME=$(prompt_input "Project name" "$DEFAULT_PROJECT_NAME")
+
+    if bash "$COMPOSE_SCRIPT" "$PROJECT_NAME" "$MEMORY_PATH"; then
+        print_success "Project '$PROJECT_NAME' registered"
+        echo
+
+        # Offer container restart if Docker is available
+        if command -v docker &>/dev/null; then
+            CENTRAL_COMPOSE="$HOME/.betteragents/docker-compose.yml"
+            IS_RUNNING=$(docker ps --format '{{.Names}}' 2>/dev/null \
+                | grep -c "^betteragents-central$" || true)
+
+            if [[ "$IS_RUNNING" -gt 0 ]]; then
+                if confirm "Restart central container to apply changes?" "y"; then
+                    docker compose -f "$CENTRAL_COMPOSE" restart 2>/dev/null \
+                        && print_success "Container restarted — dashboard updated" \
+                        || print_warning "Could not restart — run: docker compose -f ~/.betteragents/docker-compose.yml restart"
+                fi
+            else
+                print_info "Start dashboard: bash $TARGET_DIR/.betteragents/scripts/start-dashboard.sh"
+            fi
+        else
+            print_info "Docker not available — use Node.js fallback:"
+            print_info "bash $TARGET_DIR/.betteragents/scripts/start-dashboard.sh"
+        fi
+    else
+        print_warning "Registration failed. Register manually:"
+        print_info "bash $COMPOSE_SCRIPT $DEFAULT_PROJECT_NAME $MEMORY_PATH"
+    fi
+else
+    print_info "Skipped. Register later with:"
+    print_info "bash $COMPOSE_SCRIPT <name> $MEMORY_PATH"
+fi
+
+echo
+
 # Auto-cleanup: only remove installer if it lives INSIDE the target directory
 # (i.e., the user downloaded the installer directly into their project)
 # If the installer is external to the target (e.g., cloned repo), do NOT delete it
