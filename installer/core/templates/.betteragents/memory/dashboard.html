@@ -685,7 +685,7 @@
         .activity-session-focus { flex: 1; color: var(--text-primary); font-size: 0.95em; }
         .activity-session-meta { display: flex; gap: 12px; color: var(--text-secondary); font-size: 0.85em; margin-top: 4px; }
 
-        /* --- CONTEXTO TAB --- */
+        /* --- CONTEXT TAB --- */
         .ctx-hero { display:flex; justify-content:space-between; align-items:flex-start; background:linear-gradient(135deg, var(--accent-start), var(--accent-end)); border-radius:16px; padding:28px; margin-bottom:16px; color:#fff; }
         .ctx-project-name { font-size:28px; font-weight:800; line-height:1.1; margin-bottom:6px; }
         .ctx-project-desc { font-size:14px; opacity:0.85; max-width:500px; }
@@ -761,7 +761,7 @@
             </div>
             <div class="header-controls">
                 <div class="project-selector" id="projectSelectorContainer" style="display:none">
-                    <label>📁 Proyecto:</label>
+                    <label>📁 Project:</label>
                     <div class="custom-select" id="customProjectSelect">
                         <button class="custom-select-btn" id="projectSelectBtn" onclick="toggleProjectDropdown()">
                             <span id="projectSelectLabel">—</span>
@@ -797,11 +797,11 @@
             <!-- Tab Buttons -->
             <div class="tab-buttons">
                 <button class="tab-btn active" data-tab="decisions">📋 DECISIONS</button>
-                <button class="tab-btn" data-tab="tareas">✓ TAREAS</button>
-                <button class="tab-btn" data-tab="patrones">🔄 PATRONES</button>
-                <button class="tab-btn" data-tab="contexto">📍 CONTEXTO</button>
+                <button class="tab-btn" data-tab="tasks">✓ TASKS</button>
+                <button class="tab-btn" data-tab="patterns">🔄 PATTERNS</button>
+                <button class="tab-btn" data-tab="context">📍 CONTEXT</button>
                 <button class="tab-btn" data-tab="tokens">🔋 TOKENS</button>
-                <button class="tab-btn" data-tab="metricas">📈 MÉTRICAS</button>
+                <button class="tab-btn" data-tab="metrics">📈 METRICS</button>
                 <button class="tab-btn" data-tab="charts">📊 CHARTS</button>
                 <button class="tab-btn" data-tab="safety">🛡️ SAFETY</button>
             </div>
@@ -829,8 +829,8 @@
                 </div>
             </div>
 
-            <!-- TAB 2: TAREAS -->
-            <div class="tab-content" id="tab-tareas">
+            <!-- TAB 2: TASKS -->
+            <div class="tab-content" id="tab-tasks">
                 <h2 style="margin-bottom: 20px;">✓ Task Progress</h2>
 
                 <!-- Summary cards — clickable to filter -->
@@ -886,15 +886,15 @@
                                 <th style="width:120px;">Status</th>
                             </tr>
                         </thead>
-                        <tbody id="tareasTable">
+                        <tbody id="tasksTable">
                             <tr><td colspan="5" style="text-align:center;color:var(--text-tertiary);padding:32px;">Loading tasks...</td></tr>
                         </tbody>
                     </table>
                 </div>
             </div>
 
-            <!-- TAB 3: PATRONES -->
-            <div class="tab-content" id="tab-patrones">
+            <!-- TAB 3: PATTERNS -->
+            <div class="tab-content" id="tab-patterns">
                 <h2 style="margin-bottom: 20px;">🔄 Reusable Patterns</h2>
 
                 <!-- Summary cards -->
@@ -950,8 +950,8 @@
                 </div>
             </div>
 
-            <!-- TAB 4: CONTEXTO -->
-            <div class="tab-content" id="tab-contexto">
+            <!-- TAB 4: CONTEXT -->
+            <div class="tab-content" id="tab-context">
                 <!-- Hero: Project Overview -->
                 <div class="ctx-hero">
                     <div class="ctx-hero-left">
@@ -1132,8 +1132,8 @@
                 </div>
             </div>
 
-            <!-- TAB 6: MÉTRICAS -->
-            <div class="tab-content" id="tab-metricas">
+            <!-- TAB 6: METRICS -->
+            <div class="tab-content" id="tab-metrics">
                 <h2 style="margin-bottom: 20px;">📈 Analytics & Metrics</h2>
 
                 <!-- 4 real-data cards -->
@@ -1515,7 +1515,7 @@
             currentProject = name;
             const badge = document.getElementById('projectBadge');
             if (badge) {
-                badge.textContent = 'cargando...';
+                badge.textContent = 'loading...';
                 badge.className = 'project-badge';
             }
             refreshDashboard();
@@ -1583,7 +1583,7 @@
             // Lazy chart rendering: use rAF so the tab is visible before measuring dimensions
             if (tabName === 'charts') {
                 requestAnimationFrame(renderAllCharts);
-            } else if (tabName === 'metricas') {
+            } else if (tabName === 'metrics') {
                 requestAnimationFrame(renderTrendChart);
             } else if (tabName === 'safety') {
                 updateSafetyTab();
@@ -1754,9 +1754,9 @@
             }
 
             updateDecisionsTab();
-            updateTareasTab();
+            updateTasksTab();
             updatePatternsTab();
-            updateContextoTab();
+            updateContextTab();
             updateTokensTab();
             updateMetricasTab();
             // NOTE: renderAllCharts() is NOT called here.
@@ -1805,7 +1805,7 @@
 
         let _allTasks = [];
 
-        function updateTareasTab() {
+        function updateTasksTab() {
             const tasks = state.progressData?.tasks || [];
             _allTasks = tasks;
 
@@ -1834,7 +1834,7 @@
             });
 
             const tasks = status === 'all' ? _allTasks : _allTasks.filter(t => t.status === status);
-            const tbody = document.getElementById('tareasTable');
+            const tbody = document.getElementById('tasksTable');
 
             if (!tasks.length) {
                 tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;color:var(--text-tertiary);padding:32px;">No ${status === 'all' ? '' : status} tasks found</td></tr>`;
@@ -2093,7 +2093,7 @@
             }
         }
 
-        function updateContextoTab() {
+        function updateContextTab() {
             const ctx = state.contextData;
             if (!ctx) return;
 
@@ -2415,7 +2415,7 @@
             }
 
             // Render trend chart only when tab is active
-            if (state.currentTab === 'metricas') {
+            if (state.currentTab === 'metrics') {
                 requestAnimationFrame(renderTrendChart);
             }
         }
