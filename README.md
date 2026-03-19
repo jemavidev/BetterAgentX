@@ -3,7 +3,7 @@
 **Intelligent multi-agent orchestration system for Claude Code — 12 specialized agents + 1 orchestrator with automatic routing and persistent memory.**
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Version](https://img.shields.io/badge/version-4.0.0-blue.svg)](https://github.com/jemavidev/BetterAgentX/releases)
+[![Version](https://img.shields.io/badge/version-4.1.0-blue.svg)](https://github.com/jemavidev/BetterAgentX/releases)
 [![Platform](https://img.shields.io/badge/platform-Multi--Platform-orange.svg)](https://github.com/jemavidev/BetterAgentX)
 [![Claude Code](https://img.shields.io/badge/Claude_Code-✓-green.svg)](https://claude.ai/claude-code)
 [![Kiro](https://img.shields.io/badge/Kiro-✓-green.svg)](https://kiro.ai)
@@ -189,7 +189,7 @@ bash .claude/scripts/start-dashboard.sh
 **Option B — Docker:**
 ```bash
 docker compose up -d
-# Opens at http://localhost:<PORT>  (see .env)
+# Opens at http://localhost:3000
 ```
 
 ### Multi-Project Dashboard
@@ -333,6 +333,14 @@ docker compose up -d
 
 The dashboard shows decisions, patterns, task progress, token usage, and live alerts with interactive charts.
 
+**Multi-project mode** activates automatically when `~/.betteragents/projects.json` exists with one or more entries. A project switcher appears in the header allowing navigation between projects. Hover over a project to reveal a 🗑️ button to remove it from the registry (files are not deleted).
+
+To manually start in multi-project mode:
+```bash
+PORT=3000 PROJECTS_JSON=~/.betteragents/projects.json MULTI_PROJECT=true \
+  node .claude/scripts/serve-dashboard.js
+```
+
 The SAFETY tab Session Activity includes:
 - Files modified per session with per-file `+added / -removed` line counts and heat-map background colors (green < 10 lines, yellow 10–50, red > 50, purple > 200 or heavy rewrites)
 - Token distribution bar showing input vs output percentage with totals
@@ -348,5 +356,5 @@ MIT License — see [license](license) file.
 
 ---
 
-**Version:** 4.0.0 (Claude Code Edition)
-**Platform:** Claude Code
+**Version:** 4.1.0
+**Platform:** Multi-Platform (Claude Code + Kiro)

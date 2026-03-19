@@ -5,7 +5,7 @@ services:
       dockerfile: Dockerfile
     container_name: betteragents-dashboard
     ports:
-      - "3000:3000"
+      - "${BETTERAGENTS_PORT:-3000}:3000"
     volumes:
       # Dev mode: memory lives in .claude/memory (BetterAgents-K source repo)
       # Installed projects: use .betteragents/memory — see installer/docker-compose.yml

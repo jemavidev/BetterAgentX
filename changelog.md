@@ -7,6 +7,30 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [4.1.0] - 2026-03-18 - Dashboard Multi-Project Improvements
+
+### ✨ Added
+- **Dashboard: DELETE endpoint** — `DELETE /api/project/:name` removes a project from `projects.json` registry (path traversal protected, PROJECTS_JSON mode only)
+- **Dashboard: Project deletion UI** — 🗑️ button visible on hover per project in the selector dropdown; confirmation dialog before removal; auto-hides selector when 0 projects remain
+- **Dashboard: Multi-project with 1 project** — project selector now activates with ≥1 project (previously required ≥2)
+
+### 🔧 Fixed
+- `start-dashboard.sh` — multi-project mode now activates with 1+ projects in `projects.json` (was `>1`)
+- CORS header updated to allow `DELETE` method (`GET, POST, DELETE, OPTIONS`)
+
+### 📊 Dashboard UX
+- Decisions list sorted by date descending (most recent first)
+- Tasks list sorted by date descending, applies to all filter states
+- Patterns list sorted by date descending
+
+### 📁 Files Updated
+- `templates/memory/dashboard.html` — source of truth for all dashboard changes
+- `.claude/scripts/serve-dashboard.js` + all installer copies
+- `.claude/scripts/start-dashboard.sh`
+- All installer template copies synced
+
+---
+
 ## [4.0.0] - 2026-03-17 - Multi-Platform + Modular Installer
 
 ### 🎯 Focus
@@ -233,46 +257,6 @@ Initial development and testing of multi-agent system concept.
 - Basic agent system
 - Initial memory implementation
 - Core documentation
-
----
-
-**Repository:** https://github.com/jemavidev/BetterAgents  
-**License:** MIT  
-**Author:** JEMAVI (Jesus Maria Villalobos)
-
-### 🎯 Objective
-Major consistency update: unified version numbering, JSON-based memory system, and improved documentation.
-
-### ✨ Changes
-
-#### Version Unification
-- ✅ **Unified version to 2.1.0** across all files
-- ✅ Single source of truth in betteragents.json
-- ✅ Consistent versioning in README, config, and changelog
-
-#### Memory System Standardization
-- ✅ **Memory files now use JSON format** (.json instead of .md)
-- ✅ Updated all documentation to reflect JSON format
-- ✅ Updated init.sh to copy .json templates
-- ✅ Removed Python dependency (no sync-memory.py needed)
-- ✅ Dashboard reads JSON files directly
-
-#### File Structure Cleanup
-- ✅ **Removed empty example folders** (collaborative-dev, custom-agent)
-- ✅ **Fixed circular symlink** in .claude/steering/agentx/
-- ✅ Cleaned up inconsistent references
-
-#### Documentation Improvements
-- ✅ **Documented agents-map.json** structure and purpose
-- ✅ Updated all memory file references (.md → .json)
-- ✅ Clarified dashboard functionality
-- ✅ Removed Python script references
-
-### 📊 Impact
-- Consistency improved from 65% to 95%
-- Clearer system architecture
-- Easier maintenance
-- Better user experience
 
 ---
 
@@ -554,3 +538,9 @@ kiro .
 ---
 
 **Result:** 92% simpler system, maintaining 100% of essential functionality.
+
+---
+
+**Repository:** https://github.com/jemavidev/BetterAgents
+**License:** MIT
+**Author:** JEMAVI (Jesus Maria Villalobos)

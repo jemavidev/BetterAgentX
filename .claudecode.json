@@ -3,7 +3,7 @@
     "enabled": true,
     "orchestrator": "CLAUDE.md",
     "philosophy": "Router, not executor — ensure right expert handles each task",
-    "version": "4.0.0"
+    "version": "4.1.0"
   },
 
   "safety": {
@@ -249,10 +249,10 @@
     }
   },
 
-  "version": "1.0.0",
+  "version": "4.1.0",
   "metadata": {
     "created": "2026-02-22",
-    "lastModified": "2026-02-22",
+    "lastModified": "2026-03-18",
     "standards": [
       "Control & Efficiency Framework (6 pillars)",
       "Anti-Looping Prevention",

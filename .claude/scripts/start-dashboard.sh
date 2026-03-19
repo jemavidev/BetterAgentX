@@ -187,9 +187,20 @@ echo -e "${GREEN}📊 Starting Node.js dashboard in background...${NC}"
 # Log file location
 LOG_FILE="/tmp/betteragents-dashboard.log"
 
+# Enable multi-project mode if ~/.betteragents/projects.json has 2+ entries
+CENTRAL_PROJECTS="$HOME/.betteragents/projects.json"
+EXTRA_ENV=""
+if [ -f "$CENTRAL_PROJECTS" ]; then
+    PROJECT_COUNT=$(node -e "try{const d=JSON.parse(require('fs').readFileSync('$CENTRAL_PROJECTS'));console.log((d.projects||[]).length)}catch(e){console.log(0)}" 2>/dev/null || echo 0)
+    if [ "$PROJECT_COUNT" -gt 0 ] 2>/dev/null; then
+        EXTRA_ENV="MULTI_PROJECT=true PROJECTS_JSON=$CENTRAL_PROJECTS"
+        echo -e "${BLUE}   → Multi-project mode: ${PROJECT_COUNT} projects from $CENTRAL_PROJECTS${NC}"
+    fi
+fi
+
 # Start server with nohup (detached, persistent)
 cd "$PROJECT_ROOT"
-nohup env PORT="${PORT}" node "$SCRIPT_DIR/serve-dashboard.js" > "$LOG_FILE" 2>&1 &
+nohup env PORT="${PORT}" $EXTRA_ENV node "$SCRIPT_DIR/serve-dashboard.js" > "$LOG_FILE" 2>&1 &
 SERVER_PID=$!
 
 # Wait a moment to ensure it started

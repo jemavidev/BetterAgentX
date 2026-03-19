@@ -67,7 +67,30 @@
       "Bash(SETTINGS=\"/home/stk/Documents/GIT/BetterAgents-K/installer/platforms/claude/templates/.claude/settings.local.json\" sed -i 's|bash \\\\.claude/scripts/|bash .betteragents/scripts/|g' \"$SETTINGS\" grep \"command\" \"$SETTINGS\")",
       "Bash(sed -i -e 's|if \\\\[\\\\[ -d \"\"\\\\.claude/memory\"\" \\\\]\\\\] && \\\\[\\\\[ -d \"\"\\\\.claude/scripts\"\" \\\\]\\\\]; then|if [[ -d \"\".betteragents/memory\"\" ]]; then|g' -e 's|print_success \"\"Claude memory system detected — memory bridge available\"\"|print_success \"\"BetterAgents core detected — memory system available\"\"|g' -e 's|print_info \"\"Kiro can use: bash \\\\.kiro/scripts/update-memory\\\\.sh\"\"|print_info \"\"Memory scripts: bash .betteragents/scripts/add-task.sh\"\"|g' -e 's|print_warning \"\"Claude memory system not found\"\"||g' -e 's|print_info \"\"Memory bridge requires Claude platform to be installed\"\"||g' -e 's|print_info \"\"Install Claude platform for full memory functionality\"\"||g' -e 's|if \\\\[\\\\[ -d \"\"\\\\.claude/memory\"\" \\\\]\\\\]; then|if [[ -d \"\".betteragents/memory\"\" ]]; then|g' -e 's|bash \\\\.claude/scripts/start-dashboard\\\\.sh|bash .betteragents/scripts/start-dashboard.sh|g' /home/stk/Documents/GIT/BetterAgents-K/installer/platforms/kiro/install.sh)",
       "Bash(__NEW_LINE_b243d9d7761e026c__ echo:*)",
-      "Bash(gh auth:*)"
+      "Bash(gh auth:*)",
+      "Bash(netstat -tlnp)",
+      "Bash(for f:*)",
+      "Bash(sed -i -e 's/data-tab=\"\"tareas\"\"/data-tab=\"\"tasks\"\"/g' -e 's/data-tab=\"\"patrones\"\"/data-tab=\"\"patterns\"\"/g' -e 's/data-tab=\"\"contexto\"\"/data-tab=\"\"context\"\"/g' -e 's/data-tab=\"\"metricas\"\"/data-tab=\"\"metrics\"\"/g' -e 's/>✓ TAREAS</>✓ TASKS</g' -e 's/>🔄 PATRONES</>🔄 PATTERNS</g' -e 's/>📍 CONTEXTO</>📍 CONTEXT</g' -e 's/>📈 MÉTRICAS</>📈 METRICS</g' -e 's/id=\"\"tab-tareas\"\"/id=\"\"tab-tasks\"\"/g' -e 's/id=\"\"tab-patrones\"\"/id=\"\"tab-patterns\"\"/g' -e 's/id=\"\"tab-contexto\"\"/id=\"\"tab-context\"\"/g' -e 's/id=\"\"tab-metricas\"\"/id=\"\"tab-metrics\"\"/g' -e 's/id=\"\"tareasTable\"\"/id=\"\"tasksTable\"\"/g' -e \"s/tabName === ''metricas''/tabName === ''metrics''/g\" -e \"s/state\\\\.currentTab === ''metricas''/state.currentTab === ''metrics''/g\" -e 's/getElementById\\(''''tareasTable''''\\)/getElementById\\(''''tasksTable''''\\)/g' -e 's/updateTareasTab/updateTasksTab/g' -e 's/updateContextoTab/updateContextTab/g' -e 's|/\\\\* --- CONTEXTO TAB --- \\\\*/|/* --- CONTEXT TAB --- */|g' -e 's/<!-- TAB 2: TAREAS -->/<!-- TAB 2: TASKS -->/g' -e 's/<!-- TAB 3: PATRONES -->/<!-- TAB 3: PATTERNS -->/g' -e 's/<!-- TAB 4: CONTEXTO -->/<!-- TAB 4: CONTEXT -->/g' -e 's/<!-- TAB 6: MÉTRICAS -->/<!-- TAB 6: METRICS -->/g' \"$f\")",
+      "Bash(cp /home/stk/Documents/GIT/BetterAgents-K/.claude/scripts/serve-dashboard.js /home/stk/Documents/GIT/BetterAgents-K/installer/core/templates/.betteragents/scripts/serve-dashboard.js)",
+      "Bash(cp /home/stk/Documents/GIT/BetterAgents-K/.claude/scripts/serve-dashboard.js /home/stk/Documents/GIT/BetterAgents-K/installer/platforms/claude/templates/.claude/scripts/serve-dashboard.js)",
+      "Bash(cp /home/stk/Documents/GIT/BetterAgents-K/.claude/scripts/start-dashboard.sh /home/stk/Documents/GIT/BetterAgents-K/installer/core/templates/.betteragents/scripts/start-dashboard.sh)",
+      "Read(//home/stk/Documents/GIT/BetterAgents-K/**)",
+      "Bash(__NEW_LINE_96624bd79cd73aae__ echo:*)",
+      "Bash(jq '{totalDecs: \\(.decisions | length\\), uniqueIds: \\([.decisions[].id] | unique | length\\), emptyDecision: [.decisions[] | select\\(.decision == \"\"\"\"\\)] | length, lastUpdated: .lastUpdated}' /home/stk/Documents/GIT/BetterAgents-K/.claude/memory/decision-log.json)",
+      "Bash(cp /home/stk/Documents/GIT/BetterAgents-K/.claude/memory/dashboard.html /home/stk/Documents/GIT/BetterAgents-K/templates/memory/dashboard.html)",
+      "Bash(cp /home/stk/Documents/GIT/BetterAgents-K/.claude/memory/dashboard.html /home/stk/Documents/GIT/BetterAgents-K/installer/templates/memory/dashboard.html)",
+      "Bash(cp /home/stk/Documents/GIT/BetterAgents-K/.claude/memory/dashboard.html /home/stk/Documents/GIT/BetterAgents-K/installer/platforms/claude/templates/.claude/memory/dashboard.html)",
+      "Bash(cp /home/stk/Documents/GIT/BetterAgents-K/.claude/memory/dashboard.html /home/stk/Documents/GIT/BetterAgents-K/installer/core/templates/.betteragents/memory/dashboard.html)",
+      "Bash(cp /home/stk/Documents/GIT/BetterAgents-K/.claude/memory/dashboard.html /home/stk/Documents/GIT/BetterAgents-K/installer/core/templates/.betteragents/templates/dashboard.html)",
+      "Bash(docker exec betteragents-central node -e \":*)",
+      "Bash(kill 364225)",
+      "Bash(docker rm:*)",
+      "Bash(cp /home/stk/Documents/GIT/BetterAgents-K/.claude/memory/dashboard.html /home/stk/.betteragents/dashboard.html)",
+      "Bash(cp /home/stk/Documents/GIT/BetterAgents-K/.claude/scripts/serve-dashboard.js /home/stk/.betteragents/serve-dashboard.js)",
+      "Bash(cp /home/stk/Documents/GIT/BetterAgents-K/.claude/scripts/serve-dashboard.js /home/stk/Documents/GIT/BetterAgents-K/installer/.claude/scripts/serve-dashboard.js)",
+      "Bash(cp /home/stk/Documents/GIT/BetterAgents-K/.claude/scripts/generate-central-compose.sh /home/stk/Documents/GIT/BetterAgents-K/installer/.claude/scripts/generate-central-compose.sh)",
+      "Bash(cp /home/stk/Documents/GIT/BetterAgents-K/.claude/scripts/generate-central-compose.sh /home/stk/Documents/GIT/BetterAgents-K/installer/platforms/claude/templates/.claude/scripts/generate-central-compose.sh)",
+      "Bash(cp /home/stk/Documents/GIT/BetterAgents-K/.claude/scripts/generate-central-compose.sh /home/stk/Documents/GIT/BetterAgents-K/installer/core/templates/.betteragents/scripts/generate-central-compose.sh)"
     ],
     "additionalDirectories": [
       "/tmp",
@@ -82,7 +105,10 @@
       "/home/stk/Documents/GIT/BetterAgents-Claude/$MEMORY",
       "/home/stk/Documents/GIT/BetterAgents-Claude/config",
       "/home/stk/Documents/GIT/BetterAgents-K/.claude",
-      "/home/stk/Documents/GIT/BetterAgents-K/installer"
+      "/home/stk/Documents/GIT/BetterAgents-K/installer",
+      "/home/stk/Documents/GIT/BetterAgents-K",
+      "/home/stk/Documents/GIT/BetterAgents-K/.claude/scripts",
+      "/home/stk/Documents/GIT/BetterAgents-K/.claude/memory"
     ]
   }
 }

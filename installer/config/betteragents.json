@@ -1,6 +1,6 @@
 {
   "name": "BetterAgentX",
-  "version": "3.7.0",
+  "version": "4.1.0",
   "platform": "claude-code",
   "description": "Multi-agent orchestration system for Claude Code with AgentX as central orchestrator and persistent memory system",
   "author": "jemavidev",
@@ -155,9 +155,9 @@
   },
   "metadata": {
     "created": "2026-02-12",
-    "lastModified": "2026-02-22",
+    "lastModified": "2026-03-18",
     "totalAgents": 12,
-    "version": "3.7.0",
+    "version": "4.1.0",
     "migration": "kiro-code → claude-code",
     "features": [
       "AgentX Orchestrator",
