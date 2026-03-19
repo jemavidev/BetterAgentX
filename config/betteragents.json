@@ -1,6 +1,6 @@
 {
   "name": "BetterAgents",
-  "version": "4.0.0",
+  "version": "4.1.0",
   "platform": "claude-code",
   "description": "Multi-agent orchestration system for Claude Code with AgentX as central orchestrator and persistent memory system",
   "author": "jemavidev",
@@ -9,7 +9,7 @@
     "agentx": {
       "file": "CLAUDE.md",
       "type": "orchestrator",
-      "description": "Central orchestrator \u2014 analyzes, validates and routes queries to specialized agents",
+      "description": "Central orchestrator — analyzes, validates and routes queries to specialized agents",
       "isDefault": true,
       "routing": "always-loaded"
     },
@@ -165,10 +165,10 @@
   },
   "metadata": {
     "created": "2026-02-12",
-    "lastModified": "2026-03-17",
+    "lastModified": "2026-03-18",
     "totalAgents": 12,
-    "version": "4.0.0",
-    "migration": "kiro-code \u2192 claude-code",
+    "version": "4.1.0",
+    "migration": "kiro-code → claude-code",
     "features": [
       "AgentX Orchestrator",
       "Persistent Memory System",

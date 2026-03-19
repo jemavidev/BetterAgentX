@@ -1,7 +1,7 @@
 # 🧠 BetterAgents for Kiro
 
 **Adapted from:** AgentX (AGENTS.md)
-**Version:** 4.0.0
+**Version:** 4.1.0
 **Platform:** Kiro
 
 **⚠️ NOTE:** This file is generated from AGENTS.md. Edit AGENTS.md for universal changes.

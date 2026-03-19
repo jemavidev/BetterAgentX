@@ -1,6 +1,6 @@
 # BetterAgents Documentation
 
-**Version:** 4.0.0  
+**Version:** 4.1.0  
 **Last Updated:** 2026-03-02
 
 Welcome to the BetterAgents documentation hub. This directory contains all project documentation organized by category.
