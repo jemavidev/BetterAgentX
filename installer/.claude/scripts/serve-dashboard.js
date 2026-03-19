@@ -24,12 +24,26 @@ const path = require('path');
 // Configuration
 // ---------------------------------------------------------------------------
 const PORT = parseInt(process.env.PORT || '3000');
-const MULTI_PROJECT = process.env.MULTI_PROJECT === 'true';
+
+// PROJECTS_JSON: path to ~/.betteragents/projects.json (Node.js multi-project mode)
+// MULTI_PROJECT: set to 'true' for Docker mode (projects mounted as subdirs under MEMORY_DIR)
+const PROJECTS_JSON_PATH = process.env.PROJECTS_JSON || null;
+const MULTI_PROJECT = process.env.MULTI_PROJECT === 'true' || !!PROJECTS_JSON_PATH;
 
 // In multi-project mode the container mounts each project at /memory/<name>/
 // In single-project mode we fall back to the classic MEMORY_DIR location.
 const PROJECTS_BASE = process.env.MEMORY_DIR || '/memory';
 const MEMORY_DIR = process.env.MEMORY_DIR || path.join(__dirname, '..', 'memory');
+
+// Cache for projects.json data (refreshed on each request)
+function loadProjectsJson() {
+  if (!PROJECTS_JSON_PATH) return null;
+  try {
+    return JSON.parse(fs.readFileSync(PROJECTS_JSON_PATH, 'utf8'));
+  } catch (_) {
+    return null;
+  }
+}
 
 // The dashboard HTML is served from /app/ inside the container, or from the
 // script's own directory when running locally.
@@ -61,6 +75,18 @@ function readLastActive(projectMemoryPath) {
  * Scan PROJECTS_BASE for subdirectories; each one is a registered project.
  */
 function discoverProjects() {
+  // Mode A: read from ~/.betteragents/projects.json (Node.js multi-project)
+  if (PROJECTS_JSON_PATH) {
+    const data = loadProjectsJson();
+    if (!data) return [];
+    return (data.projects || []).map(p => ({
+      name: p.name,
+      last_active: readLastActive(p.memory_path),
+      status: fs.existsSync(p.memory_path) ? 'reachable' : 'unreachable',
+      path: p.memory_path,
+    }));
+  }
+  // Mode B: scan subdirectories (Docker mode — each project mounted under PROJECTS_BASE)
   try {
     const entries = fs.readdirSync(PROJECTS_BASE, { withFileTypes: true });
     return entries
@@ -79,12 +105,22 @@ function discoverProjects() {
   }
 }
 
+// Return the resolved memory directory for a named project
+function getProjectMemoryPath(projectName) {
+  if (PROJECTS_JSON_PATH) {
+    const data = loadProjectsJson();
+    const proj = (data && data.projects || []).find(p => p.name === projectName);
+    return proj ? proj.memory_path : null;
+  }
+  return path.join(PROJECTS_BASE, projectName);
+}
+
 /**
  * Read all JSON files from a project's memory directory and return them as
  * a combined object keyed by filename (without .json extension).
  */
 function readProjectData(projectName) {
-  const projectPath = path.join(PROJECTS_BASE, projectName);
+  const projectPath = getProjectMemoryPath(projectName) || path.join(PROJECTS_BASE, projectName);
   const result = {};
   try {
     const entries = fs.readdirSync(projectPath, { withFileTypes: true });
@@ -113,10 +149,11 @@ function resolveFilePath(pathname) {
   let filePath;
 
   if (MULTI_PROJECT) {
-    // /memory/<project>/<file>  → PROJECTS_BASE/<project>/<file>
+    // /memory/<project>/<file>  → resolved memory path for that project + file
     const multiMatch = pathname.match(/^\/memory\/([^/]+)\/(.+)$/);
     if (multiMatch) {
-      filePath = path.join(PROJECTS_BASE, multiMatch[1], multiMatch[2]);
+      const base = getProjectMemoryPath(multiMatch[1]) || path.join(PROJECTS_BASE, multiMatch[1]);
+      filePath = path.join(base, multiMatch[2]);
     } else if (pathname.startsWith('/memory/')) {
       // /memory/<file>  → single-project compat (root of PROJECTS_BASE)
       filePath = path.join(PROJECTS_BASE, pathname.replace('/memory/', ''));
@@ -141,9 +178,21 @@ function resolveFilePath(pathname) {
   const resolved = path.resolve(filePath);
 
   // Check against all allowed roots
-  const allowedRoots = MULTI_PROJECT
-    ? [path.resolve(PROJECTS_BASE), path.resolve(APP_DIR)]
-    : [path.resolve(MEMORY_DIR), path.resolve(TEMPLATES_DIR)];
+  let allowedRoots;
+  if (MULTI_PROJECT) {
+    allowedRoots = [path.resolve(APP_DIR)];
+    if (PROJECTS_JSON_PATH) {
+      // Allow each registered project's memory path
+      const data = loadProjectsJson();
+      (data && data.projects || []).forEach(p => {
+        if (p.memory_path) allowedRoots.push(path.resolve(p.memory_path));
+      });
+    } else {
+      allowedRoots.push(path.resolve(PROJECTS_BASE));
+    }
+  } else {
+    allowedRoots = [path.resolve(MEMORY_DIR), path.resolve(TEMPLATES_DIR)];
+  }
 
   const allowed = allowedRoots.some(root => resolved.startsWith(root));
   return allowed ? resolved : null;
@@ -158,7 +207,7 @@ const server = http.createServer((req, res) => {
 
   // CORS
   res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, DELETE, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
   if (req.method === 'OPTIONS') {
@@ -193,6 +242,56 @@ const server = http.createServer((req, res) => {
     const data = readProjectData(projectName);
     res.writeHead(200, { 'Content-Type': 'application/json' });
     res.end(JSON.stringify(data));
+    return;
+  }
+
+  // -----------------------------------------------------------------------
+  // API: DELETE /api/project/:name - Remove project from registry
+  // -----------------------------------------------------------------------
+  const projectDeleteMatch = pathname.match(/^\/api\/project\/([^/]+)$/);
+  if (projectDeleteMatch && req.method === 'DELETE' && MULTI_PROJECT && !PROJECTS_JSON_PATH) {
+    // Docker subdir mode — no projects.json mounted, can't delete via API
+    res.writeHead(501, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({ error: 'Delete not supported: run generate-central-compose.sh --unregister <name> on the host instead.' }));
+    return;
+  }
+  if (projectDeleteMatch && req.method === 'DELETE' && MULTI_PROJECT && PROJECTS_JSON_PATH) {
+    const projectName = projectDeleteMatch[1];
+
+    if (/[^a-zA-Z0-9_\-]/.test(projectName)) {
+      res.writeHead(400, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ error: 'Invalid project name' }));
+      return;
+    }
+
+    try {
+      const data = loadProjectsJson();
+      if (!data || !data.projects) {
+        res.writeHead(404, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ error: 'Projects file not found' }));
+        return;
+      }
+
+      const projectIndex = data.projects.findIndex(p => p.name === projectName);
+      if (projectIndex === -1) {
+        res.writeHead(404, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ error: 'Project not found' }));
+        return;
+      }
+
+      data.projects.splice(projectIndex, 1);
+      fs.writeFileSync(PROJECTS_JSON_PATH, JSON.stringify(data, null, 2), 'utf8');
+
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({
+        success: true,
+        message: `Project "${projectName}" removed from registry`,
+        remaining: data.projects.length
+      }));
+    } catch (err) {
+      res.writeHead(500, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ error: 'Failed to update projects file', details: err.message }));
+    }
     return;
   }
 

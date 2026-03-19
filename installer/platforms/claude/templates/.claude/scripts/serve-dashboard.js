@@ -207,7 +207,7 @@ const server = http.createServer((req, res) => {
 
   // CORS
   res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, DELETE, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
   if (req.method === 'OPTIONS') {
@@ -242,6 +242,56 @@ const server = http.createServer((req, res) => {
     const data = readProjectData(projectName);
     res.writeHead(200, { 'Content-Type': 'application/json' });
     res.end(JSON.stringify(data));
+    return;
+  }
+
+  // -----------------------------------------------------------------------
+  // API: DELETE /api/project/:name - Remove project from registry
+  // -----------------------------------------------------------------------
+  const projectDeleteMatch = pathname.match(/^\/api\/project\/([^/]+)$/);
+  if (projectDeleteMatch && req.method === 'DELETE' && MULTI_PROJECT && !PROJECTS_JSON_PATH) {
+    // Docker subdir mode — no projects.json mounted, can't delete via API
+    res.writeHead(501, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({ error: 'Delete not supported: run generate-central-compose.sh --unregister <name> on the host instead.' }));
+    return;
+  }
+  if (projectDeleteMatch && req.method === 'DELETE' && MULTI_PROJECT && PROJECTS_JSON_PATH) {
+    const projectName = projectDeleteMatch[1];
+
+    if (/[^a-zA-Z0-9_\-]/.test(projectName)) {
+      res.writeHead(400, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ error: 'Invalid project name' }));
+      return;
+    }
+
+    try {
+      const data = loadProjectsJson();
+      if (!data || !data.projects) {
+        res.writeHead(404, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ error: 'Projects file not found' }));
+        return;
+      }
+
+      const projectIndex = data.projects.findIndex(p => p.name === projectName);
+      if (projectIndex === -1) {
+        res.writeHead(404, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ error: 'Project not found' }));
+        return;
+      }
+
+      data.projects.splice(projectIndex, 1);
+      fs.writeFileSync(PROJECTS_JSON_PATH, JSON.stringify(data, null, 2), 'utf8');
+
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({
+        success: true,
+        message: `Project "${projectName}" removed from registry`,
+        remaining: data.projects.length
+      }));
+    } catch (err) {
+      res.writeHead(500, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ error: 'Failed to update projects file', details: err.message }));
+    }
     return;
   }
 

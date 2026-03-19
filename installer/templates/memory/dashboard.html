@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es" data-theme="dark">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -182,6 +182,25 @@
         .opt-name { font-weight: 600; flex: 1; }
         .opt-date { font-size: 11px; color: var(--text-secondary); }
         .opt-status { font-size: 10px; }
+        .opt-delete-btn {
+            background: transparent;
+            border: none;
+            color: var(--error);
+            cursor: pointer;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 14px;
+            opacity: 0.6;
+            transition: all 0.2s;
+            display: none;
+        }
+        .custom-select-option:hover .opt-delete-btn {
+            display: inline-block;
+        }
+        .opt-delete-btn:hover {
+            opacity: 1;
+            background: rgba(239, 68, 68, 0.1);
+        }
 
         .project-badge {
             display: inline-flex;
@@ -651,6 +670,69 @@
                 grid-template-columns: 1fr;
             }
 
+            .custom-select {
+                min-width: 0;
+                width: 100%;
+            }
+
+            .project-selector {
+                width: 100%;
+                flex-wrap: wrap;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 12px;
+            }
+
+            .header-title h1 {
+                font-size: 20px;
+            }
+
+            .header-title p {
+                font-size: 12px;
+            }
+
+            .cards-grid {
+                gap: 12px;
+            }
+
+            .card {
+                padding: 14px;
+            }
+
+            .tab-btn {
+                padding: 8px 10px;
+                font-size: 11px;
+            }
+
+            .safety-counter-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 12px;
+            }
+
+            .safety-counter {
+                padding: 16px 12px;
+            }
+
+            .safety-counter-value {
+                font-size: 2em;
+            }
+
+            .ctx-stats-row {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            /* Modals: reduce top margin and padding on small screens */
+            #taskModal > div,
+            #decisionModal > div,
+            #patternModal > div,
+            #sessionModal > div,
+            #changeModal > div {
+                margin: 16px auto;
+                border-radius: 14px;
+            }
         }
 
         /* LOADING ANIMATION */
@@ -685,7 +767,7 @@
         .activity-session-focus { flex: 1; color: var(--text-primary); font-size: 0.95em; }
         .activity-session-meta { display: flex; gap: 12px; color: var(--text-secondary); font-size: 0.85em; margin-top: 4px; }
 
-        /* --- CONTEXTO TAB --- */
+        /* --- CONTEXT TAB --- */
         .ctx-hero { display:flex; justify-content:space-between; align-items:flex-start; background:linear-gradient(135deg, var(--accent-start), var(--accent-end)); border-radius:16px; padding:28px; margin-bottom:16px; color:#fff; }
         .ctx-project-name { font-size:28px; font-weight:800; line-height:1.1; margin-bottom:6px; }
         .ctx-project-desc { font-size:14px; opacity:0.85; max-width:500px; }
@@ -761,7 +843,7 @@
             </div>
             <div class="header-controls">
                 <div class="project-selector" id="projectSelectorContainer" style="display:none">
-                    <label>📁 Proyecto:</label>
+                    <label>📁 Project:</label>
                     <div class="custom-select" id="customProjectSelect">
                         <button class="custom-select-btn" id="projectSelectBtn" onclick="toggleProjectDropdown()">
                             <span id="projectSelectLabel">—</span>
@@ -797,11 +879,11 @@
             <!-- Tab Buttons -->
             <div class="tab-buttons">
                 <button class="tab-btn active" data-tab="decisions">📋 DECISIONS</button>
-                <button class="tab-btn" data-tab="tareas">✓ TAREAS</button>
-                <button class="tab-btn" data-tab="patrones">🔄 PATRONES</button>
-                <button class="tab-btn" data-tab="contexto">📍 CONTEXTO</button>
+                <button class="tab-btn" data-tab="tasks">✓ TASKS</button>
+                <button class="tab-btn" data-tab="patterns">🔄 PATTERNS</button>
+                <button class="tab-btn" data-tab="context">📍 CONTEXT</button>
                 <button class="tab-btn" data-tab="tokens">🔋 TOKENS</button>
-                <button class="tab-btn" data-tab="metricas">📈 MÉTRICAS</button>
+                <button class="tab-btn" data-tab="metrics">📈 METRICS</button>
                 <button class="tab-btn" data-tab="charts">📊 CHARTS</button>
                 <button class="tab-btn" data-tab="safety">🛡️ SAFETY</button>
             </div>
@@ -829,8 +911,8 @@
                 </div>
             </div>
 
-            <!-- TAB 2: TAREAS -->
-            <div class="tab-content" id="tab-tareas">
+            <!-- TAB 2: TASKS -->
+            <div class="tab-content" id="tab-tasks">
                 <h2 style="margin-bottom: 20px;">✓ Task Progress</h2>
 
                 <!-- Summary cards — clickable to filter -->
@@ -886,15 +968,15 @@
                                 <th style="width:120px;">Status</th>
                             </tr>
                         </thead>
-                        <tbody id="tareasTable">
+                        <tbody id="tasksTable">
                             <tr><td colspan="5" style="text-align:center;color:var(--text-tertiary);padding:32px;">Loading tasks...</td></tr>
                         </tbody>
                     </table>
                 </div>
             </div>
 
-            <!-- TAB 3: PATRONES -->
-            <div class="tab-content" id="tab-patrones">
+            <!-- TAB 3: PATTERNS -->
+            <div class="tab-content" id="tab-patterns">
                 <h2 style="margin-bottom: 20px;">🔄 Reusable Patterns</h2>
 
                 <!-- Summary cards -->
@@ -950,8 +1032,8 @@
                 </div>
             </div>
 
-            <!-- TAB 4: CONTEXTO -->
-            <div class="tab-content" id="tab-contexto">
+            <!-- TAB 4: CONTEXT -->
+            <div class="tab-content" id="tab-context">
                 <!-- Hero: Project Overview -->
                 <div class="ctx-hero">
                     <div class="ctx-hero-left">
@@ -1132,8 +1214,8 @@
                 </div>
             </div>
 
-            <!-- TAB 6: MÉTRICAS -->
-            <div class="tab-content" id="tab-metricas">
+            <!-- TAB 6: METRICS -->
+            <div class="tab-content" id="tab-metrics">
                 <h2 style="margin-bottom: 20px;">📈 Analytics & Metrics</h2>
 
                 <!-- 4 real-data cards -->
@@ -1414,7 +1496,7 @@
         <!-- FOOTER -->
         <div class="footer">
             <p>🧠 Memory Dashboard — Last updated: <span id="footerTimestamp">-</span></p>
-            <p>Data source: .claude/memory/ | Refresh: <span id="refreshInterval">Manual</span></p>
+            <p>Data source: <span id="footerDataSource">BetterAgents Memory</span> | Refresh: <span id="refreshInterval">Manual</span></p>
             <p class="footer-credit">Built by <a href="https://jemavi.co" target="_blank" rel="noopener noreferrer">JEMAVI.CO</a></p>
         </div>
     </div>
@@ -1422,7 +1504,7 @@
     <script>
         // ====== CONFIGURATION ======
         const CONFIG = {
-            memoryPath: '.claude/memory/',
+            memoryPath: 'memory/',
             autoRefreshInterval: 30000, // 30 seconds
             autoRefreshEnabled: false
         };
@@ -1458,7 +1540,7 @@
                 const res = await fetch('/api/projects');
                 if (!res.ok) return;
                 const data = await res.json();
-                if (!data.projects || data.projects.length <= 1) return;
+                if (!data.projects || data.projects.length === 0) return;
 
                 const container = document.getElementById('projectSelectorContainer');
                 const dropdown = document.getElementById('projectDropdown');
@@ -1471,6 +1553,12 @@
                     const date = p.last_active ? p.last_active.substring(0, 10) : '';
                     const warn = p.status === 'unreachable' ? '<span class="opt-status">⚠️</span>' : '';
                     item.innerHTML = `<span class="opt-name">${p.name}</span>${date ? `<span class="opt-date">${date}</span>` : ''}${warn}`;
+                    const deleteBtn = document.createElement('button');
+                    deleteBtn.className = 'opt-delete-btn';
+                    deleteBtn.innerHTML = '🗑️';
+                    deleteBtn.title = 'Remove project from registry';
+                    deleteBtn.onclick = (e) => { e.stopPropagation(); deleteProject(p.name); };
+                    item.appendChild(deleteBtn);
                     item.onclick = () => selectProject(p.name, item);
                     dropdown.appendChild(item);
                 });
@@ -1515,10 +1603,40 @@
             currentProject = name;
             const badge = document.getElementById('projectBadge');
             if (badge) {
-                badge.textContent = 'cargando...';
+                badge.textContent = 'loading...';
                 badge.className = 'project-badge';
             }
             refreshDashboard();
+        }
+
+        async function deleteProject(projectName) {
+            if (!confirm(`Remove "${projectName}" from registry?\n\nNote: This only removes it from the list, it does not delete the project files.`)) {
+                return;
+            }
+            try {
+                const res = await fetch(`/api/project/${projectName}`, {
+                    method: 'DELETE',
+                    headers: { 'Content-Type': 'application/json' }
+                });
+                const data = await res.json();
+                if (!res.ok) {
+                    addAlert(data.error || 'Failed to delete project', 'error', 'ERROR');
+                    return;
+                }
+                addAlert(`Project "${projectName}" removed successfully`, 'success', 'SUCCESS');
+                document.getElementById('projectDropdown').classList.remove('open');
+                document.getElementById('projectSelectBtn').classList.remove('open');
+                document.getElementById('projectDropdown').innerHTML = '';
+                if (data.remaining === 0) {
+                    document.getElementById('projectSelectorContainer').style.display = 'none';
+                    currentProject = null;
+                } else {
+                    await initProjectSelector();
+                }
+                refreshDashboard();
+            } catch (err) {
+                addAlert('Network error: ' + err.message, 'error', 'ERROR');
+            }
         }
 
         // ====== TOAST SYSTEM (max 1, bottom-right, 3s auto-dismiss) ======
@@ -1583,7 +1701,7 @@
             // Lazy chart rendering: use rAF so the tab is visible before measuring dimensions
             if (tabName === 'charts') {
                 requestAnimationFrame(renderAllCharts);
-            } else if (tabName === 'metricas') {
+            } else if (tabName === 'metrics') {
                 requestAnimationFrame(renderTrendChart);
             } else if (tabName === 'safety') {
                 updateSafetyTab();
@@ -1638,13 +1756,13 @@
 
         async function loadMemoryData() {
             try {
-                // Try to load all memory files from .claude/memory/
+                // Try to load all memory files from BetterAgents memory/
                 // Support both HTTP server (localhost:3000) and relative paths
                 const isLocalServer = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
                 // In multi-project mode, use project-scoped path when a project is selected
                 const baseUrl = isLocalServer
                     ? (currentProject ? `/memory/${currentProject}/` : '/memory/')
-                    : '../.claude/memory/';
+                    : '../memory/';
 
                 // Load real memory stats (primary source for TOKENS tab)
                 const memStatsResponse = await fetch(`${baseUrl}memory-stats.json`);
@@ -1754,9 +1872,9 @@
             }
 
             updateDecisionsTab();
-            updateTareasTab();
+            updateTasksTab();
             updatePatternsTab();
-            updateContextoTab();
+            updateContextTab();
             updateTokensTab();
             updateMetricasTab();
             // NOTE: renderAllCharts() is NOT called here.
@@ -1788,8 +1906,10 @@
                 return;
             }
 
-            table.innerHTML = decisions.map(dec => `
-                <tr style="cursor:pointer;" onclick="openDecisionModal(${JSON.stringify(dec).replace(/"/g, '&quot;')})"
+            const sortedDecisions = [...decisions].sort((a, b) => new Date(b.date || 0) - new Date(a.date || 0));
+            window._decisionsData = sortedDecisions;
+            table.innerHTML = sortedDecisions.map((dec, i) => `
+                <tr style="cursor:pointer;" onclick="openDecisionModal(${i})"
                     onmouseenter="this.style.background='var(--hover-bg)'"
                     onmouseleave="this.style.background=''">
                     <td><span style="font-family:monospace;font-size:12px;color:var(--accent-start);font-weight:700;">${dec.id || 'N/A'}</span></td>
@@ -1805,7 +1925,7 @@
 
         let _allTasks = [];
 
-        function updateTareasTab() {
+        function updateTasksTab() {
             const tasks = state.progressData?.tasks || [];
             _allTasks = tasks;
 
@@ -1833,8 +1953,9 @@
                 p.classList.toggle('active', p.dataset.filter === status);
             });
 
-            const tasks = status === 'all' ? _allTasks : _allTasks.filter(t => t.status === status);
-            const tbody = document.getElementById('tareasTable');
+            const filtered = status === 'all' ? _allTasks : _allTasks.filter(t => t.status === status);
+            const tasks = [...filtered].sort((a, b) => new Date(b.date || 0) - new Date(a.date || 0));
+            const tbody = document.getElementById('tasksTable');
 
             if (!tasks.length) {
                 tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;color:var(--text-tertiary);padding:32px;">No ${status === 'all' ? '' : status} tasks found</td></tr>`;
@@ -1848,12 +1969,12 @@
                 'blocked':     { label: '🚫 Blocked',     color: 'var(--error)'         }
             };
 
-            tbody.innerHTML = tasks.map(task => {
+            window._tasksData = tasks;
+            tbody.innerHTML = tasks.map((task, i) => {
                 const sc = statusConfig[task.status] || { label: task.status, color: 'var(--text-secondary)' };
-                const escapedTask = JSON.stringify(task).replace(/"/g, '&quot;');
                 return `
                     <tr style="cursor:pointer;"
-                        onclick="openTaskModal(${escapedTask})"
+                        onclick="openTaskModal(${i})"
                         onmouseenter="this.style.background='var(--hover-bg)'"
                         onmouseleave="this.style.background=''">
                         <td><span style="font-family:monospace;font-size:12px;color:var(--accent-start);font-weight:700;">${task.id || 'N/A'}</span></td>
@@ -1869,6 +1990,8 @@
         }
 
         function openTaskModal(task) {
+            if (typeof task === 'number') task = window._tasksData?.[task];
+            if (!task) return;
             document.getElementById('modalTaskId').textContent    = task.id || 'Task';
             document.getElementById('modalTaskTitle').textContent = task.title || 'Untitled';
 
@@ -1967,12 +2090,13 @@
                     return                  { label: '📈 Low',       color: 'var(--text-tertiary)' };
                 };
 
-                tbody.innerHTML = patterns.map(pat => {
+                const sortedPatterns = [...patterns].sort((a, b) => new Date(b.date || 0) - new Date(a.date || 0));
+                window._patternsData = sortedPatterns;
+                tbody.innerHTML = sortedPatterns.map((pat, i) => {
                     const roi = roiLabel(pat.applications || 0);
-                    const escapedPat = JSON.stringify(pat).replace(/"/g, '&quot;');
                     return `
                         <tr style="cursor:pointer;"
-                            onclick="openPatternModal(${escapedPat})"
+                            onclick="openPatternModal(${i})"
                             onmouseenter="this.style.background='var(--hover-bg)'"
                             onmouseleave="this.style.background=''">
                             <td><span style="font-family:monospace;font-size:12px;color:var(--accent-start);font-weight:700;">${pat.id || 'N/A'}</span></td>
@@ -2028,6 +2152,8 @@
         }
 
         function openPatternModal(pat) {
+            if (typeof pat === 'number') pat = window._patternsData?.[pat];
+            if (!pat) return;
             document.getElementById('modalPatId').textContent    = pat.id || 'Pattern';
             document.getElementById('modalPatTitle').textContent = pat.title || 'Untitled';
 
@@ -2093,7 +2219,7 @@
             }
         }
 
-        function updateContextoTab() {
+        function updateContextTab() {
             const ctx = state.contextData;
             if (!ctx) return;
 
@@ -2187,13 +2313,13 @@
             if (changes.length === 0) {
                 changesEl.innerHTML = '<div class="ctx-empty">No recent changes recorded</div>';
             } else {
-                changesEl.innerHTML = changes.map(ch => {
+                window._changesData = changes;
+                changesEl.innerHTML = changes.map((ch, i) => {
                     const cat = (ch.category || 'default').toLowerCase();
                     const dt = ch.timestamp ? new Date(ch.timestamp) : null;
                     const dateStr = dt ? dt.toLocaleDateString('en-US', {month:'short', day:'numeric', year:'numeric'}) : '-';
                     const timeStr = dt ? dt.toLocaleTimeString('en-US', {hour:'2-digit', minute:'2-digit'}) : '';
-                    const encoded = JSON.stringify(ch).replace(/"/g, '&quot;');
-                    return `<div class="ctx-change-item" onclick="openChangeModal(${encoded})">
+                    return `<div class="ctx-change-item" onclick="openChangeModal(${i})">
                         <div class="ctx-change-dot ${cat}"></div>
                         <div class="ctx-change-body">
                             <div class="ctx-change-name">${ch.name || ch.file || 'Change'}</div>
@@ -2209,7 +2335,8 @@
         }
 
         function openChangeModal(ch) {
-            if (typeof ch === 'string') { try { ch = JSON.parse(ch); } catch(e) { return; } }
+            if (typeof ch === 'number') ch = window._changesData?.[ch];
+            if (!ch) return;
             const cat = (ch.category || 'default').toLowerCase();
             const dt = ch.timestamp ? new Date(ch.timestamp) : null;
             const fullDate = dt ? dt.toLocaleString('en-US', {weekday:'long', year:'numeric', month:'long', day:'numeric', hour:'2-digit', minute:'2-digit'}) : '-';
@@ -2415,7 +2542,7 @@
             }
 
             // Render trend chart only when tab is active
-            if (state.currentTab === 'metricas') {
+            if (state.currentTab === 'metrics') {
                 requestAnimationFrame(renderTrendChart);
             }
         }
@@ -3106,6 +3233,8 @@
 
         // ====== DECISION MODAL FUNCTIONS ======
         function openDecisionModal(dec) {
+            if (typeof dec === 'number') dec = window._decisionsData?.[dec];
+            if (!dec) return;
             document.getElementById('modalDecId').textContent = dec.id || 'Decision';
             document.getElementById('modalDecTitle').textContent = dec.title || 'Untitled';
 

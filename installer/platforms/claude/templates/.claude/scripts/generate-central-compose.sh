@@ -113,7 +113,7 @@ fi
 # Copy latest server files to CENTRAL_DIR
 # ---------------------------------------------------------------------------
 SERVER_JS="$SCRIPT_DIR/serve-dashboard.js"
-DASHBOARD_HTML="$INSTALLER_DIR/.betteragents/templates/dashboard.html"
+DASHBOARD_HTML="$INSTALLER_DIR/templates/memory/dashboard.html"
 
 if [ -f "$SERVER_JS" ]; then
     cp "$SERVER_JS" "$CENTRAL_DIR/serve-dashboard.js"

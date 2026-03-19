@@ -1,0 +1,21 @@
+services:
+  betteragents-dashboard:
+    image: node:20-alpine
+    container_name: betteragents-${BETTERAGENTS_PROJECT:-dashboard}
+    command: node /app/serve-dashboard.js
+    ports:
+      - "${BETTERAGENTS_PORT:-3000}:3000"
+    volumes:
+      # Claude Code installations: memory lives in .claude/memory/
+      - ./.claude/memory:/memory:ro
+      - ./.claude/scripts/serve-dashboard.js:/app/serve-dashboard.js:ro
+    environment:
+      - MEMORY_DIR=/memory
+      - PORT=3000
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q --spider http://localhost:3000 || exit 1"]
+      interval: 15s
+      timeout: 5s
+      start_period: 10s
+      retries: 3
