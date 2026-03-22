@@ -1,40 +1,40 @@
-# 🎯 Blueprint: Sistema de Integración Multi-Plataforma BetterAgents
+# 🎯 Blueprint: BetterAgents Multi-Platform Integration System
 
-**Versión:** 1.0.0  
-**Fecha:** 2026-03-02  
-**Estado:** Planificación  
-
----
-
-## 📋 Resumen Ejecutivo
-
-Este blueprint define la arquitectura y plan de implementación para crear adaptadores multi-plataforma que permitan usar el sistema BetterAgents (actualmente 100% funcional en Claude Code) en Kiro y futuras IDEs.
-
-**PRINCIPIO FUNDAMENTAL:** El sistema actual de Claude Code ES el núcleo. NO se reinventa, se adapta.
-
-### Objetivos Clave
-1. **Preservar el Core:** Sistema actual de Claude Code permanece intacto como referencia
-2. **Adaptadores, no Reescritura:** Crear traductores que adapten el sistema a otras plataformas
-3. **Memoria Unificada:** Historial compartido entre todas las plataformas
-4. **Sincronización:** Cambios detectados y aplicados automáticamente
-5. **Extensibilidad:** Agregar nuevas plataformas en < 8 horas usando el core existente
+**Version:** 1.0.0
+**Date:** 2026-03-02
+**Status:** Planning
 
 ---
 
-## 🏗️ Arquitectura Propuesta
+## 📋 Executive Summary
 
-### Principio de Diseño
+This blueprint defines the architecture and implementation plan for creating multi-platform adapters that allow using the BetterAgents system (currently 100% functional in Claude Code) in Kiro and future IDEs.
+
+**FUNDAMENTAL PRINCIPLE:** The current Claude Code system IS the core. It is NOT reinvented — it is adapted.
+
+### Key Objectives
+1. **Preserve the Core:** Current Claude Code system remains intact as reference
+2. **Adapters, not Rewrite:** Create translators that adapt the system to other platforms
+3. **Unified Memory:** Shared history across all platforms
+4. **Synchronization:** Changes detected and applied automatically
+5. **Extensibility:** Add new platforms in < 8 hours using the existing core
+
+---
+
+## 🏗️ Proposed Architecture
+
+### Design Principle
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│  SISTEMA ACTUAL (Claude Code) = NÚCLEO FUNCIONAL            │
-│  ✅ 12 Agentes | ✅ 76 Skills | ✅ Memoria | ✅ Protocolos   │
+│  CURRENT SYSTEM (Claude Code) = FUNCTIONAL CORE             │
+│  ✅ 12 Agents | ✅ 76 Skills | ✅ Memory | ✅ Protocols      │
 │                                                              │
-│  Este sistema NO se modifica. Es la REFERENCIA.             │
+│  This system is NOT modified. It is the REFERENCE.          │
 └─────────────────────────────────────────────────────────────┘
                             ↓
                     ┌───────────────┐
-                    │  ADAPTADORES  │
+                    │   ADAPTERS    │
                     └───────────────┘
                     ↓               ↓
             ┌──────────┐      ┌──────────┐
@@ -42,63 +42,63 @@ Este blueprint define la arquitectura y plan de implementación para crear adapt
             └──────────┘      └──────────┘
 ```
 
-### Estructura de Directorios
+### Directory Structure
 
 ```
 BetterAgents-K/
-├── .claude/                          # ✅ SISTEMA ACTUAL (NO TOCAR)
-│   ├── agents/                       # 12 agentes funcionando
-│   ├── commands/                     # 76 skills funcionando
-│   ├── memory/                       # Sistema de memoria funcionando
-│   ├── protocols/                    # Protocolos funcionando
-│   └── scripts/                      # Scripts funcionando
+├── .claude/                          # ✅ CURRENT SYSTEM (DO NOT TOUCH)
+│   ├── agents/                       # 12 working agents
+│   ├── commands/                     # 76 working skills
+│   ├── memory/                       # Working memory system
+│   ├── protocols/                    # Working protocols
+│   └── scripts/                      # Working scripts
 │
-├── CLAUDE.md                         # ✅ Orchestrator funcionando
-├── .claudecode.json                  # ✅ Configuración funcionando
-├── config/betteragents.json          # ✅ Metadata funcionando
+├── CLAUDE.md                         # ✅ Working orchestrator
+├── .claudecode.json                  # ✅ Working configuration
+├── config/betteragents.json          # ✅ Working metadata
 │
-├── .betteragents/                    # 🆕 Capa de adaptación
-│   ├── core/                         # 🔗 Referencia al sistema Claude
-│   │   ├── README.md                 # "El core ES .claude/"
-│   │   └── reference.json            # Apunta a .claude/ como fuente
+├── .betteragents/                    # 🆕 Adaptation layer
+│   ├── core/                         # 🔗 Reference to Claude system
+│   │   ├── README.md                 # "The core IS .claude/"
+│   │   └── reference.json            # Points to .claude/ as source
 │   │
-│   ├── adapters/                     # Traductores por plataforma
+│   ├── adapters/                     # Platform translators
 │   │   ├── kiro/
 │   │   │   ├── translator.js         # Claude → Kiro
 │   │   │   ├── reverse-translator.js # Kiro → Claude
-│   │   │   ├── KIRO.md               # Orchestrator adaptado
+│   │   │   ├── KIRO.md               # Adapted orchestrator
 │   │   │   └── sync-hook.sh
 │   │   │
-│   │   ├── cursor/                   # Futuro
+│   │   ├── cursor/                   # Future
 │   │   │   └── translator.js
 │   │   │
-│   │   └── template/                 # Template base
+│   │   └── template/                 # Base template
 │   │       ├── README.md
 │   │       ├── translator-template.js
 │   │       └── integration-guide.md
 │   │
-│   ├── sync/                         # Sistema de sincronización
-│   │   ├── changelog.json            # Registro de cambios
-│   │   ├── sync-engine.js            # Motor principal
-│   │   └── memory-bridge.js          # Puente de memoria
+│   ├── sync/                         # Sync system
+│   │   ├── changelog.json            # Change log
+│   │   ├── sync-engine.js            # Main engine
+│   │   └── memory-bridge.js          # Memory bridge
 │   │
-│   └── config.json                   # Configuración de adaptadores
+│   └── config.json                   # Adapter configuration
 │
-├── .kiro/                            # 🆕 Generado por adaptador
-│   ├── agents/                       # Traducidos desde .claude/agents/
-│   ├── skills/                       # Traducidos desde .claude/commands/
-│   └── steering/                     # Adaptado desde .claude/memory/
+├── .kiro/                            # 🆕 Generated by adapter
+│   ├── agents/                       # Translated from .claude/agents/
+│   ├── skills/                       # Translated from .claude/commands/
+│   └── steering/                     # Adapted from .claude/memory/
 │
-└── KIRO.md                           # 🆕 Generado desde CLAUDE.md
+└── KIRO.md                           # 🆕 Generated from CLAUDE.md
 ```
 
-**REGLA DE ORO:** `.claude/` es la fuente de verdad. Todo lo demás se genera/adapta desde ahí.
+**GOLDEN RULE:** `.claude/` is the source of truth. Everything else is generated/adapted from it.
 
 ---
 
-## 🔄 Sistema de Memoria Unificada
+## 🔄 Unified Memory System
 
-### Formato Agnóstico
+### Platform-Agnostic Format
 
 ```json
 {
@@ -117,9 +117,9 @@ BetterAgents-K/
     {
       "id": "DEC-001",
       "timestamp": "2026-03-01T10:00:00Z",
-      "title": "Implementar sistema multi-plataforma",
-      "context": "Necesidad de trabajar en múltiples IDEs",
-      "decision": "Crear núcleo compartido con traductores",
+      "title": "Implement multi-platform system",
+      "context": "Need to work in multiple IDEs",
+      "decision": "Create shared core with translators",
       "platform": "shared",
       "agent": "architect",
       "status": "proposed",
@@ -130,7 +130,7 @@ BetterAgents-K/
     {
       "id": "TASK-001",
       "timestamp": "2026-03-01T11:00:00Z",
-      "title": "Crear estructura .betteragents/",
+      "title": "Create .betteragents/ structure",
       "status": "pending",
       "platform": "shared",
       "agent": "coder",
@@ -144,8 +144,8 @@ BetterAgents-K/
       "id": "PAT-001",
       "name": "platform-translator",
       "category": "architectural",
-      "problem": "Diferentes formatos entre plataformas",
-      "solution": "Traductor bidireccional con validación",
+      "problem": "Different formats between platforms",
+      "solution": "Bidirectional translator with validation",
       "platform": "shared",
       "usageCount": 0
     }
@@ -156,7 +156,7 @@ BetterAgents-K/
       "platform": "kiro",
       "startTime": "2026-03-02T07:00:00Z",
       "endTime": null,
-      "summary": "Creación de blueprint multi-plataforma",
+      "summary": "Creation of multi-platform blueprint",
       "filesModified": ["BLUEPRINT-MULTI-PLATFORM.md"],
       "tokensUsed": 0
     }
@@ -164,37 +164,37 @@ BetterAgents-K/
 }
 ```
 
-### APIs de Memoria
+### Memory APIs
 
 ```javascript
-// Leer memoria
-const memory = await Memory.read({ 
-  filter: { platform: 'shared', status: 'active' } 
+// Read memory
+const memory = await Memory.read({
+  filter: { platform: 'shared', status: 'active' }
 });
 
-// Escribir decisión
+// Write decision
 await Memory.writeDecision({
-  title: "Nueva decisión",
-  context: "Por qué se tomó",
-  decision: "Qué se decidió",
+  title: "New decision",
+  context: "Why it was made",
+  decision: "What was decided",
   agent: "architect"
 });
 
-// Sincronizar entre plataformas
+// Sync between platforms
 await Memory.sync();
 
-// Exportar a formato específico
+// Export to specific format
 const claudeFormat = await Memory.export('claude-code');
 const kiroFormat = await Memory.export('kiro');
 ```
 
 ---
 
-## 🔀 Sistema de Traducción
+## 🔀 Translation System
 
-### Traductor de Agentes
+### Agent Translator
 
-**Formato Core (agnóstico):**
+**Core Format (agnostic):**
 ```json
 {
   "id": "architect",
@@ -215,7 +215,7 @@ const kiroFormat = await Memory.export('kiro');
 }
 ```
 
-**Traducción a Claude Code:**
+**Translation to Claude Code:**
 ```markdown
 # 🏗️ Architect Agent
 
@@ -236,7 +236,7 @@ Keywords: design, architecture, api, scalability
 Complexity: high
 ```
 
-**Traducción a Kiro:**
+**Translation to Kiro:**
 ```markdown
 # Architect Skill
 
@@ -244,7 +244,7 @@ System design and architecture specialist
 
 ## Capabilities
 - System design
-- API design  
+- API design
 - Scalability
 - Patterns
 
@@ -256,15 +256,15 @@ System design and architecture specialist
 - Complexity: high
 ```
 
-### Traductor de Skills
+### Skills Translator
 
-Similar al de agentes, convierte entre formatos manteniendo funcionalidad.
+Similar to agents translator — converts between formats while preserving functionality.
 
 ---
 
-## 📝 Sistema de Changelog
+## 📝 Changelog System
 
-### Formato de Cambios
+### Change Format
 
 ```json
 {
@@ -277,7 +277,7 @@ Similar al de agentes, convierte entre formatos manteniendo funcionalidad.
       "type": "agent",
       "action": "update",
       "component": "architect",
-      "description": "Agregado soporte para DDD",
+      "description": "Added DDD support",
       "files": [
         ".betteragents/platforms/kiro/.kiro/agents/architect.md"
       ],
@@ -293,408 +293,408 @@ Similar al de agentes, convierte entre formatos manteniendo funcionalidad.
 }
 ```
 
-### Flujo de Sincronización
+### Sync Flow
 
 ```
-1. Usuario abre proyecto en Kiro
+1. User opens project in Kiro
    ↓
-2. Hook detecta plataforma activa
+2. Hook detects active platform
    ↓
-3. Compara con última plataforma usada (claude-code)
+3. Compares with last used platform (claude-code)
    ↓
-4. Busca cambios pendientes en changelog.json
+4. Searches for pending changes in changelog.json
    ↓
-5. Muestra resumen al usuario:
-   "📦 3 cambios pendientes desde Claude Code:
-    - CHG-001: Architect agent actualizado
-    - CHG-002: Nuevo skill: database-migration
-    - CHG-003: Protocol anti-loop mejorado"
+5. Shows summary to user:
+   "📦 3 pending changes from Claude Code:
+    - CHG-001: Architect agent updated
+    - CHG-002: New skill: database-migration
+    - CHG-003: Anti-loop protocol improved"
    ↓
-6. Usuario elige: [Aplicar Todo] [Revisar] [Ignorar]
+6. User chooses: [Apply All] [Review] [Ignore]
    ↓
-7. Sistema aplica cambios usando traductores
+7. System applies changes using translators
    ↓
-8. Actualiza changelog: status = "applied"
+8. Updates changelog: status = "applied"
    ↓
-9. Crea backup automático
+9. Creates automatic backup
    ↓
-10. Valida integridad
+10. Validates integrity
 ```
 
 ---
 
-## 🎯 Estado Actual vs Estado Deseado
+## 🎯 Current State vs Desired State
 
-### ✅ Lo que TENEMOS (Sistema Base - Claude Code)
+### ✅ What We HAVE (Base System - Claude Code)
 
-| Componente | Estado | Ubicación | Acción |
-|------------|--------|-----------|--------|
-| 12 Agentes | ✅ 100% Funcional | `.claude/agents/` | **PRESERVAR** |
-| 76 Skills | ✅ 100% Funcional | `.claude/commands/` | **PRESERVAR** |
-| Sistema de Memoria | ✅ 100% Funcional | `.claude/memory/` | **USAR COMO BASE** |
-| Orchestrator (AgentX) | ✅ 100% Funcional | `CLAUDE.md` | **ADAPTAR** |
-| Hooks | ✅ 100% Funcional | `.claude/scripts/` | **PRESERVAR** |
-| Protocolos | ✅ 100% Funcional | `.claude/protocols/` | **PRESERVAR** |
-| Dashboard | ✅ 100% Funcional | `.claude/memory/dashboard.html` | **PRESERVAR** |
+| Component | Status | Location | Action |
+|-----------|--------|----------|--------|
+| 12 Agents | ✅ 100% Functional | `.claude/agents/` | **PRESERVE** |
+| 76 Skills | ✅ 100% Functional | `.claude/commands/` | **PRESERVE** |
+| Memory System | ✅ 100% Functional | `.claude/memory/` | **USE AS BASE** |
+| Orchestrator (AgentX) | ✅ 100% Functional | `CLAUDE.md` | **ADAPT** |
+| Hooks | ✅ 100% Functional | `.claude/scripts/` | **PRESERVE** |
+| Protocols | ✅ 100% Functional | `.claude/protocols/` | **PRESERVE** |
+| Dashboard | ✅ 100% Functional | `.claude/memory/dashboard.html` | **PRESERVE** |
 
-**ESTE SISTEMA ES PERFECTO. NO SE TOCA. ES LA REFERENCIA.**
+**THIS SYSTEM IS PERFECT. IT IS NOT TOUCHED. IT IS THE REFERENCE.**
 
-### 🔨 Lo que FALTA (Capa de Adaptación)
+### 🔨 What We NEED (Adaptation Layer)
 
-| Componente | Estado | Prioridad | Propósito |
-|------------|--------|-----------|-----------|
-| Estructura `.betteragents/` | ❌ No existe | 🔴 Alta | Contener adaptadores |
-| Traductor Claude → Kiro | ❌ No existe | 🔴 Alta | Generar .kiro/ desde .claude/ |
-| Traductor Kiro → Claude | ❌ No existe | 🔴 Alta | Sincronizar cambios de vuelta |
-| Sistema de changelog | ❌ No existe | 🟡 Media | Registrar cambios entre plataformas |
-| Detección de plataforma | ❌ No existe | 🔴 Alta | Saber qué adaptador usar |
-| Sincronización automática | ❌ No existe | 🟡 Media | Aplicar cambios automáticamente |
-| KIRO.md (adaptado) | ❌ No existe | 🔴 Alta | Orchestrator para Kiro |
-| Template para nuevas plataformas | ❌ No existe | 🟢 Baja | Facilitar nuevos adaptadores |
-| Tests de integración | ❌ No existe | 🟡 Media | Validar traducciones |
+| Component | Status | Priority | Purpose |
+|-----------|--------|----------|---------|
+| `.betteragents/` structure | ❌ Missing | 🔴 High | Contain adapters |
+| Claude → Kiro translator | ❌ Missing | 🔴 High | Generate .kiro/ from .claude/ |
+| Kiro → Claude translator | ❌ Missing | 🔴 High | Sync changes back |
+| Changelog system | ❌ Missing | 🟡 Medium | Record changes between platforms |
+| Platform detection | ❌ Missing | 🔴 High | Know which adapter to use |
+| Automatic sync | ❌ Missing | 🟡 Medium | Apply changes automatically |
+| KIRO.md (adapted) | ❌ Missing | 🔴 High | Orchestrator for Kiro |
+| Template for new platforms | ❌ Missing | 🟢 Low | Ease new adapters |
+| Integration tests | ❌ Missing | 🟡 Medium | Validate translations |
 
 ---
 
-## 📅 Plan de Implementación
+## 📅 Implementation Plan
 
-### Fase 1: Fundamentos (Semana 1) 🔴 CRÍTICO
+### Phase 1: Foundations (Week 1) 🔴 CRITICAL
 
-**Objetivo:** Crear infraestructura de adaptación SIN tocar el sistema actual
+**Goal:** Create adaptation infrastructure WITHOUT touching the current system
 
-#### Tareas:
-1. **Crear estructura `.betteragents/`**
-   - Directorios: adapters/, sync/
-   - Archivo: config.json con referencia a .claude/
-   - **NO crear core/ - el core ES .claude/**
-   - Duración: 1 hora
+#### Tasks:
+1. **Create `.betteragents/` structure**
+   - Directories: adapters/, sync/
+   - File: config.json referencing .claude/
+   - **DO NOT create core/ — the core IS .claude/**
+   - Duration: 1 hour
 
-2. **Implementar detección de plataforma**
+2. **Implement platform detection**
    - Script: detect-platform.sh
-   - Lógica: variables de entorno > archivos config
-   - Duración: 2 horas
+   - Logic: env vars > config files
+   - Duration: 2 hours
 
-3. **Crear puente de memoria (memory-bridge.js)**
-   - Lee desde .claude/memory/ (fuente de verdad)
-   - Expone API unificada para adaptadores
-   - NO duplica datos, solo referencia
-   - Duración: 4 horas
+3. **Create memory bridge (memory-bridge.js)**
+   - Reads from .claude/memory/ (source of truth)
+   - Exposes unified API for adapters
+   - Does NOT duplicate data, only references
+   - Duration: 4 hours
 
-4. **Documentar sistema actual como referencia**
-   - Archivo: .betteragents/CORE-REFERENCE.md
-   - Documenta estructura de .claude/
-   - Guía para crear adaptadores
-   - Duración: 2 horas
+4. **Document current system as reference**
+   - File: .betteragents/CORE-REFERENCE.md
+   - Documents .claude/ structure
+   - Guide for creating adapters
+   - Duration: 2 hours
 
-**Entregables:**
-- ✅ Estructura de adaptadores creada
-- ✅ Detección de plataforma funcional
-- ✅ Puente de memoria operativo
-- ✅ Documentación de referencia completa
+**Deliverables:**
+- ✅ Adapter structure created
+- ✅ Platform detection functional
+- ✅ Memory bridge operational
+- ✅ Reference documentation complete
 
-**Criterios de Éxito:**
-- ✅ Sistema actual de Claude Code funciona EXACTAMENTE igual
-- ✅ Ningún archivo en .claude/ fue modificado
-- ✅ Puente de memoria lee correctamente desde .claude/memory/
-- ✅ Detección identifica correctamente Claude Code
-
----
-
-### Fase 2: Traductor Kiro (Semana 2) 🔴 CRÍTICO
-
-**Objetivo:** Crear traductor que lee .claude/ y genera .kiro/
-
-#### Tareas:
-1. **Implementar traductor Claude → Kiro (agentes)**
-   - Archivo: .betteragents/adapters/kiro/translator.js
-   - Lee .claude/agents/*.md
-   - Genera .kiro/agents/*.md en formato Kiro
-   - Duración: 8 horas
-
-2. **Implementar traductor Claude → Kiro (skills)**
-   - Lee .claude/commands/*.md
-   - Genera .kiro/skills/*.md en formato Kiro
-   - Duración: 6 horas
-
-3. **Implementar traductor Claude → Kiro (memoria)**
-   - Lee .claude/memory/*.json
-   - Genera .kiro/steering/*.md en formato Kiro
-   - Duración: 4 horas
-
-4. **Crear KIRO.md desde CLAUDE.md**
-   - Parser inteligente de CLAUDE.md
-   - Adapta sintaxis a Kiro
-   - Mantiene lógica de orchestración
-   - Duración: 8 horas
-
-5. **Implementar validador de traducción**
-   - Archivo: .betteragents/adapters/kiro/validator.js
-   - Verifica que traducción es correcta
-   - Duración: 4 horas
-
-**Entregables:**
-- ✅ Traductor de agentes funcional
-- ✅ Traductor de skills funcional
-- ✅ Traductor de memoria funcional
-- ✅ KIRO.md generado y funcional
-- ✅ Validador operativo
-
-**Criterios de Éxito:**
-- ✅ .kiro/ se genera completamente desde .claude/
-- ✅ Agentes traducidos mantienen funcionalidad
-- ✅ Skills traducidos son ejecutables
-- ✅ KIRO.md funciona como orchestrator
-- ✅ Sistema Claude Code NO fue modificado
+**Success Criteria:**
+- ✅ Current Claude Code system works EXACTLY the same
+- ✅ No file in .claude/ was modified
+- ✅ Memory bridge reads correctly from .claude/memory/
+- ✅ Detection correctly identifies Claude Code
 
 ---
 
-### Fase 3: Sincronización (Semana 3) 🟡 IMPORTANTE
+### Phase 2: Kiro Translator (Week 2) 🔴 CRITICAL
 
-**Objetivo:** Detectar y aplicar cambios entre plataformas
+**Goal:** Create translator that reads .claude/ and generates .kiro/
 
-#### Tareas:
-1. **Implementar sistema de changelog**
-   - Archivo: .betteragents/sync/changelog.json
-   - Formato de cambios definido
-   - Duración: 4 horas
+#### Tasks:
+1. **Implement Claude → Kiro translator (agents)**
+   - File: .betteragents/adapters/kiro/translator.js
+   - Reads .claude/agents/*.md
+   - Generates .kiro/agents/*.md in Kiro format
+   - Duration: 8 hours
 
-2. **Crear motor de sincronización**
-   - Archivo: .betteragents/sync/sync-engine.js
-   - Detectar cambios pendientes
-   - Duración: 8 horas
+2. **Implement Claude → Kiro translator (skills)**
+   - Reads .claude/commands/*.md
+   - Generates .kiro/skills/*.md in Kiro format
+   - Duration: 6 hours
 
-3. **Implementar aplicación de cambios**
-   - Modos: automático, manual, selectivo
-   - Backup antes de aplicar
-   - Duración: 6 horas
+3. **Implement Claude → Kiro translator (memory)**
+   - Reads .claude/memory/*.json
+   - Generates .kiro/steering/*.md in Kiro format
+   - Duration: 4 hours
 
-4. **Crear sistema de rollback**
-   - Revertir cambios aplicados
-   - Restaurar desde backup
-   - Duración: 4 horas
+4. **Create KIRO.md from CLAUDE.md**
+   - Smart CLAUDE.md parser
+   - Adapts syntax to Kiro
+   - Preserves orchestration logic
+   - Duration: 8 hours
 
-5. **Implementar hooks de sincronización**
-   - Hook al iniciar proyecto
-   - Hook al cerrar proyecto
-   - Duración: 3 horas
+5. **Implement translation validator**
+   - File: .betteragents/adapters/kiro/validator.js
+   - Verifies translation is correct
+   - Duration: 4 hours
 
-**Entregables:**
-- ✅ Sistema de changelog funcional
-- ✅ Motor de sincronización operativo
-- ✅ Aplicación de cambios implementada
-- ✅ Rollback funcional
-- ✅ Hooks configurados
+**Deliverables:**
+- ✅ Agent translator functional
+- ✅ Skills translator functional
+- ✅ Memory translator functional
+- ✅ KIRO.md generated and functional
+- ✅ Validator operational
 
-**Criterios de Éxito:**
-- Cambios detectados automáticamente
-- Usuario puede revisar antes de aplicar
-- Rollback funciona correctamente
-- No hay pérdida de datos
-
----
-
-### Fase 4: Traductor Inverso (Semana 4) 🔴 CRÍTICO
-
-**Objetivo:** Sincronizar cambios de Kiro de vuelta a Claude
-
-#### Tareas:
-1. **Implementar traductor Kiro → Claude (agentes)**
-   - Archivo: .betteragents/adapters/kiro/reverse-translator.js
-   - Lee .kiro/agents/*.md
-   - Actualiza .claude/agents/*.md
-   - Duración: 8 horas
-
-2. **Implementar traductor Kiro → Claude (skills)**
-   - Lee .kiro/skills/*.md
-   - Actualiza .claude/commands/*.md
-   - Duración: 6 horas
-
-3. **Implementar traductor Kiro → Claude (memoria)**
-   - Lee .kiro/steering/*.md
-   - Actualiza .claude/memory/*.json
-   - Duración: 4 horas
-
-4. **Configurar hooks de sincronización**
-   - Hook al iniciar: genera .kiro/ desde .claude/
-   - Hook al cerrar: actualiza .claude/ desde .kiro/
-   - Duración: 4 horas
-
-5. **Sistema de detección de cambios**
-   - Detecta qué archivos cambiaron en .kiro/
-   - Solo traduce lo modificado
-   - Duración: 4 horas
-
-6. **Tests de integración bidireccional**
-   - Probar Claude → Kiro → Claude
-   - Validar que no hay pérdida de datos
-   - Duración: 4 horas
-
-**Entregables:**
-- ✅ Traductor inverso funcional
-- ✅ Hooks de sincronización configurados
-- ✅ Detección de cambios operativa
-- ✅ Tests bidireccionales pasando
-
-**Criterios de Éxito:**
-- ✅ Cambios en Kiro se reflejan en .claude/
-- ✅ Cambios en Claude se reflejan en .kiro/
-- ✅ No hay pérdida de datos en ninguna dirección
-- ✅ Sistema Claude sigue siendo la fuente de verdad
+**Success Criteria:**
+- ✅ .kiro/ generated completely from .claude/
+- ✅ Translated agents retain functionality
+- ✅ Translated skills are executable
+- ✅ KIRO.md works as orchestrator
+- ✅ Claude Code system was NOT modified
 
 ---
 
-### Fase 5: Template y Extensibilidad (Semana 5) 🟢 OPCIONAL
+### Phase 3: Synchronization (Week 3) 🟡 IMPORTANT
 
-**Objetivo:** Facilitar agregar nuevas plataformas usando el sistema Claude como base
+**Goal:** Detect and apply changes between platforms
 
-#### Tareas:
-1. **Crear template de adaptador**
-   - Directorio: .betteragents/adapters/template/
-   - Archivos: translator-template.js, reverse-translator-template.js
-   - Comentarios explicando cada función
-   - Duración: 4 horas
+#### Tasks:
+1. **Implement changelog system**
+   - File: .betteragents/sync/changelog.json
+   - Defined change format
+   - Duration: 4 hours
 
-2. **Documentar proceso de creación de adaptadores**
-   - Guía: "Cómo crear un adaptador en 8 horas"
-   - Explica cómo leer .claude/ y generar formato destino
-   - Ejemplos de código
-   - Duración: 4 horas
+2. **Create sync engine**
+   - File: .betteragents/sync/sync-engine.js
+   - Detect pending changes
+   - Duration: 8 hours
 
-3. **Crear adaptador de ejemplo: Cursor**
-   - Implementar traductor Claude → Cursor
-   - Implementar traductor Cursor → Claude
-   - Demostrar que el proceso es replicable
-   - Duración: 8 horas
+3. **Implement change application**
+   - Modes: automatic, manual, selective
+   - Backup before applying
+   - Duration: 6 hours
 
-4. **Sistema de registro de adaptadores**
-   - Archivo: .betteragents/adapters/registry.json
-   - Lista de adaptadores disponibles
-   - Carga dinámica según plataforma detectada
-   - Duración: 4 horas
+4. **Create rollback system**
+   - Revert applied changes
+   - Restore from backup
+   - Duration: 4 hours
 
-**Entregables:**
-- ✅ Template de adaptador completo
-- ✅ Documentación clara y detallada
-- ✅ Adaptador Cursor funcional como ejemplo
-- ✅ Sistema de registro operativo
+5. **Implement sync hooks**
+   - Hook on project open
+   - Hook on project close
+   - Duration: 3 hours
 
-**Criterios de Éxito:**
-- ✅ Nueva plataforma se puede agregar en < 8 horas
-- ✅ Documentación permite crear adaptador sin ayuda
-- ✅ Adaptador Cursor funciona correctamente
-- ✅ Sistema Claude permanece intacto
+**Deliverables:**
+- ✅ Changelog system functional
+- ✅ Sync engine operational
+- ✅ Change application implemented
+- ✅ Rollback functional
+- ✅ Hooks configured
 
----
-
-## 🎯 Métricas de Éxito
-
-### Técnicas
-- ✅ Tasa de sincronización exitosa: > 99%
-- ✅ Tiempo de detección de cambios: < 200ms
-- ✅ Tiempo de aplicación de cambios: < 2s por componente
-- ✅ Cobertura de tests: > 85%
-
-### Operacionales
-- ✅ Tiempo para agregar nueva plataforma: < 8 horas
-- ✅ Satisfacción del usuario: > 4.5/5
-- ✅ Bugs críticos: 0
-- ✅ Pérdida de datos: 0
-
-### Funcionales
-- ✅ Proyecto funciona en Claude Code: SÍ
-- ✅ Proyecto funciona en Kiro: SÍ
-- ✅ Sincronización bidireccional: SÍ
-- ✅ Memoria unificada: SÍ
-- ✅ Rollback funcional: SÍ
+**Success Criteria:**
+- Changes detected automatically
+- User can review before applying
+- Rollback works correctly
+- No data loss
 
 ---
 
-## ⚠️ Riesgos y Mitigaciones
+### Phase 4: Reverse Translator (Week 4) 🔴 CRITICAL
 
-### Riesgo 1: Incompatibilidades entre formatos
-**Probabilidad:** Alta  
-**Impacto:** Alto  
-**Mitigación:**
-- Validación exhaustiva en traductores
-- Tests de integración completos
-- Versionado de formatos
+**Goal:** Sync changes from Kiro back to Claude
 
-### Riesgo 2: Pérdida de datos durante sincronización
-**Probabilidad:** Media  
-**Impacto:** Crítico  
-**Mitigación:**
-- Backups automáticos antes de cada cambio
-- Transacciones atómicas
-- Sistema de rollback robusto
+#### Tasks:
+1. **Implement Kiro → Claude translator (agents)**
+   - File: .betteragents/adapters/kiro/reverse-translator.js
+   - Reads .kiro/agents/*.md
+   - Updates .claude/agents/*.md
+   - Duration: 8 hours
 
-### Riesgo 3: Performance degradada
-**Probabilidad:** Media  
-**Impacto:** Medio  
-**Mitigación:**
-- Sincronización incremental
-- Caché de traducciones
-- Lazy loading de componentes
+2. **Implement Kiro → Claude translator (skills)**
+   - Reads .kiro/skills/*.md
+   - Updates .claude/commands/*.md
+   - Duration: 6 hours
 
-### Riesgo 4: Usuario confundido
-**Probabilidad:** Alta  
-**Impacto:** Medio  
-**Mitigación:**
-- UI clara y descriptiva
-- Mensajes de ayuda contextuales
-- Documentación completa
+3. **Implement Kiro → Claude translator (memory)**
+   - Reads .kiro/steering/*.md
+   - Updates .claude/memory/*.json
+   - Duration: 4 hours
 
-### Riesgo 5: Conflictos de merge
-**Probabilidad:** Media  
-**Impacto:** Alto  
-**Mitigación:**
-- Estrategia de resolución de conflictos
-- Timestamps para determinar versión más reciente
-- Opción de merge manual
+4. **Configure sync hooks**
+   - Hook on start: generates .kiro/ from .claude/
+   - Hook on close: updates .claude/ from .kiro/
+   - Duration: 4 hours
 
----
+5. **Change detection system**
+   - Detects which files changed in .kiro/
+   - Only translates modified files
+   - Duration: 4 hours
 
-## 📊 Estimación de Esfuerzo
+6. **Bidirectional integration tests**
+   - Test Claude → Kiro → Claude
+   - Validate no data loss
+   - Duration: 4 hours
 
-| Fase | Duración | Complejidad | Prioridad |
-|------|----------|-------------|-----------|
-| Fase 1: Fundamentos | 15 horas | Media | 🔴 Alta |
-| Fase 2: Traducción | 28 horas | Alta | 🔴 Alta |
-| Fase 3: Sincronización | 25 horas | Alta | 🟡 Media |
-| Fase 4: Integración Kiro | 30 horas | Alta | 🔴 Alta |
-| Fase 5: Extensibilidad | 20 horas | Media | 🟢 Baja |
-| **TOTAL** | **118 horas** | **~3 semanas** | - |
+**Deliverables:**
+- ✅ Reverse translator functional
+- ✅ Sync hooks configured
+- ✅ Change detection operational
+- ✅ Bidirectional tests passing
 
-**Nota:** Estimación para 1 desarrollador a tiempo completo (40h/semana)
+**Success Criteria:**
+- ✅ Kiro changes reflected in .claude/
+- ✅ Claude changes reflected in .kiro/
+- ✅ No data loss in either direction
+- ✅ Claude system remains source of truth
 
 ---
 
-## 🚀 Próximos Pasos Inmediatos
+### Phase 5: Template and Extensibility (Week 5) 🟢 OPTIONAL
 
-### Esta Semana (Fase 1)
-1. ✅ Crear este blueprint
-2. ⏳ Crear estructura `.betteragents/`
-3. ⏳ Implementar detección de plataforma
-4. ⏳ Migrar memoria actual a formato unificado
+**Goal:** Make it easy to add new platforms using the Claude system as base
 
-### Próxima Semana (Fase 2)
-1. ⏳ Convertir agentes a formato agnóstico
-2. ⏳ Implementar traductores Claude Code
-3. ⏳ Convertir skills a formato agnóstico
+#### Tasks:
+1. **Create adapter template**
+   - Directory: .betteragents/adapters/template/
+   - Files: translator-template.js, reverse-translator-template.js
+   - Comments explaining each function
+   - Duration: 4 hours
 
-### Semana 3 (Fase 3)
-1. ⏳ Implementar sistema de changelog
-2. ⏳ Crear motor de sincronización
+2. **Document adapter creation process**
+   - Guide: "How to create an adapter in 8 hours"
+   - Explains how to read .claude/ and generate target format
+   - Code examples
+   - Duration: 4 hours
+
+3. **Create example adapter: Cursor**
+   - Implement Claude → Cursor translator
+   - Implement Cursor → Claude translator
+   - Demonstrate the process is replicable
+   - Duration: 8 hours
+
+4. **Adapter registry system**
+   - File: .betteragents/adapters/registry.json
+   - List of available adapters
+   - Dynamic loading based on detected platform
+   - Duration: 4 hours
+
+**Deliverables:**
+- ✅ Complete adapter template
+- ✅ Clear and detailed documentation
+- ✅ Functional Cursor adapter as example
+- ✅ Registry system operational
+
+**Success Criteria:**
+- ✅ New platform can be added in < 8 hours
+- ✅ Documentation allows creating adapter without help
+- ✅ Cursor adapter works correctly
+- ✅ Claude system remains intact
 
 ---
 
-## 📚 Referencias
+## 🎯 Success Metrics
 
-- Spec completo: `.kiro/specs/multi-platform-integration/requirements.md`
-- Sistema actual: `.claude/memory/MEMORY.md`
-- Configuración: `config/betteragents.json`
-- Documentación: `docs/`
+### Technical
+- ✅ Successful sync rate: > 99%
+- ✅ Change detection time: < 200ms
+- ✅ Change application time: < 2s per component
+- ✅ Test coverage: > 85%
+
+### Operational
+- ✅ Time to add new platform: < 8 hours
+- ✅ User satisfaction: > 4.5/5
+- ✅ Critical bugs: 0
+- ✅ Data loss: 0
+
+### Functional
+- ✅ Project works in Claude Code: YES
+- ✅ Project works in Kiro: YES
+- ✅ Bidirectional sync: YES
+- ✅ Unified memory: YES
+- ✅ Rollback functional: YES
 
 ---
 
-**Última actualización:** 2026-03-02  
-**Autor:** BetterAgents Team  
-**Versión:** 1.0.0
+## ⚠️ Risks and Mitigations
+
+### Risk 1: Format incompatibilities
+**Probability:** High
+**Impact:** High
+**Mitigation:**
+- Exhaustive validation in translators
+- Complete integration tests
+- Format versioning
+
+### Risk 2: Data loss during sync
+**Probability:** Medium
+**Impact:** Critical
+**Mitigation:**
+- Automatic backups before each change
+- Atomic transactions
+- Robust rollback system
+
+### Risk 3: Performance degradation
+**Probability:** Medium
+**Impact:** Medium
+**Mitigation:**
+- Incremental synchronization
+- Translation cache
+- Lazy loading of components
+
+### Risk 4: User confusion
+**Probability:** High
+**Impact:** Medium
+**Mitigation:**
+- Clear and descriptive UI
+- Contextual help messages
+- Complete documentation
+
+### Risk 5: Merge conflicts
+**Probability:** Medium
+**Impact:** High
+**Mitigation:**
+- Conflict resolution strategy
+- Timestamps to determine most recent version
+- Manual merge option
+
+---
+
+## 📊 Effort Estimation
+
+| Phase | Duration | Complexity | Priority |
+|-------|----------|------------|----------|
+| Phase 1: Foundations | 15 hours | Medium | 🔴 High |
+| Phase 2: Translation | 28 hours | High | 🔴 High |
+| Phase 3: Sync | 25 hours | High | 🟡 Medium |
+| Phase 4: Kiro Integration | 30 hours | High | 🔴 High |
+| Phase 5: Extensibility | 20 hours | Medium | 🟢 Low |
+| **TOTAL** | **118 hours** | **~3 weeks** | - |
+
+**Note:** Estimate for 1 full-time developer (40h/week)
+
+---
+
+## 🚀 Immediate Next Steps
+
+### This Week (Phase 1)
+1. ✅ Create this blueprint
+2. ⏳ Create `.betteragents/` structure
+3. ⏳ Implement platform detection
+4. ⏳ Migrate current memory to unified format
+
+### Next Week (Phase 2)
+1. ⏳ Convert agents to agnostic format
+2. ⏳ Implement Claude Code translators
+3. ⏳ Convert skills to agnostic format
+
+### Week 3 (Phase 3)
+1. ⏳ Implement changelog system
+2. ⏳ Create sync engine
+
+---
+
+## 📚 References
+
+- Full spec: `.kiro/specs/multi-platform-integration/requirements.md`
+- Current system: `.claude/memory/MEMORY.md`
+- Configuration: `config/betteragents.json`
+- Documentation: `docs/`
+
+---
+
+**Last updated:** 2026-03-02
+**Author:** BetterAgents Team
+**Version:** 1.0.0

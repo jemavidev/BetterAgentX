@@ -56,7 +56,7 @@ const TEMPLATES_DIR = process.env.TEMPLATES_DIR || path.join(__dirname, '..', '.
 
 /**
  * Return an ISO-8601 datetime string from the first line of session-last.md.
- * Expected first line format: "# Última sesión — YYYY-MM-DD HH:MM"
+ * Expected first line format: "# Last session — YYYY-MM-DD HH:MM"
  */
 function readLastActive(projectMemoryPath) {
   try {

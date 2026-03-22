@@ -90,7 +90,9 @@
       "Bash(cp /home/stk/Documents/GIT/BetterAgents-K/.claude/scripts/serve-dashboard.js /home/stk/Documents/GIT/BetterAgents-K/installer/.claude/scripts/serve-dashboard.js)",
       "Bash(cp /home/stk/Documents/GIT/BetterAgents-K/.claude/scripts/generate-central-compose.sh /home/stk/Documents/GIT/BetterAgents-K/installer/.claude/scripts/generate-central-compose.sh)",
       "Bash(cp /home/stk/Documents/GIT/BetterAgents-K/.claude/scripts/generate-central-compose.sh /home/stk/Documents/GIT/BetterAgents-K/installer/platforms/claude/templates/.claude/scripts/generate-central-compose.sh)",
-      "Bash(cp /home/stk/Documents/GIT/BetterAgents-K/.claude/scripts/generate-central-compose.sh /home/stk/Documents/GIT/BetterAgents-K/installer/core/templates/.betteragents/scripts/generate-central-compose.sh)"
+      "Bash(cp /home/stk/Documents/GIT/BetterAgents-K/.claude/scripts/generate-central-compose.sh /home/stk/Documents/GIT/BetterAgents-K/installer/core/templates/.betteragents/scripts/generate-central-compose.sh)",
+      "Bash(docker exec:*)",
+      "Bash(/dev/null __NEW_LINE_1e55d39928f8a9aa__ echo echo '4. project-agent-creator.md Spanish examples:' grep -n \"Agrega\\\\|Necesito\\\\|análisis de competidores\\\\|legales de immigration\" /home/stk/Documents/GIT/BetterAgents-K/.claude/commands/project-agent-creator.md)"
     ],
     "additionalDirectories": [
       "/tmp",

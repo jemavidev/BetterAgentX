@@ -38,24 +38,24 @@ RECENT_FILES=$(cd "$PROJECT_ROOT" && {
 RECENT_COMMIT=$(cd "$PROJECT_ROOT" && git log --oneline -1 2>/dev/null || echo "(no commits)")
 
 cat > "$SESSION_LAST" <<EOF
-# Última sesión — $SESSION_DATE
+# Last session — $SESSION_DATE
 
-## Archivos modificados
+## Modified files
 $RECENT_FILES
 
-## Último commit
+## Last commit
 $RECENT_COMMIT
 
-## Tokens input estimados (char-count ±20%)
-$INPUT_TOKENS tokens de entrada esta sesión
+## Estimated input tokens (char-count ±20%)
+$INPUT_TOKENS tokens this session
 
-## Estado al finalizar
-- Fase actual: ver active-context.json → currentFocus
-- Próximos pasos: ver progress.json → pending tasks
-- Preferencias: ver workflow-prefs.md
+## State at close
+- Current phase: see active-context.json → currentFocus
+- Next steps: see progress.json → pending tasks
+- Preferences: see workflow-prefs.md
 
-## Para continuar
-Leer este archivo + MEMORY.md al inicio de sesión.
+## To resume
+Read this file + MEMORY.md at session start.
 EOF
 
 # ── Ordered pipeline (each step feeds into the next) ──────────────────────────
@@ -101,17 +101,28 @@ if [ -f "$SCRIPT_DIR/update-dashboard.sh" ]; then
     bash "$SCRIPT_DIR/update-dashboard.sh" 2>/dev/null &
 fi
 
-# ── Memory Debt Check: warn if semantic memory is still empty ─────────────────
+# ── Memory Debt Check: warn if no memory was written this session ──────────────
 DEBT_FILE="$MEMORY_DIR/.memory-debt.md"
 TASK_COUNT=$(jq '.tasks | length' "$MEMORY_DIR/progress.json" 2>/dev/null || echo 0)
 DECISION_COUNT=$(jq '.decisions | length' "$MEMORY_DIR/decision-log.json" 2>/dev/null || echo 0)
 PATTERN_COUNT=$(jq '.patterns | length' "$MEMORY_DIR/patterns.json" 2>/dev/null || echo 0)
-GIT_CHANGES=$(cd "$PROJECT_ROOT" && git diff --name-only HEAD 2>/dev/null | wc -l || echo 0)
+# Exclude memory files from change count to avoid false positives from memory writes
+GIT_CHANGES=$(cd "$PROJECT_ROOT" && git diff --name-only HEAD 2>/dev/null \
+    | grep -v '\.claude/memory/' | grep -v '\.betteragents/memory/' | wc -l || echo 0)
 
-if [ "$GIT_CHANGES" -gt 3 ] && [ "$TASK_COUNT" -eq 0 ] && [ "$DECISION_COUNT" -eq 0 ]; then
+# Measure growth vs session start baseline (not absolute zero)
+# Baseline written by on-user-prompt.sh at first prompt of the session
+SESSION_BASELINE=$(cat "$MEMORY_DIR/.session-memory-baseline" 2>/dev/null || echo 0)
+SESSION_MEMORY_GROWTH=$(( TASK_COUNT + DECISION_COUNT - SESSION_BASELINE ))
+NEW_ENTRIES=$(( SESSION_MEMORY_GROWTH < 0 ? 0 : SESSION_MEMORY_GROWTH ))
+
+# Clean up session temp files regardless of outcome
+rm -f "$MEMORY_DIR/.session-memory-baseline" "$MEMORY_DIR/.session-prompt-count"
+
+if [ "$GIT_CHANGES" -gt 3 ] && [ "$SESSION_MEMORY_GROWTH" -le 0 ]; then
     cat > "$DEBT_FILE" <<DEBT
 ⚠️ MEMORY DEBT DETECTED from session $(date '+%Y-%m-%d %H:%M')
-Files changed: $GIT_CHANGES | Tasks logged: $TASK_COUNT | Decisions: $DECISION_COUNT | Patterns: $PATTERN_COUNT
+Files changed: $GIT_CHANGES | New entries this session: $NEW_ENTRIES (total tasks: $TASK_COUNT, decisions: $DECISION_COUNT)
 
 MANDATORY: Before responding to the user, update memory files:
 - Completed work → bash .betteragents/scripts/add-task.sh ...
@@ -128,9 +139,8 @@ DEBT
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ⚠️  MEMORY DEBT — SESSION CANNOT CLOSE
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Files changed this session : $GIT_CHANGES
-Tasks logged               : $TASK_COUNT
-Decisions logged           : $DECISION_COUNT
+Files changed this session  : $GIT_CHANGES
+New memory entries (session): $NEW_ENTRIES  (total tasks: $TASK_COUNT, decisions: $DECISION_COUNT)
 
 AgentX: You MUST log this session's work before closing.
 Run the Memory Self-Assessment Gate (Protocol §5b) NOW:

@@ -1,38 +1,38 @@
 # Troubleshooting: verify-system.sh
 
-Guía para diagnosticar y solucionar errores en el script de verificación del sistema.
+Guide to diagnosing and fixing errors in the system verification script.
 
-## Uso del Modo Debug
+## Debug Mode
 
-Para obtener información detallada sobre qué está verificando el script:
+For detailed information on what the script is checking:
 
 ```bash
 bash scripts/verify-system.sh --debug
 ```
 
-Esto mostrará:
-- Rutas exactas que se están verificando
-- Archivos encontrados en cada directorio
-- Valores de variables durante la ejecución
-- Comandos ejecutados internamente
+This will show:
+- Exact paths being verified
+- Files found in each directory
+- Variable values during execution
+- Commands executed internally
 
-## Errores Comunes
+## Common Errors
 
 ### 1. "Not found config/betteragents.json"
 
-**Causa:** El script no se está ejecutando desde el directorio correcto.
+**Cause:** The script is not being run from the correct directory.
 
-**Solución:**
+**Solution:**
 ```bash
-# Asegúrate de estar en el directorio raíz del proyecto
-cd /ruta/a/BetterAgents
+# Make sure you are in the root directory of the project
+cd /path/to/BetterAgents
 bash scripts/verify-system.sh
 ```
 
 **Debug:**
 ```bash
 bash scripts/verify-system.sh --debug
-# Verifica las líneas:
+# Check the lines:
 # [DEBUG] Script directory: ...
 # [DEBUG] Project root: ...
 ```
@@ -41,14 +41,14 @@ bash scripts/verify-system.sh --debug
 
 ### 2. "Only X agents (expected 13)"
 
-**Causa:** Faltan archivos de agentes o hay archivos extra.
+**Cause:** Agent files are missing or there are extra files.
 
-**Solución:**
+**Solution:**
 ```bash
-# Verifica qué agentes existen
+# Check which agents exist
 ls -1 .claude/agents/*.md
 
-# Deberías ver 12 archivos:
+# You should see 12 files:
 # - architect.md
 # - coder.md
 # - critic.md
@@ -61,7 +61,7 @@ ls -1 .claude/agents/*.md
 # - tester.md
 # - ux-designer.md
 # - writer.md
-# (AgentX vive en CLAUDE.md, no en .claude/agents/)
+# (AgentX lives in CLAUDE.md, not in .claude/agents/)
 ```
 
 **Debug:**
@@ -71,16 +71,16 @@ bash scripts/verify-system.sh --debug 2>&1 | grep "Found.*agent files"
 
 ---
 
-### 3. "AgentX no responde correctamente"
+### 3. "AgentX not responding correctly"
 
-**Causa:** `CLAUDE.md` incompleto o ausente del root del proyecto.
+**Cause:** `CLAUDE.md` is incomplete or missing from the project root.
 
-**Solución:**
+**Solution:**
 ```bash
-# Verifica que CLAUDE.md existe y tiene el header de AgentX
+# Verify that CLAUDE.md exists and has the AgentX header
 grep "AgentX" CLAUDE.md | head -3
 
-# Si falta, reinstalar:
+# If missing, reinstall:
 bash installer/install.sh
 ```
 
@@ -91,23 +91,23 @@ bash scripts/verify-system.sh --debug 2>&1 | grep -A 5 "CLAUDE.md"
 
 ---
 
-### 4. "[agent]: Faltan secciones"
+### 4. "[agent]: Missing sections"
 
-**Causa:** Un agente especializado no tiene las secciones `## Role` y `## Expertise`.
+**Cause:** A specialized agent does not have the `## Role` and `## Expertise` sections.
 
-**Solución:**
+**Solution:**
 ```bash
-# Verifica la estructura del agente
+# Verify the agent's structure
 grep "^##" .claude/agents/[agent].md | head -5
 ```
 
-**Estructura esperada:**
+**Expected structure:**
 ```markdown
 ## Role
-...descripción del rol...
+...role description...
 
 ## Expertise
-...áreas de expertise...
+...areas of expertise...
 ```
 
 **Debug:**
@@ -117,25 +117,25 @@ bash scripts/verify-system.sh --debug 2>&1 | grep -A 3 "Checking agent: [agent]"
 
 ---
 
-### 5. "Sistema de memoria: X archivos JSON encontrados"
+### 5. "Memory system: X JSON files found"
 
-**Causa:** No se encuentran exactamente 4 archivos JSON en `.claude/memory/`.
+**Cause:** Exactly 4 JSON files are not found in `.claude/memory/`.
 
-**Solución:**
+**Solution:**
 ```bash
-# Verifica qué archivos JSON existen
+# Check which JSON files exist
 ls -1 .claude/memory/*.json
 
-# Deberías tener:
+# You should have:
 # - active-context.json
 # - decision-log.json
 # - patterns.json
 # - progress.json
 ```
 
-**Si faltan archivos:**
+**If files are missing:**
 ```bash
-# Copia los templates
+# Copy the templates
 cp templates/memory/*.json .claude/memory/
 ```
 
@@ -148,14 +148,14 @@ bash scripts/verify-system.sh --debug 2>&1 | grep -A 10 "Memory JSON files"
 
 ### 6. "Skills folder not found"
 
-**Causa:** No existe el directorio `.claude/skills/`.
+**Cause:** The `.claude/skills/` directory does not exist.
 
-**Solución:**
+**Solution:**
 ```bash
-# Verifica si existe
+# Check if it exists
 ls -la .claude/skills/
 
-# Si no existe, créalo
+# If it doesn't exist, create it:
 mkdir -p .claude/skills/
 ```
 
@@ -166,155 +166,155 @@ bash scripts/verify-system.sh --debug 2>&1 | grep "skills"
 
 ---
 
-### 7. Errores de sintaxis bash
+### 7. Bash syntax errors
 
-**Síntomas:**
+**Symptoms:**
 ```
 verify-system.sh: line X: syntax error near unexpected token 'Y'
 ```
 
-**Causa:** Error de sintaxis en el script (paréntesis, comillas, o estructuras mal cerradas).
+**Cause:** Syntax error in the script (unclosed parentheses, quotes, or structures).
 
-**Solución:**
+**Solution:**
 ```bash
-# Verifica la sintaxis del script
+# Check the script syntax
 bash -n scripts/verify-system.sh
 
-# Si hay error, revisa la línea indicada
-sed -n 'X,Xp' scripts/verify-system.sh  # donde X es el número de línea
+# If there is an error, check the indicated line
+sed -n 'X,Xp' scripts/verify-system.sh  # where X is the line number
 ```
 
-**Errores comunes:**
-- `fi` sin `if` correspondiente
-- `done` sin `for`/`while` correspondiente
-- Comillas sin cerrar
-- Paréntesis desbalanceados
+**Common errors:**
+- `fi` without corresponding `if`
+- `done` without corresponding `for`/`while`
+- Unclosed quotes
+- Unbalanced parentheses
 
 ---
 
 ### 8. "command not found: grep/find/ls"
 
-**Causa:** Comandos básicos no están en el PATH.
+**Cause:** Basic commands are not in PATH.
 
-**Solución:**
+**Solution:**
 ```bash
-# Verifica tu PATH
+# Check your PATH
 echo $PATH
 
-# Usa rutas absolutas si es necesario
+# Use absolute paths if needed
 /bin/ls -1 .claude/memory/*.json
 ```
 
 ---
 
-## Verificación Manual Paso a Paso
+## Manual Verification Step by Step
 
-Si el script falla completamente, puedes verificar manualmente:
+If the script fails completely, you can verify manually:
 
-### 1. Estructura de directorios
+### 1. Directory structure
 ```bash
-# Verifica que existan los directorios principales
+# Check that the main directories exist
 test -d .claude/steering/agents && echo "✅ Agents" || echo "❌ Agents"
 test -d .claude/memory && echo "✅ Memory" || echo "❌ Memory"
 test -d .claude/skills && echo "✅ Skills" || echo "❌ Skills"
 test -d scripts && echo "✅ Scripts" || echo "❌ Scripts"
 ```
 
-### 2. Archivos de configuración
+### 2. Configuration files
 ```bash
-# Verifica archivos críticos
+# Check critical files
 test -f config/betteragents.json && echo "✅ Config" || echo "❌ Config"
 test -f .gitignore && echo "✅ Gitignore" || echo "❌ Gitignore"
 ```
 
-### 3. Agentes
+### 3. Agents
 ```bash
-# Cuenta agentes
+# Count agents
 ls -1 .claude/agents/*.md 2>/dev/null | wc -l
-# Debería mostrar: 13
+# Should show: 13
 ```
 
-### 4. Memoria
+### 4. Memory
 ```bash
-# Cuenta archivos JSON
+# Count JSON files
 find .claude/memory -maxdepth 1 -name "*.json" -type f | wc -l
-# Debería mostrar: 4
+# Should show: 4
 ```
 
 ### 5. Skills
 ```bash
-# Cuenta skills
+# Count skills
 ls -1 .claude/skills/ 2>/dev/null | wc -l
-# Debería mostrar: 56 (o el número que tengas instalado)
+# Should show: 56 (or however many you have installed)
 ```
 
 ---
 
-## Logs y Diagnóstico Avanzado
+## Logs and Advanced Diagnostics
 
-### Guardar output completo
+### Save complete output
 ```bash
 bash scripts/verify-system.sh --debug > verify-output.log 2>&1
 ```
 
-### Buscar errores específicos
+### Search for specific errors
 ```bash
-# Buscar líneas con ERROR
+# Find lines with ERROR
 grep -i "error" verify-output.log
 
-# Buscar líneas con WARNING
+# Find lines with WARNING
 grep -i "warning" verify-output.log
 
-# Ver solo secciones con problemas
+# Show only sections with issues
 grep -E "❌|⚠️" verify-output.log
 ```
 
-### Verificar permisos
+### Verify permissions
 ```bash
-# Verifica que los scripts sean ejecutables
+# Check that scripts are executable
 ls -la scripts/*.sh
 
-# Si no son ejecutables:
+# If they're not executable:
 chmod +x scripts/*.sh
 ```
 
 ---
 
-## Solución de Problemas por Sección
+## Troubleshooting by Section
 
-### Sección 1: File Structure
-- Verifica `.claude/agents/`
-- Verifica `.claude/memory/`
-- Verifica `.claude/skills/`
+### Section 1: File Structure
+- Check `.claude/agents/`
+- Check `.claude/memory/`
+- Check `.claude/skills/`
 
-### Sección 2: Análisis de Agentes
-- Revisa formato de cada archivo `.md`
-- Verifica headers `## Role` y `## Expertise`
-- Para agentx: verifica `## ROLE DEFINITION`
+### Section 2: Agent Analysis
+- Review format of each `.md` file
+- Check `## Role` and `## Expertise` headers
+- For agentx: check `## ROLE DEFINITION`
 
-### Sección 3: Skills Recomendados
-- Busca comandos `npx skills add` en archivos de agentes
-- Verifica sintaxis correcta (con espacio, no `skillsadd`)
+### Section 3: Recommended Skills
+- Look for `npx skills add` commands in agent files
+- Check correct syntax (with space, not `skillsadd`)
 
-### Sección 4: Skills Instalados
-- Verifica `.claude/skills/` existe
-- Cuenta subdirectorios en `.claude/skills/`
+### Section 4: Installed Skills
+- Check `.claude/skills/` exists
+- Count subdirectories in `.claude/skills/`
 
-### Sección 5-9: Otras verificaciones
-- Usa `--debug` para ver qué está verificando
-- Revisa rutas y archivos específicos mencionados
-
----
-
-## Contacto y Soporte
-
-Si después de seguir esta guía sigues teniendo problemas:
-
-1. Ejecuta: `bash scripts/verify-system.sh --debug > debug.log 2>&1`
-2. Revisa `debug.log` para identificar el problema exacto
-3. Busca el error en esta guía
-4. Si no encuentras solución, reporta el issue con el log completo
+### Sections 5-9: Other verifications
+- Use `--debug` to see what is being checked
+- Review specific paths and files mentioned
 
 ---
 
-**Última actualización:** 2026-02-16
+## Contact and Support
+
+If after following this guide you still have issues:
+
+1. Run: `bash scripts/verify-system.sh --debug > debug.log 2>&1`
+2. Review `debug.log` to identify the exact problem
+3. Look up the error in this guide
+4. If no solution is found, report the issue with the complete log
+
+---
+
+**Last updated:** 2026-02-16

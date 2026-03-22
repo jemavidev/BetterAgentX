@@ -30,7 +30,7 @@ Complete reference for **AgentX** (orchestrator) and all 12 specialized AI agent
 
 ```
 # No prefix needed - goes to AgentX by default
-Necesito diseñar un sistema de autenticación
+I need to design an authentication system
 
 # AgentX will analyze and route appropriately
 ```

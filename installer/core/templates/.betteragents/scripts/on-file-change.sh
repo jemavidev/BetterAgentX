@@ -62,6 +62,10 @@ CATEGORY=$(categorize_file "$CHANGED_FILE")
 BASENAME=$(basename "$CHANGED_FILE")
 RELPATH="${CHANGED_FILE#$PROJECT_ROOT/}"
 
+# Set response-changed flag for memory-self-assessment.sh (Stop hook §5b)
+# Appends relative path — one line per file changed in this response
+echo "$RELPATH" >> "$MEMORY_DIR/.response-changed"
+
 # Build change entry
 CHANGE_ENTRY=$(jq -n \
     --arg ts "$TIMESTAMP" \

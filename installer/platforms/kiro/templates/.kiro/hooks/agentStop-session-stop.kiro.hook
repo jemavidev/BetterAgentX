@@ -1,0 +1,13 @@
+{
+  "enabled": true,
+  "name": "Session Stop Pipeline",
+  "description": "Runs metrics, dashboard update, and session summary after each agent response. Equivalent to Claude Code Stop hook + on-session-stop.sh pipeline.",
+  "version": "1.0.0",
+  "when": {
+    "type": "agentStop"
+  },
+  "then": {
+    "type": "runCommand",
+    "command": "bash .betteragents/scripts/on-session-stop.sh"
+  }
+}

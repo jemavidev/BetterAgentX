@@ -54,7 +54,7 @@ claude .
 AgentX is the intelligent orchestrator. All queries go through AgentX by default:
 
 ```
-Necesito diseñar un sistema de autenticación para mi API
+I need to design an authentication system for my API
 ```
 
 AgentX will:
@@ -113,7 +113,7 @@ Let's build a simple REST API with AgentX orchestrating the workflow:
 ### Step 1: Start with AgentX (No prefix needed!)
 
 ```
-Necesito crear una API REST para autenticación de usuarios con JWT
+I need to create a REST API for user authentication with JWT
 ```
 
 AgentX will analyze and route to Product Manager for requirements.
@@ -322,7 +322,7 @@ docker compose up -d
 1. Check memory files exist in `.claude/memory/`
 2. Run a memory script manually: `bash .claude/scripts/add-task.sh TASK-01 "Test task" pending coder`
 3. Verify hooks are configured: `cat .claude/settings.local.json`
-4. Tell AgentX explicitly: "Documenta esto en memoria"
+4. Tell AgentX explicitly: "Document this in memory"
 
 ### Dashboard Not Loading
 

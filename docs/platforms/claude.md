@@ -178,7 +178,7 @@ After EVERY response where you used Edit/Write/Bash tools, score the work:
 
 ### 0. Session Start
 Read `.claude/memory/MEMORY.md` + `.claude/memory/session-last.md` every session before first response.
-`session-last.md` contiene el resumen de la última sesión — contexto crítico para continuar sin amnesia.
+`session-last.md` contains the last session summary — critical context for continuing without amnesia.
 Read JSON files only when deeper detail is needed.
 
 ### 0.5. Triviality Gate
@@ -200,7 +200,7 @@ LastSession: {1-line summary from session-last.md}
 [/CONTEXT]
 ```
 Sub-agents run in isolated context — they NEVER inherit CLAUDE.md. Injection is mandatory.
-Include `LastSession` line to prevent amnesia across despachos.
+Include `LastSession` line to prevent amnesia across dispatches.
 
 ### 2. Skill Injection (max 3 per dispatch)
 ```bash
@@ -322,9 +322,9 @@ No exceptions for "small" or "obvious" changes. Score → act → show `💾`.
 
 | File | Purpose |
 |------|---------|
-| `MEMORY.md` | Auto-loaded summary (keep <120 lines — índice compacto) |
-| `session-last.md` | Resumen de última sesión — leer siempre al inicio |
-| `workflow-prefs.md` | Preferencias estables del usuario — no cambia por sesión |
+| `MEMORY.md` | Auto-loaded summary (keep <120 lines — compact index) |
+| `session-last.md` | Last session summary — always read at start |
+| `workflow-prefs.md` | Stable user preferences — does not change per session |
 | `active-context.json` | Current project state |
 | `decision-log.json` | Architecture decisions |
 | `progress.json` | Task tracking |

@@ -102,6 +102,7 @@ DIRECTORIES=(
     ".kiro/steering"
     ".kiro/scripts"
     ".kiro/settings"
+    ".kiro/hooks"
 )
 
 for dir in "${DIRECTORIES[@]}"; do
@@ -287,10 +288,39 @@ fi
 echo ""
 
 # ============================================
-# 9. CHECK MEMORY BRIDGE COMPATIBILITY
+# 9. INSTALL HOOKS (Protocol Enforcement)
+# ============================================
+
+print_step "Installing hooks (protocol enforcement)..."
+
+HOOKS_INSTALLED=0
+
+if [[ -d "$PLATFORM_DIR/templates/.kiro/hooks" ]]; then
+    for hook in "$PLATFORM_DIR/templates/.kiro/hooks"/*.hook; do
+        if [[ -f "$hook" ]]; then
+            filename=$(basename "$hook")
+            cp "$hook" ".kiro/hooks/$filename" || die "Failed to install hook: $filename"
+            HOOKS_INSTALLED=$((HOOKS_INSTALLED + 1))
+        fi
+    done
+
+    if [[ $HOOKS_INSTALLED -gt 0 ]]; then
+        print_success "Hooks installed ($HOOKS_INSTALLED hooks: memory gate, session stop)"
+    else
+        print_info "No hooks to install"
+    fi
+else
+    print_warning "Hooks directory not found in templates — skipping"
+fi
+
+echo ""
+
+# ============================================
+# 10. CHECK MEMORY BRIDGE COMPATIBILITY
 # ============================================
 
 print_step "Checking memory bridge compatibility..."
+
 
 # Check if Claude memory system exists
 if [[ -d ".betteragents/memory" ]]; then

@@ -44,7 +44,7 @@ MODE=$(cat .claude/.betteragents-mode 2>/dev/null || echo "development")
 
 ## Example — valid request
 
-**User:** "Agrega un agente CompetitorAnalyst para análisis de competidores de DataLink"
+**User:** "Add a CompetitorAnalyst agent for competitive analysis of DataLink"
 
 **AgentX validates:**
 ```
@@ -59,9 +59,9 @@ MODE=$(cat .claude/.betteragents-mode 2>/dev/null || echo "development")
 | CompetitorAnalyst | researcher | Competitive intelligence for DataLink market |
 ```
 
-## Example — valid request (Spanish)
+## Example — valid request (edge case)
 
-**User:** "Necesito un agente para revisar documentos legales de immigration"
+**User:** "I need an agent to review legal immigration documents"
 
 **AgentX validates and writes:**
 ```

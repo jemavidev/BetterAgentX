@@ -144,11 +144,11 @@ docker compose up -d
 | Tab | Data source |
 |-----|------------|
 | DECISIONS | `decision-log.json` |
-| TAREAS | `progress.json` |
-| PATRONES | `patterns.json` |
-| CONTEXTO | `active-context.json` |
+| TASKS | `progress.json` |
+| PATTERNS | `patterns.json` |
+| CONTEXT | `active-context.json` |
 | TOKENS | `token-accounting.json` |
-| MÉTRICAS | `metrics-analytics.json` |
+| METRICS | `metrics-analytics.json` |
 
 Alerts overlay from `alerts-registry.json` — 4 levels: INFO, WARNING, ERROR, CRITICAL.
 Auto-refresh every 30 seconds.

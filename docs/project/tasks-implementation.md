@@ -1,158 +1,158 @@
-# 📋 Tareas de Implementación: Sistema de Adaptadores Multi-Plataforma
+# 📋 Implementation Tasks: Multi-Platform Adapter System
 
-**Proyecto:** BetterAgents Multi-Platform  
-**Fecha:** 2026-03-02  
-**Estimación Total:** 89 horas (~2.5 semanas)
-
----
-
-## 🎯 Objetivo
-
-Crear adaptadores que permitan usar el sistema BetterAgents (actualmente 100% funcional en Claude Code) en Kiro, manteniendo el sistema Claude como núcleo y fuente de verdad.
-
-**Principio:** `.claude/` NO se modifica. Solo se crean adaptadores.
+**Project:** BetterAgents Multi-Platform
+**Date:** 2026-03-02
+**Total Estimate:** 89 hours (~2.5 weeks)
 
 ---
 
-## 📊 Resumen Ejecutivo
+## 🎯 Objective
 
-| Fase | Tareas | Horas | Prioridad | Descripción |
-|------|--------|-------|-----------|-------------|
-| **Fase 1** | 4 | 9h | 🔴 Alta | Análisis y fundamentos |
-| **Fase 2** | 5 | 30h | 🔴 Alta | Traductor Claude → Kiro |
-| **Fase 3** | 3 | 16h | 🟡 Media | Sincronización |
-| **Fase 4** | 6 | 30h | 🟡 Media | Traductor Kiro → Claude (opcional) |
-| **Fase 5** | 4 | 20h | 🟢 Baja | Extensibilidad (opcional) |
+Create adapters that allow using the BetterAgents system (currently 100% functional in Claude Code) in Kiro, keeping the Claude system as the core and source of truth.
+
+**Principle:** `.claude/` is NOT modified. Only adapters are created.
+
+---
+
+## 📊 Executive Summary
+
+| Phase | Tasks | Hours | Priority | Description |
+|-------|-------|-------|----------|-------------|
+| **Phase 1** | 4 | 9h | 🔴 High | Analysis and foundations |
+| **Phase 2** | 5 | 30h | 🔴 High | Claude → Kiro translator |
+| **Phase 3** | 3 | 16h | 🟡 Medium | Synchronization |
+| **Phase 4** | 6 | 30h | 🟡 Medium | Kiro → Claude translator (optional) |
+| **Phase 5** | 4 | 20h | 🟢 Low | Extensibility (optional) |
 | **TOTAL** | **22** | **89h** | - | - |
 
-**Mínimo viable:** Fases 1-3 = 55 horas  
-**Recomendado:** Fases 1-4 = 85 horas
+**Minimum viable:** Phases 1–3 = 55 hours
+**Recommended:** Phases 1–4 = 85 hours
 
 ---
 
-## 🔴 FASE 1: Análisis y Fundamentos (9 horas)
+## 🔴 PHASE 1: Analysis and Foundations (9 hours)
 
-### ✅ 1.1 Análisis profundo del sistema Claude actual
-**Estimación:** 2 horas  
-**Prioridad:** Alta  
-**Asignado:** Architect + Researcher
+### ✅ 1.1 Deep analysis of the current Claude system
+**Estimate:** 2 hours
+**Priority:** High
+**Assigned:** Architect + Researcher
 
-**Objetivo:** Documentar completamente el sistema Claude Code como referencia para crear adaptadores.
+**Objective:** Fully document the Claude Code system as a reference for creating adapters.
 
-**Tareas específicas:**
+**Specific tasks:**
 
-1. **Analizar agentes** (.claude/agents/*.md)
-   - Formato: frontmatter YAML + markdown
-   - Campos obligatorios: name, description
-   - Secciones: Role, Expertise, Core Principles, Guidelines, Output Format
-   - Identificar patrones comunes entre los 12 agentes
-   - Ejemplo: architect.md tiene 450 líneas, coder.md tiene 380 líneas
+1. **Analyze agents** (.claude/agents/*.md)
+   - Format: YAML frontmatter + markdown
+   - Required fields: name, description
+   - Sections: Role, Expertise, Core Principles, Guidelines, Output Format
+   - Identify common patterns among the 12 agents
+   - Example: architect.md has 450 lines, coder.md has 380 lines
 
-2. **Analizar skills** (.claude/commands/*.md)
-   - Formato: frontmatter YAML + markdown
-   - Campos: description (obligatorio)
-   - Secciones: When to Use, Core Concepts, Patterns, Best Practices, Resources
-   - 76 skills totales
-   - Categorías: architecture (8), implementation (15), testing (6), deployment (4), etc.
-   - Ejemplo: api-design-principles.md tiene 600+ líneas con ejemplos de código
+2. **Analyze skills** (.claude/commands/*.md)
+   - Format: YAML frontmatter + markdown
+   - Fields: description (required)
+   - Sections: When to Use, Core Concepts, Patterns, Best Practices, Resources
+   - 76 skills total
+   - Categories: architecture (8), implementation (15), testing (6), deployment (4), etc.
+   - Example: api-design-principles.md has 600+ lines with code examples
 
-3. **Analizar memoria** (.claude/memory/*.json)
+3. **Analyze memory** (.claude/memory/*.json)
    - `decision-log.json`: {id, title, date, agent, status, tags, context, decision, consequences}
    - `progress.json`: {tasks[], milestones[], summary, timeline, metadata}
    - `patterns.json`: {patterns[], categories, summary, suggestions}
    - `active-context.json`: {project, techStack, currentFocus, nextSteps}
-   - Todos usan ISO-8601 timestamps con timezone
+   - All use ISO-8601 timestamps with timezone
 
-4. **Analizar scripts** (.claude/scripts/*.sh)
-   - `add-task.sh`: 8 parámetros, validaciones, atomic writes con jq
-   - `add-decision.sh`: 6 parámetros, enrich fields después
-   - `add-pattern.sh`: 6 parámetros, auto-genera PAT-NN
-   - `update-context.sh`: múltiples flags, operaciones complejas
-   - Todos usan `/tmp/_mem_*.json && mv` para atomicidad
+4. **Analyze scripts** (.claude/scripts/*.sh)
+   - `add-task.sh`: 8 parameters, validations, atomic writes with jq
+   - `add-decision.sh`: 6 parameters, enrich fields afterwards
+   - `add-pattern.sh`: 6 parameters, auto-generates PAT-NN
+   - `update-context.sh`: multiple flags, complex operations
+   - All use `/tmp/_mem_*.json && mv` for atomicity
 
-5. **Analizar CLAUDE.md** (orchestrator)
-   - 450+ líneas
-   - Secciones: Identity, 4-D Methodology, Agent Ecosystem, Dispatch Rules, Protocols
+5. **Analyze CLAUDE.md** (orchestrator)
+   - 450+ lines
+   - Sections: Identity, 4-D Methodology, Agent Ecosystem, Dispatch Rules, Protocols
    - Memory Context Injection: ~150 tokens max
    - Skill Injection: max 3 skills via detect-skills.sh
    - Memory Writes: 5 mandatory triggers
    - Protocol 5b: autonomous self-assessment gate
 
-**Entregable:** `.betteragents/CORE-REFERENCE.md` (documento de 100+ páginas)
+**Deliverable:** `.betteragents/CORE-REFERENCE.md` (100+ page document)
 
-**Estructura del documento:**
+**Document structure:**
 ```markdown
 # BetterAgents Core System Reference
 
-## 1. Arquitectura General
-## 2. Sistema de Agentes
-### 2.1 Formato de Agentes
-### 2.2 Agentes Disponibles (12)
-### 2.3 Patrones Comunes
-## 3. Sistema de Skills
-### 3.1 Formato de Skills
-### 3.2 Categorías de Skills
-### 3.3 Skills Críticos
-## 4. Sistema de Memoria
-### 4.1 Archivos de Memoria
-### 4.2 Formato de Datos
-### 4.3 Scripts de Escritura
+## 1. General Architecture
+## 2. Agent System
+### 2.1 Agent Format
+### 2.2 Available Agents (12)
+### 2.3 Common Patterns
+## 3. Skills System
+### 3.1 Skills Format
+### 3.2 Skills Categories
+### 3.3 Critical Skills
+## 4. Memory System
+### 4.1 Memory Files
+### 4.2 Data Formats
+### 4.3 Write Scripts
 ## 5. Orchestrator (CLAUDE.md)
-### 5.1 Metodología 4-D
-### 5.2 Protocolos Obligatorios
+### 5.1 4-D Methodology
+### 5.2 Mandatory Protocols
 ### 5.3 Memory Injection
-## 6. Guía para Adaptadores
-### 6.1 Qué traducir
-### 6.2 Qué preservar
-### 6.3 Limitaciones conocidas
+## 6. Adapter Guide
+### 6.1 What to translate
+### 6.2 What to preserve
+### 6.3 Known limitations
 ```
 
 ---
 
-### ✅ 1.2 Crear estructura `.betteragents/`
-**Estimación:** 1 hora  
-**Prioridad:** Alta  
-**Asignado:** Coder
+### ✅ 1.2 Create `.betteragents/` structure
+**Estimate:** 1 hour
+**Priority:** High
+**Assigned:** Coder
 
-**Objetivo:** Crear la estructura de directorios para los adaptadores.
+**Objective:** Create the directory structure for the adapters.
 
-**Comandos:**
+**Commands:**
 ```bash
-# Crear directorios
+# Create directories
 mkdir -p .betteragents/core
 mkdir -p .betteragents/adapters/kiro
 mkdir -p .betteragents/adapters/template
 mkdir -p .betteragents/sync
 mkdir -p .betteragents/backups
 
-# Crear archivos base
+# Create base files
 touch .betteragents/core/README.md
 touch .betteragents/core/reference.json
 touch .betteragents/config.json
 touch .betteragents/sync/changelog.json
 ```
 
-**Archivos a crear:**
+**Files to create:**
 
 1. `.betteragents/core/README.md`
 ```markdown
 # BetterAgents Core
 
-**IMPORTANTE:** El core del sistema ES `.claude/`
+**IMPORTANT:** The system core IS `.claude/`
 
-Este directorio NO contiene una copia del sistema, solo referencias.
+This directory does NOT contain a copy of the system, only references.
 
-## Estructura
+## Structure
 
-- `reference.json`: Apunta a la ubicación del sistema Claude
-- `CORE-REFERENCE.md`: Documentación completa del sistema
+- `reference.json`: Points to the Claude system location
+- `CORE-REFERENCE.md`: Complete system documentation
 
-## Para Desarrolladores de Adaptadores
+## For Adapter Developers
 
-El sistema Claude Code en `.claude/` es la fuente de verdad.
-Los adaptadores LEEN desde `.claude/` y GENERAN archivos para otras plataformas.
+The Claude Code system in `.claude/` is the source of truth.
+Adapters READ from `.claude/` and GENERATE files for other platforms.
 
-NO duplicar datos. NO modificar `.claude/`.
+Do NOT duplicate data. Do NOT modify `.claude/`.
 ```
 
 2. `.betteragents/core/reference.json`
@@ -238,28 +238,28 @@ NO duplicar datos. NO modificar `.claude/`.
 }
 ```
 
-**Entregable:** Estructura de directorios completa con archivos base
+**Deliverable:** Complete directory structure with base files
 
 ---
 
-### ✅ 1.3 Implementar detección de plataforma
-**Estimación:** 2 horas  
-**Prioridad:** Alta  
-**Asignado:** Coder
+### ✅ 1.3 Implement platform detection
+**Estimate:** 2 hours
+**Priority:** High
+**Assigned:** Coder
 
-**Objetivo:** Script que detecta en qué plataforma se está ejecutando.
+**Objective:** Script that detects which platform is running.
 
-**Archivo:** `.betteragents/sync/detect-platform.sh`
+**File:** `.betteragents/sync/detect-platform.sh`
 
 ```bash
 #!/usr/bin/env bash
 # BetterAgents — detect-platform.sh
-# Detecta la plataforma activa
-# Prioridad: ENV > archivos config > detección automática
+# Detects the active platform
+# Priority: ENV > config files > auto-detection
 
 set -e
 
-# 1. Check environment variable (máxima prioridad)
+# 1. Check environment variable (highest priority)
 if [ -n "$BETTERAGENTS_PLATFORM" ]; then
     echo "$BETTERAGENTS_PLATFORM"
     exit 0
@@ -276,7 +276,7 @@ if [ -f "$CONFIG_FILE" ] && command -v jq &>/dev/null; then
 fi
 
 # 3. Auto-detect based on files present
-# Kiro tiene prioridad si ambos existen (usuario está trabajando en Kiro)
+# Kiro takes priority if both exist (user is working in Kiro)
 if [ -d ".kiro" ] && [ -f "KIRO.md" ]; then
     echo "kiro"
     exit 0
@@ -293,12 +293,12 @@ echo "unknown" >&2
 exit 1
 ```
 
-**Archivo:** `.betteragents/sync/platform-info.sh`
+**File:** `.betteragents/sync/platform-info.sh`
 
 ```bash
 #!/usr/bin/env bash
 # BetterAgents — platform-info.sh
-# Muestra información de la plataforma detectada
+# Shows information about the detected platform
 
 set -e
 
@@ -349,50 +349,50 @@ fi
 **Tests:**
 
 ```bash
-# Test 1: Con variable de entorno
+# Test 1: With environment variable
 export BETTERAGENTS_PLATFORM="kiro"
 bash .betteragents/sync/detect-platform.sh
 # Expected: kiro
 
-# Test 2: Sin variable, con .kiro/
+# Test 2: Without variable, with .kiro/
 unset BETTERAGENTS_PLATFORM
 mkdir -p .kiro
 touch KIRO.md
 bash .betteragents/sync/detect-platform.sh
 # Expected: kiro
 
-# Test 3: Sin variable, solo .claude/
+# Test 3: Without variable, only .claude/
 rm -rf .kiro KIRO.md
 bash .betteragents/sync/detect-platform.sh
 # Expected: claude-code
 
-# Test 4: Ambos presentes (prioridad a Kiro)
+# Test 4: Both present (Kiro takes priority)
 mkdir -p .kiro
 touch KIRO.md
 bash .betteragents/sync/detect-platform.sh
 # Expected: kiro
 ```
 
-**Entregable:** Scripts de detección funcionales con tests pasando
+**Deliverable:** Functional detection scripts with tests passing
 
 ---
 
-### ✅ 1.4 Crear puente de memoria (memory-bridge.js)
-**Estimación:** 4 horas  
-**Prioridad:** Alta  
-**Asignado:** Coder
+### ✅ 1.4 Create memory bridge (memory-bridge.js)
+**Estimate:** 4 hours
+**Priority:** High
+**Assigned:** Coder
 
-**Objetivo:** API JavaScript que lee desde `.claude/memory/` y expone datos en formato unificado.
+**Objective:** JavaScript API that reads from `.claude/memory/` and exposes data in a unified format.
 
-**Archivo:** `.betteragents/sync/memory-bridge.js`
+**File:** `.betteragents/sync/memory-bridge.js`
 
 ```javascript
 #!/usr/bin/env node
 /**
  * BetterAgents Memory Bridge
- * 
- * API unificada para leer memoria desde .claude/memory/
- * NO duplica datos, solo lee y expone en formato consistente
+ *
+ * Unified API for reading memory from .claude/memory/
+ * Does NOT duplicate data, only reads and exposes in consistent format
  */
 
 const fs = require('fs').promises;
@@ -402,17 +402,17 @@ class MemoryBridge {
   constructor(corePath = '.claude/memory/') {
     this.corePath = corePath;
     this.cache = new Map();
-    this.cacheTTL = 60000; // 60 segundos
+    this.cacheTTL = 60000; // 60 seconds
   }
 
   /**
-   * Lee decision-log.json con filtros opcionales
+   * Reads decision-log.json with optional filters
    */
   async readDecisions(filter = {}) {
     const data = await this._readJSON('decision-log.json');
     let decisions = data.decisions || [];
 
-    // Aplicar filtros
+    // Apply filters
     if (filter.status) {
       decisions = decisions.filter(d => d.status === filter.status);
     }
@@ -421,7 +421,7 @@ class MemoryBridge {
     }
     if (filter.tags) {
       const tags = Array.isArray(filter.tags) ? filter.tags : [filter.tags];
-      decisions = decisions.filter(d => 
+      decisions = decisions.filter(d =>
         d.tags && tags.some(tag => d.tags.includes(tag))
       );
     }
@@ -433,13 +433,13 @@ class MemoryBridge {
   }
 
   /**
-   * Lee progress.json con filtros opcionales
+   * Reads progress.json with optional filters
    */
   async readTasks(filter = {}) {
     const data = await this._readJSON('progress.json');
     let tasks = data.tasks || [];
 
-    // Aplicar filtros
+    // Apply filters
     if (filter.status) {
       tasks = tasks.filter(t => t.status === filter.status);
     }
@@ -451,7 +451,7 @@ class MemoryBridge {
     }
     if (filter.tags) {
       const tags = Array.isArray(filter.tags) ? filter.tags : [filter.tags];
-      tasks = tasks.filter(t => 
+      tasks = tasks.filter(t =>
         t.tags && tags.some(tag => t.tags.includes(tag))
       );
     }
@@ -460,13 +460,13 @@ class MemoryBridge {
   }
 
   /**
-   * Lee patterns.json con filtros opcionales
+   * Reads patterns.json with optional filters
    */
   async readPatterns(filter = {}) {
     const data = await this._readJSON('patterns.json');
     let patterns = data.patterns || [];
 
-    // Aplicar filtros
+    // Apply filters
     if (filter.category) {
       patterns = patterns.filter(p => p.category === filter.category);
     }
@@ -481,14 +481,14 @@ class MemoryBridge {
   }
 
   /**
-   * Lee active-context.json
+   * Reads active-context.json
    */
   async readContext() {
     return await this._readJSON('active-context.json');
   }
 
   /**
-   * Obtiene resumen completo de memoria
+   * Gets complete memory summary
    */
   async getMemorySummary() {
     const [decisions, tasks, patterns, context] = await Promise.all([
@@ -526,11 +526,11 @@ class MemoryBridge {
   }
 
   /**
-   * Lee archivo JSON con caché opcional
+   * Reads JSON file with optional cache
    */
   async _readJSON(filename, useCache = true) {
     const cacheKey = filename;
-    
+
     // Check cache
     if (useCache && this.cache.has(cacheKey)) {
       const cached = this.cache.get(cacheKey);
@@ -563,7 +563,7 @@ class MemoryBridge {
   }
 
   /**
-   * Agrupa array por campo
+   * Groups array by field
    */
   _groupBy(array, field) {
     return array.reduce((acc, item) => {
@@ -574,7 +574,7 @@ class MemoryBridge {
   }
 
   /**
-   * Invalida caché
+   * Invalidates cache
    */
   clearCache() {
     this.cache.clear();
@@ -703,7 +703,7 @@ async function runTests() {
 runTests().catch(console.error);
 ```
 
-**Uso:**
+**Usage:**
 
 ```bash
 # CLI
@@ -714,36 +714,36 @@ node .betteragents/sync/memory-bridge.js tasks
 # Tests
 node .betteragents/sync/memory-bridge.test.js
 
-# Como módulo
+# As module
 const MemoryBridge = require('./.betteragents/sync/memory-bridge');
 const bridge = new MemoryBridge();
 const decisions = await bridge.readDecisions({ status: 'implemented' });
 ```
 
-**Entregable:** memory-bridge.js funcional con tests pasando
+**Deliverable:** Functional memory-bridge.js with tests passing
 
 ---
 
-## 📊 Estado de Fase 1
+## 📊 Phase 1 Status
 
-| Tarea | Estimación | Estado | Entregable |
-|-------|------------|--------|------------|
-| 1.1 Análisis | 2h | ⏳ Pendiente | CORE-REFERENCE.md |
-| 1.2 Estructura | 1h | ⏳ Pendiente | Directorios + archivos base |
-| 1.3 Detección | 2h | ⏳ Pendiente | detect-platform.sh |
-| 1.4 Puente memoria | 4h | ⏳ Pendiente | memory-bridge.js |
-| **TOTAL FASE 1** | **9h** | **0/4** | **4 entregables** |
-
----
-
-## 🚀 Próximos Pasos
-
-Una vez completada la Fase 1:
-1. Revisar CORE-REFERENCE.md con el equipo
-2. Validar que detect-platform.sh funciona correctamente
-3. Validar que memory-bridge.js lee correctamente desde .claude/
-4. Proceder a Fase 2: Traductor Kiro
+| Task | Estimate | Status | Deliverable |
+|------|----------|--------|-------------|
+| 1.1 Analysis | 2h | ⏳ Pending | CORE-REFERENCE.md |
+| 1.2 Structure | 1h | ⏳ Pending | Directories + base files |
+| 1.3 Detection | 2h | ⏳ Pending | detect-platform.sh |
+| 1.4 Memory bridge | 4h | ⏳ Pending | memory-bridge.js |
+| **PHASE 1 TOTAL** | **9h** | **0/4** | **4 deliverables** |
 
 ---
 
-**Nota:** Este documento contiene solo la Fase 1. Las fases 2-5 están documentadas en `.kiro/specs/multi-platform-integration/tasks.md`
+## 🚀 Next Steps
+
+Once Phase 1 is complete:
+1. Review CORE-REFERENCE.md with the team
+2. Validate that detect-platform.sh works correctly
+3. Validate that memory-bridge.js reads correctly from .claude/
+4. Proceed to Phase 2: Kiro Translator
+
+---
+
+**Note:** This document contains only Phase 1. Phases 2–5 are documented in `.kiro/specs/multi-platform-integration/tasks.md`

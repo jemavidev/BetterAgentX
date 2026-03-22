@@ -1,37 +1,37 @@
-# 🏗️ Plan de Migración a AGENTS.md Universal
+# 🏗️ Migration Plan to Universal AGENTS.md
 
-**Fecha:** 2026-03-02  
-**Arquitecto:** AgentX (debió ser despachado a architect)  
-**Versión:** 4.0.0-proposal  
-**Estado:** Propuesta para revisión
-
----
-
-## 📋 Resumen Ejecutivo
-
-Migrar BetterAgents de archivos específicos por plataforma (CLAUDE.md, KIRO.md) a un estándar universal (AGENTS.md) que funciona en todos los AI IDEs, manteniendo las capacidades avanzadas del sistema.
-
-### Objetivo
-
-**Crear arquitectura híbrida:**
-- `AGENTS.md` → Instrucciones universales (portabilidad)
-- `.betteragents/` → Capacidades avanzadas (memoria, dashboard, hooks)
+**Date:** 2026-03-02
+**Architect:** AgentX (should have been dispatched to architect)
+**Version:** 4.0.0-proposal
+**Status:** Proposal for review
 
 ---
 
-## 🎯 Arquitectura Propuesta
+## 📋 Executive Summary
 
-### Estructura Nueva
+Migrate BetterAgents from platform-specific files (CLAUDE.md, KIRO.md) to a universal standard (AGENTS.md) that works across all AI IDEs, preserving the system's advanced capabilities.
+
+### Objective
+
+**Create a hybrid architecture:**
+- `AGENTS.md` → Universal instructions (portability)
+- `.betteragents/` → Advanced capabilities (memory, dashboard, hooks)
+
+---
+
+## 🎯 Proposed Architecture
+
+### New Structure
 
 ```
-proyecto/
+project/
 ├── AGENTS.md                          # 🆕 Universal orchestrator
 │   ├── Core instructions
 │   ├── Agent-First protocol
 │   ├── Routing rules
 │   └── Reference to advanced features
 │
-├── .betteragents/                     # ✅ Mantener - Capacidades avanzadas
+├── .betteragents/                     # ✅ Keep - Advanced capabilities
 │   ├── core/
 │   │   └── CORE-REFERENCE.md
 │   ├── adapters/
@@ -39,27 +39,27 @@ proyecto/
 │   │   ├── kiro/
 │   │   └── cursor/
 │   ├── sync/
-│   │   ├── agents-md-sync.js         # 🆕 Sincronizar AGENTS.md
+│   │   ├── agents-md-sync.js         # 🆕 Sync AGENTS.md
 │   │   └── ...
 │   └── translators/
 │
-├── .claude/                           # ✅ Mantener - Claude Code específico
-│   ├── agents/                        # 12 agentes
+├── .claude/                           # ✅ Keep - Claude Code specific
+│   ├── agents/                        # 12 agents
 │   ├── commands/                      # 76 skills
-│   ├── memory/                        # Sistema de memoria
-│   ├── scripts/                       # Hooks y automation
+│   ├── memory/                        # Memory system
+│   ├── scripts/                       # Hooks and automation
 │   └── protocols/
 │
-├── .kiro/                             # ✅ Mantener - Kiro específico
+├── .kiro/                             # ✅ Keep - Kiro specific
 │   ├── agents/
 │   ├── skills/
 │   └── steering/
 │
-├── CLAUDE.md                          # ⚠️ Deprecar gradualmente
-└── KIRO.md                            # ⚠️ Deprecar gradualmente
+├── CLAUDE.md                          # ⚠️ Deprecate gradually
+└── KIRO.md                            # ⚠️ Deprecate gradually
 ```
 
-### Flujo de Información
+### Information Flow
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
@@ -90,14 +90,14 @@ adaptations
 
 ---
 
-## 📝 Estructura de AGENTS.md
+## 📝 AGENTS.md Structure
 
-### Contenido Propuesto
+### Proposed Content
 
 ```markdown
 # BetterAgents - Multi-Agent Orchestration System
 
-**Version:** 4.0.0  
+**Version:** 4.0.0
 **Philosophy:** "I am the router, not the executor. I ensure the right expert handles each task."
 
 ---
@@ -275,199 +275,199 @@ For detailed documentation:
 
 ---
 
-**Last Updated:** 2026-03-02  
-**Version:** 4.0.0-proposal  
+**Last Updated:** 2026-03-02
+**Version:** 4.0.0-proposal
 **Standard:** AGENTS.md universal format
 ```
 
 ---
 
-## 🔄 Plan de Migración
+## 🔄 Migration Plan
 
-### Fase 1: Preparación (1-2 horas)
+### Phase 1: Preparation (1-2 hours)
 
-**Objetivo:** Crear AGENTS.md sin romper sistema actual
+**Objective:** Create AGENTS.md without breaking the current system
 
-**Tareas:**
-1. ✅ Crear `AGENTS.md` en raíz del proyecto
-2. ✅ Extraer contenido core de `CLAUDE.md`:
+**Tasks:**
+1. ✅ Create `AGENTS.md` in the project root
+2. ✅ Extract core content from `CLAUDE.md`:
    - Identity & philosophy
    - 4-D methodology
    - Agent ecosystem
    - Dispatch rules (Agent-First)
-   - Protocols (resumen)
-3. ✅ Agregar referencias a `.betteragents/` para features avanzadas
-4. ✅ Mantener `CLAUDE.md` y `KIRO.md` intactos (backward compatibility)
+   - Protocols (summary)
+3. ✅ Add references to `.betteragents/` for advanced features
+4. ✅ Keep `CLAUDE.md` and `KIRO.md` intact (backward compatibility)
 
-**Validación:**
-- AGENTS.md es válido Markdown
-- Contenido es claro y conciso
-- Referencias a advanced features son correctas
-
----
-
-### Fase 2: Sincronización (2-3 horas)
-
-**Objetivo:** Sistema detecta y sincroniza cambios en AGENTS.md
-
-**Tareas:**
-1. ✅ Crear `.betteragents/sync/agents-md-sync.js`
-   - Detectar cambios en AGENTS.md
-   - Propagar a CLAUDE.md y KIRO.md
-   - Mantener secciones específicas de plataforma
-2. ✅ Actualizar `change-detector.js` para incluir AGENTS.md
-3. ✅ Actualizar `bidirectional-sync.sh` para sincronizar AGENTS.md
-4. ✅ Crear tests de sincronización
-
-**Validación:**
-- Cambios en AGENTS.md se propagan correctamente
-- CLAUDE.md y KIRO.md mantienen secciones específicas
-- No hay pérdida de información
+**Validation:**
+- AGENTS.md is valid Markdown
+- Content is clear and concise
+- References to advanced features are correct
 
 ---
 
-### Fase 3: Adaptadores (3-4 horas)
+### Phase 2: Synchronization (2-3 hours)
 
-**Objetivo:** Plataformas leen AGENTS.md como fuente primaria
+**Objective:** System detects and syncs changes in AGENTS.md
 
-**Tareas:**
-1. ✅ Actualizar detección de plataforma para priorizar AGENTS.md
-2. ✅ Crear adaptadores que lean AGENTS.md primero:
-   - Si existe AGENTS.md → usar como base
-   - Si no existe → fallback a CLAUDE.md/KIRO.md
-3. ✅ Actualizar traductores para generar desde AGENTS.md
-4. ✅ Documentar proceso de adopción para nuevas plataformas
+**Tasks:**
+1. ✅ Create `.betteragents/sync/agents-md-sync.js`
+   - Detect changes in AGENTS.md
+   - Propagate to CLAUDE.md and KIRO.md
+   - Preserve platform-specific sections
+2. ✅ Update `change-detector.js` to include AGENTS.md
+3. ✅ Update `bidirectional-sync.sh` to sync AGENTS.md
+4. ✅ Create sync tests
 
-**Validación:**
-- Claude Code lee AGENTS.md correctamente
-- Kiro lee AGENTS.md correctamente
-- Fallback funciona si AGENTS.md no existe
-
----
-
-### Fase 4: Deprecación Gradual (4-6 semanas)
-
-**Objetivo:** Transición completa a AGENTS.md
-
-**Semana 1-2:**
-- ✅ AGENTS.md es fuente de verdad
-- ✅ CLAUDE.md y KIRO.md se generan desde AGENTS.md
-- ⚠️ Advertencia en CLAUDE.md: "Este archivo se genera desde AGENTS.md"
-
-**Semana 3-4:**
-- ✅ Usuarios migrados a AGENTS.md
-- ✅ Documentación actualizada
-- ⚠️ CLAUDE.md y KIRO.md marcados como deprecated
-
-**Semana 5-6:**
-- ✅ CLAUDE.md y KIRO.md opcionales
-- ✅ Sistema funciona 100% con AGENTS.md
-- ℹ️ Mantener CLAUDE.md/KIRO.md para backward compatibility
-
-**Validación:**
-- Todos los flujos funcionan con AGENTS.md
-- Documentación completa
-- Usuarios satisfechos
+**Validation:**
+- Changes in AGENTS.md propagate correctly
+- CLAUDE.md and KIRO.md preserve platform-specific sections
+- No data loss
 
 ---
 
-### Fase 5: Extensibilidad (Continuo)
+### Phase 3: Adapters (3-4 hours)
 
-**Objetivo:** Facilitar adopción en nuevas plataformas
+**Objective:** Platforms read AGENTS.md as primary source
 
-**Tareas:**
-1. ✅ Template de adaptador que lee AGENTS.md
-2. ✅ Guía: "Cómo agregar BetterAgents a tu IDE en 1 hora"
-3. ✅ Ejemplos para Cursor, Windsurf, Gemini, Codex
-4. ✅ Contribuciones de comunidad
+**Tasks:**
+1. ✅ Update platform detection to prioritize AGENTS.md
+2. ✅ Create adapters that read AGENTS.md first:
+   - If AGENTS.md exists → use as base
+   - If not → fallback to CLAUDE.md/KIRO.md
+3. ✅ Update translators to generate from AGENTS.md
+4. ✅ Document adoption process for new platforms
 
-**Validación:**
-- Nueva plataforma se agrega en < 2 horas
-- AGENTS.md funciona sin modificación
-- Advanced features opcionales pero disponibles
+**Validation:**
+- Claude Code reads AGENTS.md correctly
+- Kiro reads AGENTS.md correctly
+- Fallback works if AGENTS.md doesn't exist
+
+---
+
+### Phase 4: Gradual Deprecation (4-6 weeks)
+
+**Objective:** Complete transition to AGENTS.md
+
+**Weeks 1-2:**
+- ✅ AGENTS.md is the source of truth
+- ✅ CLAUDE.md and KIRO.md generated from AGENTS.md
+- ⚠️ Warning in CLAUDE.md: "This file is generated from AGENTS.md"
+
+**Weeks 3-4:**
+- ✅ Users migrated to AGENTS.md
+- ✅ Documentation updated
+- ⚠️ CLAUDE.md and KIRO.md marked as deprecated
+
+**Weeks 5-6:**
+- ✅ CLAUDE.md and KIRO.md optional
+- ✅ System works 100% with AGENTS.md
+- ℹ️ Keep CLAUDE.md/KIRO.md for backward compatibility
+
+**Validation:**
+- All flows work with AGENTS.md
+- Complete documentation
+- Users satisfied
+
+---
+
+### Phase 5: Extensibility (Continuous)
+
+**Objective:** Facilitate adoption on new platforms
+
+**Tasks:**
+1. ✅ Adapter template that reads AGENTS.md
+2. ✅ Guide: "How to add BetterAgents to your IDE in 1 hour"
+3. ✅ Examples for Cursor, Windsurf, Gemini, Codex
+4. ✅ Community contributions
+
+**Validation:**
+- New platform added in < 2 hours
+- AGENTS.md works without modification
+- Advanced features optional but available
 
 ---
 
 ## ⚖️ Trade-offs Analysis
 
-### Ventajas
+### Advantages
 
-✅ **Portabilidad Universal**
-- Un solo archivo funciona en todos los IDEs
-- No requiere traducción
-- Estándar abierto y documentado
+✅ **Universal Portability**
+- A single file works across all IDEs
+- No translation required
+- Open and documented standard
 
-✅ **Simplicidad**
-- Markdown simple
-- Fácil de editar manualmente
-- Control de versiones directo
+✅ **Simplicity**
+- Plain Markdown
+- Easy to edit manually
+- Direct version control
 
-✅ **Adopción**
-- Estándar soportado por múltiples herramientas
-- Comunidad activa (awesome-cursorrules, etc.)
-- Ejemplos abundantes
+✅ **Adoption**
+- Standard supported by multiple tools
+- Active community (awesome-cursorrules, etc.)
+- Abundant examples
 
-✅ **Mantenimiento**
-- Un solo archivo para actualizar
-- Cambios se propagan automáticamente
-- Menos duplicación
+✅ **Maintenance**
+- A single file to update
+- Changes propagate automatically
+- Less duplication
 
-### Limitaciones
+### Limitations
 
-⚠️ **Complejidad Reducida**
-- AGENTS.md es texto plano (no ejecutable)
-- No puede contener lógica compleja
-- Limitado a instrucciones textuales
+⚠️ **Reduced Complexity**
+- AGENTS.md is plain text (not executable)
+- Cannot contain complex logic
+- Limited to text instructions
 
-⚠️ **Features Avanzadas Separadas**
-- Memoria persistente sigue en `.betteragents/`
-- Dashboard sigue en `.claude/memory/`
-- Hooks siguen en configuración específica
+⚠️ **Advanced Features Separated**
+- Persistent memory remains in `.betteragents/`
+- Dashboard remains in `.claude/memory/`
+- Hooks remain in platform-specific config
 
-⚠️ **Migración Requerida**
-- Usuarios deben adoptar nuevo archivo
-- Período de transición necesario
-- Backward compatibility temporal
+⚠️ **Migration Required**
+- Users must adopt the new file
+- Transition period needed
+- Temporary backward compatibility
 
-### Mitigaciones
+### Mitigations
 
-✅ **Arquitectura Híbrida**
-- AGENTS.md para instrucciones universales
-- `.betteragents/` para capacidades avanzadas
-- Mejor de ambos mundos
+✅ **Hybrid Architecture**
+- AGENTS.md for universal instructions
+- `.betteragents/` for advanced capabilities
+- Best of both worlds
 
-✅ **Sincronización Automática**
-- Cambios en AGENTS.md se propagan
-- CLAUDE.md/KIRO.md se generan automáticamente
-- Cero esfuerzo manual
+✅ **Automatic Synchronization**
+- Changes in AGENTS.md propagate
+- CLAUDE.md/KIRO.md generated automatically
+- Zero manual effort
 
 ✅ **Backward Compatibility**
-- CLAUDE.md y KIRO.md siguen funcionando
-- Migración gradual posible
-- No hay breaking changes
+- CLAUDE.md and KIRO.md still work
+- Gradual migration possible
+- No breaking changes
 
 ---
 
-## 🎯 Estrategia de Coexistencia
+## 🎯 Coexistence Strategy
 
-### Modelo Híbrido
+### Hybrid Model
 
 ```
 AGENTS.md (Universal Layer)
     ↓
-    ├─→ Instrucciones core (portables)
+    ├─→ Core instructions (portable)
     ├─→ Agent-First protocol
     ├─→ Routing rules
-    └─→ Referencias a advanced features
+    └─→ References to advanced features
         ↓
 .betteragents/ (Advanced Layer)
     ↓
-    ├─→ Memoria persistente
-    ├─→ Dashboard interactivo
-    ├─→ Hooks y automation
-    ├─→ 12 agentes especializados
+    ├─→ Persistent memory
+    ├─→ Interactive dashboard
+    ├─→ Hooks and automation
+    ├─→ 12 specialized agents
     ├─→ 76+ skills
-    └─→ Protocolos de seguridad
+    └─→ Safety protocols
         ↓
 Platform-Specific (Adaptation Layer)
     ↓
@@ -477,74 +477,74 @@ Platform-Specific (Adaptation Layer)
     └─→ .windsurf/ (Windsurf)
 ```
 
-### Niveles de Adopción
+### Adoption Levels
 
-**Nivel 1: Básico (Solo AGENTS.md)**
-- Funciona en cualquier IDE
-- Instrucciones core disponibles
-- Agent-First protocol activo
-- Sin memoria persistente
-- Sin dashboard
+**Level 1: Basic (AGENTS.md only)**
+- Works in any IDE
+- Core instructions available
+- Agent-First protocol active
+- No persistent memory
+- No dashboard
 
-**Nivel 2: Intermedio (AGENTS.md + .betteragents/)**
-- Todo de Nivel 1
-- Memoria persistente
+**Level 2: Intermediate (AGENTS.md + .betteragents/)**
+- Everything from Level 1
+- Persistent memory
 - Skills library
-- Sincronización básica
+- Basic synchronization
 
-**Nivel 3: Avanzado (Full BetterAgents)**
-- Todo de Nivel 2
-- Dashboard interactivo
-- Hooks automatizados
-- Protocolos de seguridad
-- Métricas y analytics
-
----
-
-## 📊 Criterios de Éxito
-
-### Funcionales
-- [ ] AGENTS.md funciona en Claude Code
-- [ ] AGENTS.md funciona en Kiro
-- [ ] AGENTS.md funciona en Cursor (test)
-- [ ] Memoria persistente sigue funcionando
-- [ ] Dashboard sigue funcionando
-- [ ] Sincronización bidireccional operativa
-
-### Técnicos
-- [ ] Portabilidad 100% entre plataformas
-- [ ] Cero pérdida de funcionalidad
-- [ ] Sincronización < 2s
-- [ ] Backward compatibility completa
-
-### Operacionales
-- [ ] Migración incremental posible
-- [ ] Documentación completa
-- [ ] Usuarios pueden adoptar gradualmente
-- [ ] Nueva plataforma en < 2 horas
+**Level 3: Advanced (Full BetterAgents)**
+- Everything from Level 2
+- Interactive dashboard
+- Automated hooks
+- Safety protocols
+- Metrics and analytics
 
 ---
 
-## 🚀 Próximos Pasos Inmediatos
+## 📊 Success Criteria
 
-### Esta Sesión
-1. ⏳ Crear `AGENTS.md` inicial
-2. ⏳ Extraer contenido core de `CLAUDE.md`
-3. ⏳ Validar formato y contenido
+### Functional
+- [ ] AGENTS.md works in Claude Code
+- [ ] AGENTS.md works in Kiro
+- [ ] AGENTS.md works in Cursor (test)
+- [ ] Persistent memory still works
+- [ ] Dashboard still works
+- [ ] Bidirectional sync operational
 
-### Próxima Sesión
-1. ⏳ Implementar `agents-md-sync.js`
-2. ⏳ Actualizar `change-detector.js`
-3. ⏳ Probar sincronización
+### Technical
+- [ ] 100% portability between platforms
+- [ ] Zero loss of functionality
+- [ ] Sync < 2s
+- [ ] Full backward compatibility
 
-### Esta Semana
-1. ⏳ Completar Fase 1 y 2
-2. ⏳ Documentar proceso
-3. ⏳ Validar con usuario
+### Operational
+- [ ] Incremental migration possible
+- [ ] Complete documentation
+- [ ] Users can adopt gradually
+- [ ] New platform in < 2 hours
 
 ---
 
-## 📚 Referencias
+## 🚀 Immediate Next Steps
+
+### This Session
+1. ⏳ Create initial `AGENTS.md`
+2. ⏳ Extract core content from `CLAUDE.md`
+3. ⏳ Validate format and content
+
+### Next Session
+1. ⏳ Implement `agents-md-sync.js`
+2. ⏳ Update `change-detector.js`
+3. ⏳ Test synchronization
+
+### This Week
+1. ⏳ Complete Phases 1 and 2
+2. ⏳ Document the process
+3. ⏳ Validate with user
+
+---
+
+## 📚 References
 
 - [AGENTS.md Specification](https://kilo.ai/docs/advanced-usage/memory-bank)
 - [awesome-cursorrules](https://github.com/PatrickJS/awesome-cursorrules)
@@ -554,7 +554,7 @@ Platform-Specific (Adaptation Layer)
 
 ---
 
-**Arquitecto:** AgentX (nota: debió ser despachado a architect)  
-**Fecha:** 2026-03-02  
-**Versión:** 4.0.0-proposal  
-**Estado:** Pendiente revisión de Critic Gate
+**Architect:** AgentX (note: should have been dispatched to architect)
+**Date:** 2026-03-02
+**Version:** 4.0.0-proposal
+**Status:** Pending Critic Gate review

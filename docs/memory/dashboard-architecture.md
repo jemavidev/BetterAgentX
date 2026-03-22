@@ -1,12 +1,12 @@
-# 📊 Dashboard de Memoria - Arquitectura y Diseño
+# 📊 Memory Dashboard - Architecture and Design
 
-## 🎯 Concepto
+## 🎯 Concept
 
-El Dashboard de Memoria es un **archivo HTML todo-en-uno** que permite visualizar y gestionar los archivos JSON de memoria del proyecto sin necesidad de scripts externos o dependencias de Python.
+The Memory Dashboard is an **all-in-one HTML file** that lets you visualize and manage the project's JSON memory files without external scripts or Python dependencies.
 
-## 🏗️ Arquitectura
+## 🏗️ Architecture
 
-### Diseño Todo-en-Uno
+### All-in-One Design
 
 ```
 dashboard.html
@@ -16,21 +16,21 @@ dashboard.html
 └── No external dependencies
 ```
 
-**Ventajas:**
-- ✅ Sin dependencias externas
-- ✅ Funciona offline
-- ✅ Portable (un solo archivo)
-- ✅ Fácil de distribuir
-- ✅ No requiere servidor web
+**Advantages:**
+- ✅ No external dependencies
+- ✅ Works offline
+- ✅ Portable (single file)
+- ✅ Easy to distribute
+- ✅ No web server required
 
-## 🔧 Funcionalidad
+## 🔧 Functionality
 
-### 1. Lectura de Archivos JSON
+### 1. Reading JSON Files
 
-El dashboard lee directamente los archivos JSON usando:
+The dashboard reads JSON files directly using:
 
 ```javascript
-// Opción A: File API (usuario selecciona archivos)
+// Option A: File API (user selects files)
 const fileInput = document.createElement('input');
 fileInput.type = 'file';
 fileInput.accept = '.json';
@@ -39,22 +39,22 @@ fileInput.onchange = (e) => {
   const reader = new FileReader();
   reader.onload = (event) => {
     const data = JSON.parse(event.target.result);
-    // Procesar datos
+    // Process data
   };
   reader.readAsText(file);
 };
 
-// Opción B: Drag & Drop
+// Option B: Drag & Drop
 dropZone.addEventListener('drop', (e) => {
   e.preventDefault();
   const file = e.dataTransfer.files[0];
-  // Leer archivo
+  // Read file
 });
 ```
 
-### 2. Operaciones CRUD
+### 2. CRUD Operations
 
-#### Create (Crear)
+#### Create
 ```javascript
 function createEntry(type, data) {
   const memoryData = loadMemoryData(type);
@@ -68,7 +68,7 @@ function createEntry(type, data) {
 }
 ```
 
-#### Read (Leer)
+#### Read
 ```javascript
 function readEntries(type, filter = null) {
   const memoryData = loadMemoryData(type);
@@ -79,7 +79,7 @@ function readEntries(type, filter = null) {
 }
 ```
 
-#### Update (Actualizar)
+#### Update
 ```javascript
 function updateEntry(type, id, updates) {
   const memoryData = loadMemoryData(type);
@@ -91,7 +91,7 @@ function updateEntry(type, id, updates) {
 }
 ```
 
-#### Delete (Eliminar)
+#### Delete
 ```javascript
 function deleteEntry(type, id) {
   const memoryData = loadMemoryData(type);
@@ -100,42 +100,42 @@ function deleteEntry(type, id) {
 }
 ```
 
-### 3. Persistencia de Datos
+### 3. Data Persistence
 
-**Dos estrategias:**
+**Two strategies:**
 
-#### Estrategia A: LocalStorage (Temporal)
+#### Strategy A: LocalStorage (Temporary)
 ```javascript
-// Guardar en navegador
+// Save in browser
 function saveToLocalStorage(type, data) {
   localStorage.setItem(`memory_${type}`, JSON.stringify(data));
 }
 
-// Cargar desde navegador
+// Load from browser
 function loadFromLocalStorage(type) {
   const data = localStorage.getItem(`memory_${type}`);
   return data ? JSON.parse(data) : [];
 }
 ```
 
-**Ventajas:**
-- Rápido
-- No requiere permisos
-- Funciona offline
+**Advantages:**
+- Fast
+- No permissions required
+- Works offline
 
-**Desventajas:**
-- Datos solo en el navegador
-- No sincroniza con archivos JSON
+**Disadvantages:**
+- Data only in the browser
+- Does not sync with JSON files
 
-#### Estrategia B: File System Access API (Recomendada)
+#### Strategy B: File System Access API (Recommended)
 ```javascript
-// Solicitar acceso a directorio
+// Request directory access
 async function requestDirectoryAccess() {
   const dirHandle = await window.showDirectoryPicker();
   return dirHandle;
 }
 
-// Leer archivo JSON
+// Read JSON file
 async function readJSONFile(dirHandle, filename) {
   const fileHandle = await dirHandle.getFileHandle(filename);
   const file = await fileHandle.getFile();
@@ -143,7 +143,7 @@ async function readJSONFile(dirHandle, filename) {
   return JSON.parse(text);
 }
 
-// Escribir archivo JSON
+// Write JSON file
 async function writeJSONFile(dirHandle, filename, data) {
   const fileHandle = await dirHandle.getFileHandle(filename, { create: true });
   const writable = await fileHandle.createWritable();
@@ -152,19 +152,19 @@ async function writeJSONFile(dirHandle, filename, data) {
 }
 ```
 
-**Ventajas:**
-- ✅ Sincronización real con archivos
-- ✅ Cambios persisten en disco
-- ✅ Múltiples usuarios pueden ver cambios
-- ✅ Compatible con Git
+**Advantages:**
+- ✅ Real sync with files
+- ✅ Changes persist to disk
+- ✅ Multiple users can see changes
+- ✅ Git compatible
 
-**Desventajas:**
-- Requiere permisos del usuario
-- Solo funciona en navegadores modernos (Chrome, Edge)
+**Disadvantages:**
+- Requires user permissions
+- Only works in modern browsers (Chrome, Edge)
 
-## 🎨 Interfaz de Usuario
+## 🎨 User Interface
 
-### Componentes Principales
+### Main Components
 
 ```
 ┌─────────────────────────────────────────┐
@@ -186,89 +186,89 @@ async function writeJSONFile(dirHandle, filename, data) {
 └─────────────────────────────────────────┘
 ```
 
-### Pestañas (Tabs)
+### Tabs
 
-1. **Overview** - Estadísticas generales
-2. **Active Context** - Contexto actual del proyecto
-3. **Decisions** - Log de decisiones técnicas
-4. **Progress** - Tareas y progreso
-5. **Patterns** - Patrones identificados
-6. **Timeline** - Vista cronológica
+1. **Overview** - General statistics
+2. **Active Context** - Current project context
+3. **Decisions** - Technical decision log
+4. **Progress** - Tasks and progress
+5. **Patterns** - Identified patterns
+6. **Timeline** - Chronological view
 
-## 🔄 Flujo de Trabajo
+## 🔄 Workflow
 
-### Flujo Inicial (Primera Vez)
-
-```
-1. Usuario abre dashboard.html
-2. Dashboard solicita acceso a .claude/memory/
-3. Usuario concede permiso
-4. Dashboard lee todos los archivos JSON
-5. Muestra datos en interfaz
-```
-
-### Flujo de Edición
+### Initial Flow (First Time)
 
 ```
-1. Usuario hace clic en "Edit"
-2. Modal se abre con formulario
-3. Usuario modifica datos
-4. Usuario hace clic en "Save"
-5. Dashboard actualiza archivo JSON
-6. Interfaz se refresca automáticamente
+1. User opens dashboard.html
+2. Dashboard requests access to .claude/memory/
+3. User grants permission
+4. Dashboard reads all JSON files
+5. Displays data in the interface
 ```
 
-### Flujo de Creación
+### Edit Flow
 
 ```
-1. Usuario hace clic en "+ New Entry"
-2. Modal se abre con formulario vacío
-3. Usuario llena datos
-4. Usuario hace clic en "Create"
-5. Dashboard añade entrada al JSON
-6. Dashboard guarda archivo
-7. Nueva entrada aparece en lista
+1. User clicks "Edit"
+2. Modal opens with form
+3. User modifies data
+4. User clicks "Save"
+5. Dashboard updates JSON file
+6. Interface refreshes automatically
 ```
 
-## 🚫 Por Qué NO Necesitamos sync-memory.py
+### Create Flow
 
-### Problema Original
-
-El concepto de `sync-memory.py` era:
 ```
-Archivos .md (legibles) ↔ sync-memory.py ↔ JSON (para dashboard)
-```
-
-### Solución Actual
-
-Con archivos JSON nativos:
-```
-Archivos .json ↔ Dashboard HTML (lectura/escritura directa)
+1. User clicks "+ New Entry"
+2. Modal opens with empty form
+3. User fills in data
+4. User clicks "Create"
+5. Dashboard adds entry to JSON
+6. Dashboard saves file
+7. New entry appears in list
 ```
 
-**Ventajas:**
-- ✅ Sin dependencia de Python
-- ✅ Sin paso de sincronización manual
-- ✅ Cambios en tiempo real
-- ✅ Menos complejidad
-- ✅ Menos puntos de fallo
+## 🚫 Why We Don't Need sync-memory.py
 
-## 🔐 Seguridad y Permisos
+### Original Problem
+
+The concept of `sync-memory.py` was:
+```
+.md files (readable) ↔ sync-memory.py ↔ JSON (for dashboard)
+```
+
+### Current Solution
+
+With native JSON files:
+```
+.json files ↔ HTML Dashboard (direct read/write)
+```
+
+**Advantages:**
+- ✅ No Python dependency
+- ✅ No manual sync step
+- ✅ Real-time changes
+- ✅ Less complexity
+- ✅ Fewer failure points
+
+## 🔐 Security and Permissions
 
 ### File System Access API
 
 ```javascript
-// Solicitar permiso una vez
+// Request permission once
 const dirHandle = await window.showDirectoryPicker();
 
-// Verificar permiso antes de cada operación
+// Verify permission before each operation
 const permission = await dirHandle.queryPermission({ mode: 'readwrite' });
 if (permission !== 'granted') {
   await dirHandle.requestPermission({ mode: 'readwrite' });
 }
 ```
 
-### Validación de Datos
+### Data Validation
 
 ```javascript
 function validateEntry(type, data) {
@@ -282,7 +282,7 @@ function validateEntry(type, data) {
       optional: ['priority', 'agent', 'blockers']
     }
   };
-  
+
   const schema = schemas[type];
   for (const field of schema.required) {
     if (!data[field]) {
@@ -320,9 +320,9 @@ function validateEntry(type, data) {
 }
 ```
 
-## 🎯 Características Avanzadas
+## 🎯 Advanced Features
 
-### 1. Búsqueda en Tiempo Real
+### 1. Real-Time Search
 
 ```javascript
 function searchEntries(query) {
@@ -334,7 +334,7 @@ function searchEntries(query) {
 }
 ```
 
-### 2. Filtros
+### 2. Filters
 
 ```javascript
 function filterByDate(entries, startDate, endDate) {
@@ -349,10 +349,10 @@ function filterByAgent(entries, agent) {
 }
 ```
 
-### 3. Exportar/Importar
+### 3. Export/Import
 
 ```javascript
-// Exportar todo
+// Export all
 function exportAll() {
   const data = {
     context: loadMemoryData('context'),
@@ -360,11 +360,11 @@ function exportAll() {
     progress: loadMemoryData('progress'),
     patterns: loadMemoryData('patterns')
   };
-  
+
   const blob = new Blob([JSON.stringify(data, null, 2)], {
     type: 'application/json'
   });
-  
+
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
@@ -372,31 +372,31 @@ function exportAll() {
   a.click();
 }
 
-// Importar
+// Import
 function importData(file) {
   const reader = new FileReader();
   reader.onload = (e) => {
     const data = JSON.parse(e.target.result);
-    // Restaurar datos
+    // Restore data
   };
   reader.readAsText(file);
 }
 ```
 
-## 🔄 Compatibilidad con Git
+## 🔄 Git Compatibility
 
-Los archivos JSON son Git-friendly:
+JSON files are Git-friendly:
 
 ```bash
-# Ver cambios
+# View changes
 git diff .claude/memory/decision-log.json
 
-# Commit cambios
+# Commit changes
 git add .claude/memory/*.json
 git commit -m "docs: update memory - added decision #005"
 ```
 
-## 📊 Estadísticas
+## 📊 Statistics
 
 ```javascript
 function calculateStats() {
@@ -411,7 +411,7 @@ function calculateStats() {
 }
 ```
 
-## 🎨 Temas (Dark/Light Mode)
+## 🎨 Themes (Dark/Light Mode)
 
 ```javascript
 function toggleTheme() {
@@ -422,20 +422,20 @@ function toggleTheme() {
 }
 ```
 
-## 🚀 Próximos Pasos
+## 🚀 Next Steps
 
-Para implementar el dashboard:
+To implement the dashboard:
 
-1. **Diseñar estructura HTML** - Layout y componentes
-2. **Implementar File System Access API** - Lectura/escritura de JSON
-3. **Crear operaciones CRUD** - Create, Read, Update, Delete
-4. **Añadir búsqueda y filtros** - UX mejorada
-5. **Implementar validación** - Datos consistentes
-6. **Añadir exportar/importar** - Backup y restauración
-7. **Testing** - Verificar en diferentes navegadores
+1. **Design HTML structure** - Layout and components
+2. **Implement File System Access API** - JSON read/write
+3. **Create CRUD operations** - Create, Read, Update, Delete
+4. **Add search and filters** - Improved UX
+5. **Implement validation** - Consistent data
+6. **Add export/import** - Backup and restore
+7. **Testing** - Verify in different browsers
 
 ---
 
-**Version:** 2.1.0  
-**Last Updated:** 2026-02-14  
+**Version:** 2.1.0
+**Last Updated:** 2026-02-14
 **Status:** Design Document (Implementation Pending)

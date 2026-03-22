@@ -1,0 +1,14 @@
+{
+  "enabled": true,
+  "name": "Track File Changes (§5b Gate)",
+  "description": "Records project file changes into .response-changed flag for memory gate assessment at agentStop. Equivalent to Claude Code PostToolUse Write hook.",
+  "version": "1.0.0",
+  "when": {
+    "type": "postToolUse",
+    "toolTypes": ["write"]
+  },
+  "then": {
+    "type": "runCommand",
+    "command": "bash .betteragents/scripts/on-file-change.sh"
+  }
+}

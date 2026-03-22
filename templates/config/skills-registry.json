@@ -1565,15 +1565,15 @@
     }
   },
   "loadStrategies": {
-    "always": "Carga en todas las llamadas (0% ahorro)",
-    "on-demand": "Carga solo cuando se detectan keywords (85-95% ahorro)",
-    "explicit": "Carga solo con comando explícito (95-99% ahorro)",
-    "never": "Desactivado (100% ahorro)"
+    "always": "Load on every call (0% savings)",
+    "on-demand": "Load only when keywords detected (85-95% savings)",
+    "explicit": "Load only with explicit command (95-99% savings)",
+    "never": "Disabled (100% savings)"
   },
   "priorityLevels": {
-    "critical": "Siempre cargar si es relevante",
-    "high": "Cargar si relevancia > 70%",
-    "medium": "Cargar si relevancia > 80%",
-    "low": "Cargar si relevancia > 90%"
+    "critical": "Always load if relevant",
+    "high": "Load if relevance > 70%",
+    "medium": "Load if relevance > 80%",
+    "low": "Load if relevance > 90%"
   }
 }

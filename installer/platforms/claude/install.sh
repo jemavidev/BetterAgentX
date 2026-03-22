@@ -64,6 +64,8 @@ DIRECTORIES=(
     ".claude/agents"
     ".claude/commands"
     ".claude/protocols"
+    ".claude/scripts"
+    ".claude/memory"
     ".claude/cache"
     ".claude/backups"
 )
@@ -179,6 +181,60 @@ if [[ -d "$PLATFORM_DIR/templates/.claude/commands" ]]; then
         || print_success "Commands installed ($COMMANDS_INSTALLED)"
 else
     die "Commands directory not found in templates"
+fi
+
+echo ""
+
+# ============================================
+# 8.5. INSTALL SCRIPTS
+# ============================================
+
+print_step "Installing scripts..."
+
+SCRIPTS_INSTALLED=0
+
+if [[ -d "$PLATFORM_DIR/templates/.claude/scripts" ]]; then
+    for script in "$PLATFORM_DIR/templates/.claude/scripts"/*.sh "$PLATFORM_DIR/templates/.claude/scripts"/*.js; do
+        if [[ -f "$script" ]]; then
+            filename=$(basename "$script")
+            cp "$script" ".claude/scripts/$filename" || die "Failed to install script: $filename"
+            chmod +x ".claude/scripts/$filename"
+            SCRIPTS_INSTALLED=$((SCRIPTS_INSTALLED + 1))
+        fi
+    done
+    print_success "Scripts installed ($SCRIPTS_INSTALLED)"
+    if bash ".claude/scripts/generate-integrity-lock.sh" > /dev/null 2>&1; then
+        print_success "Integrity lock created (.claude/integrity.lock)"
+    else
+        print_warning "Could not generate integrity lock — run manually: bash .claude/scripts/generate-integrity-lock.sh"
+    fi
+else
+    print_warning "Scripts directory not found in templates — memory protocols will be limited"
+fi
+
+echo ""
+
+# ============================================
+# 8.7. INITIALIZE MEMORY FILES
+# ============================================
+
+print_step "Initializing memory files..."
+
+MEMORY_INSTALLED=0
+
+if [[ -d "$PLATFORM_DIR/templates/.claude/memory" ]]; then
+    for memfile in "$PLATFORM_DIR/templates/.claude/memory"/*; do
+        if [[ -f "$memfile" ]]; then
+            filename=$(basename "$memfile")
+            if [[ ! -f ".claude/memory/$filename" ]]; then
+                cp "$memfile" ".claude/memory/$filename" || die "Failed to install memory file: $filename"
+                MEMORY_INSTALLED=$((MEMORY_INSTALLED + 1))
+            fi
+        fi
+    done
+    print_success "Memory files initialized ($MEMORY_INSTALLED new files)"
+else
+    print_warning "Memory templates not found — AgentX will start without persistent memory"
 fi
 
 echo ""

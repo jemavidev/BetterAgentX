@@ -1,0 +1,13 @@
+{
+  "enabled": true,
+  "name": "Memory Gate (Protocol §5b)",
+  "description": "Enforces memory writes after significant file changes. Equivalent to Claude Code Stop hook + memory-self-assessment.sh. Uses git diff as fallback when postToolUse flag is unavailable.",
+  "version": "1.0.0",
+  "when": {
+    "type": "agentStop"
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "§5b: Run bash .betteragents/scripts/memory-self-assessment.sh\n- Output contains 'MEMORY GATE' → run the add-task.sh command shown, then '✅ Memory written'\n- No output → respond only '⏭️'"
+  }
+}

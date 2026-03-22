@@ -1,7 +1,7 @@
 # Kiro IDE Platform Module
 
-**Version:** 3.7.0  
-**Platform:** Kiro IDE  
+**Version:** 4.1.0
+**Platform:** Kiro IDE
 **Module Type:** BetterAgents Platform Integration
 
 ---
@@ -12,9 +12,10 @@ This module provides Kiro IDE integration for the BetterAgents multi-agent orche
 
 - **AgentX Orchestrator** - Universal AGENTS.md routing system
 - **Steering Files** - Context and memory files (Kiro's memory system)
+- **Hooks** - Protocol enforcement (memory gate, session stop) via `.kiro/hooks/`
 - **Skills Library** - Specialized skills for different tasks
 - **Custom Agents** - Optional custom agent definitions
-- **Memory Bridge** - Integration with Claude memory system
+- **Memory Bridge** - Integration with BetterAgents memory system
 - **Scripts** - Utility scripts including memory bridge wrapper
 
 ---
