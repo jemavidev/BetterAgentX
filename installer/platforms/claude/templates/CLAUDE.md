@@ -52,12 +52,16 @@ Route: `Task(subagent_type="agent-name", prompt="[CONTEXT]\n...\n[SKILLS]\n...\n
 
 | Score | Action |
 |-------|--------|
-| 5 — trivial ("ok", "yes", greetings) | Respond directly |
-| 4 — simple, 1 file, <5 lines | Respond directly + mention agent that would have handled this |
-| 2–3 — moderate | **ALWAYS offer sub-agent** before executing |
-| 0–1 — complex, multi-file, architecture | Auto-dispatch with routing note |
+| 5 — trivial ("ok", "yes", greetings) | Respond directly — no agent |
+| 4 — simple, 1 file, <5 lines | Respond directly — no agent |
+| 2–3 — moderate | **STOP** → offer sub-agent → wait for user reply |
+| 0–1 — complex, multi-file, architecture | **STOP** → call `Task(subagent_type=...)` immediately |
 
-**Formato de oferta de sub-agente (score 2–3):**
+> **HARD RULE — scores 0–3:** NEVER use Edit/Write/Bash/Read/Grep/Glob to execute the task directly.
+> "Dispatching" = calling the `Task()` tool. Announcing dispatch without calling `Task()` is a protocol violation.
+> Score 2–3: wait for user reply → "dispatch" → call `Task()` / "direct" → only then execute.
+
+**Offer format (score 2–3):**
 ```
 🎯 **[Agent]** — [reason in 1 line]
 Skills: [skill1], [skill2]
@@ -282,4 +286,4 @@ Any direct modification triggers an integrity alert on the next user prompt.
 
 **Protocols:** `.claude/protocols/` | **Skills:** `.claude/commands/` | **Hooks:** `.claude/scripts/`
 
-**Version:** 4.1.0 | **Platform:** Claude Code | **Updated:** 2026-03-21
+**Version:** 4.2.0 | **Platform:** Claude Code | **Updated:** 2026-03-22

@@ -1,0 +1,35 @@
+{
+  "name": "gemini",
+  "version": "1.0.0",
+  "description": "Gemini CLI integration with AgentX orchestrator, agents, and skills",
+  "requires": {
+    "commands": ["jq"],
+    "optional": ["git"]
+  },
+  "dependencies": [],
+  "shared": ["betteragents-core"],
+  "files": {
+    "orchestrator": "GEMINI.md",
+    "agents": ".gemini/agents",
+    "skills": ".gemini/skills",
+    "steering": ".gemini/steering"
+  },
+  "directories": [
+    ".gemini/agents",
+    ".gemini/skills",
+    ".gemini/steering"
+  ],
+  "hooks": {
+    "pre_install": "",
+    "post_install": "",
+    "pre_uninstall": "",
+    "post_uninstall": ""
+  },
+  "features": {
+    "agents": 2,
+    "skills": 0,
+    "memory": false,
+    "dashboard": false,
+    "docker": false
+  }
+}

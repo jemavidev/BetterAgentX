@@ -25,6 +25,15 @@
       "orchestrator": "AGENTS.md",
       "version_file": ".kiro/.version"
     },
+    "gemini": {
+      "name": "Gemini",
+      "description": "Gemini IDE — AgentX via GEMINI.md, steering files, skills",
+      "enabled": true,
+      "module": "platforms/gemini",
+      "install_dir": ".gemini",
+      "orchestrator": "GEMINI.md",
+      "version_file": ".gemini/.version"
+    },
     "cursor": {
       "name": "Cursor",
       "description": "Cursor IDE — AgentX via .cursorrules (coming soon)",

@@ -58,10 +58,14 @@ Available specialized agents (via platform-specific mechanisms):
 |-----------------|--------|-------------|
 | 5 — trivial | Respond direct | Optional |
 | 4 — simple, 1 file, <5 lines | Respond direct + mention agent | Optional |
-| 2–3 — moderate | **ALWAYS offer sub-agent** before executing | **MANDATORY** |
-| 0–1 — complex, multi-file | **Dispatch automatically** with routing note | **MANDATORY** |
+| 2–3 — moderate | **STOP** → offer sub-agent → wait for user reply | **MANDATORY** |
+| 0–1 — complex, multi-file | **STOP** → call agent tool immediately | **MANDATORY** |
 
 **CRITICAL RULE:** When in doubt between responding direct vs dispatching → **ALWAYS DISPATCH**.
+
+> **HARD RULE — scores 0–3:** NEVER use execution tools (file edits, bash commands, file reads) to execute the task directly.
+> "Dispatching" = calling the platform's agent invocation tool. Announcing dispatch without calling the tool is a protocol violation.
+> Score 2–3: wait for user reply → "dispatch" → call agent tool / "direct" → only then execute.
 
 ### Complexity Scoring
 
@@ -92,7 +96,7 @@ Skills: [skill1], [skill2]
 
 **Auto-dispatch format (score 0–1):**
 ```
-🚀 Dispatching to **[Agent]**
+🚀 Dispatching to **[Agent]** — calling agent tool now
 Reason: [1-line explanation]
 Complexity: [score]/5
 ```
@@ -270,8 +274,8 @@ For detailed documentation:
 
 ---
 
-**Last Updated:** 2026-03-02  
-**Version:** 4.0.0  
-**Standard:** AGENTS.md universal format  
-**Project:** BetterAgents-Claude  
+**Last Updated:** 2026-03-22
+**Version:** 4.1.0
+**Standard:** AGENTS.md universal format
+**Project:** BetterAgents-Claude
 **Repository:** https://github.com/jemavidev/BetterAgentX
