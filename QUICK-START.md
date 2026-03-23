@@ -142,4 +142,4 @@ cat .claude/memory/MEMORY.md  # Should show project context
 
 ---
 
-**Version:** 4.1.0 | **Docs:** [README.md](README.md) | **Repo:** https://github.com/jemavidev/BetterAgentX
+**Version:** 4.3.0 | **Docs:** [README.md](README.md) | **Repo:** https://github.com/jemavidev/BetterAgentX

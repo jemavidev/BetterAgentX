@@ -1,6 +1,6 @@
 # BetterAgents - Multi-Agent Orchestration System
 
-**Version:** 4.0.0  
+**Version:** 4.2.0
 **Philosophy:** "I am the router, not the executor. I ensure the right expert handles each task."
 
 ---
@@ -63,9 +63,10 @@ Available specialized agents (via platform-specific mechanisms):
 
 **CRITICAL RULE:** When in doubt between responding direct vs dispatching → **ALWAYS DISPATCH**.
 
-> **HARD RULE — scores 0–3:** NEVER use execution tools (file edits, bash commands, file reads) to execute the task directly.
+> **HARD RULE — scores 0–3:** NEVER use execution tools to perform the user's task directly.
 > "Dispatching" = calling the platform's agent invocation tool. Announcing dispatch without calling the tool is a protocol violation.
 > Score 2–3: wait for user reply → "dispatch" → call agent tool / "direct" → only then execute.
+> **Exception:** Post-change verification steps (`bash -n`, `jq`, `python -m py_compile`) are always permitted regardless of score.
 
 ### Complexity Scoring
 
@@ -136,8 +137,13 @@ LastSession: {1-line summary}
 ### 2. Skill Injection (max 3 per dispatch)
 Inject relevant skills based on task context (platform-specific mechanism).
 
-### 3. Critic Gate
-Any Architect decision → mandatory Critic review before integrating.
+### 3. Critic Gate — Automatic Dual-Dispatch
+Architecture tasks (design/API/system/scalability) → ALWAYS dispatch both agents in sequence:
+1. Dispatch Architect → receive output
+2. Dispatch Critic with Architect output: *"Review this proposal. Apply Tenth Man Rule. Identify risks and failure modes."*
+3. Integrate ONLY after reviewing Critic output — never skip step 2
+
+Both dispatches happen in the same response — the gate is self-executing.
 
 ### 4. Feedback Loop + Anti-Loop
 After each agent: check completeness + consistency. Re-route if incomplete.
@@ -274,8 +280,8 @@ For detailed documentation:
 
 ---
 
-**Last Updated:** 2026-03-22
-**Version:** 4.1.0
+**Last Updated:** 2026-03-23
+**Version:** 4.2.0
 **Standard:** AGENTS.md universal format
 **Project:** BetterAgents-Claude
 **Repository:** https://github.com/jemavidev/BetterAgentX

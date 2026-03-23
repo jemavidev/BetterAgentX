@@ -7,6 +7,58 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [4.3.0] - 2026-03-23 - Consistency Audit + Installer Corrections
+
+### 🎯 Focus
+Full system-wide consistency audit: installer templates synced with live system, memory files corrected, version drift resolved, Spanish strings removed.
+
+### ✨ Added
+- `token-accounting.json` and `metrics-analytics.json` restored to live `.claude/memory/`
+- `export-dashboard-data.js` added to Claude installer template
+- 6 missing commands added to Claude installer template (`backup-project`, `config`, `delete-project`, `generate-docs`, `project-agent-creator`, `project-skill-creator`)
+- Kiro installer template now includes all 12 agents and 76 skills
+
+### 🔧 Fixed
+- `active-context.json`: project name corrected (`BetterAgents-K` → `BetterAgents`), duplicate `current.nextSteps` removed
+- `MEMORY.md`: phase, task count, skill count updated; Spanish strings removed; stale next steps replaced
+- All version numbers aligned to 4.3.0 across AGENTS.md, README, manifests
+
+### 📁 Files Updated
+- `.claude/memory/token-accounting.json`, `metrics-analytics.json` — restored
+- `installer/platforms/claude/templates/.claude/scripts/export-dashboard-data.js` — added
+- `installer/platforms/claude/templates/.claude/commands/` — 6 files added
+- `installer/platforms/kiro/templates/.kiro/agents/` + `skills/` — created and populated
+- `.claude/memory/MEMORY.md`, `active-context.json` — corrected
+- `AGENTS.md`, `README.md`, `QUICK-START.md`, manifests — version bumped
+
+---
+
+## [4.2.0] - 2026-03-22 - Dispatch Enforcement + Integrity + i18n
+
+### 🎯 Focus
+Hard enforcement of agent dispatch protocol, integrity protection system, and full Spanish-to-English rewrite of all documentation.
+
+### ✨ Added
+- **HARD RULE** in `CLAUDE.md` and `AGENTS.md`: scores 0–3 MUST call `Task()` — announcing dispatch without calling the tool is a protocol violation
+- **Integrity protection system**: SHA256 + Git dual-layer, 34 files hashed, session-stop blocks on violation
+- **Critic Gate auto-dual-dispatch**: Architect + Critic now dispatched in same response for architecture tasks
+
+### 🔧 Fixed
+- `on-session-stop.sh`: replaced `TASK_COUNT==0` with `SESSION_MEMORY_GROWTH<=0`; excludes memory files from GIT_CHANGES; temp file cleanup; missing `exit 1` added to installer copies
+- `on-user-prompt.sh`: session baseline, prompt counter, mid-session warning after 3+ prompts with no memory growth
+
+### 🌐 i18n
+- Full rewrite of 10 docs files — zero Spanish strings remain
+- Spanish strings removed from `on-session-stop.sh`
+
+### 📁 Files Updated
+- `CLAUDE.md`, `AGENTS.md` — dispatch hard rule
+- `.claude/scripts/on-session-stop.sh`, `on-user-prompt.sh` — fixes
+- All installer copies synced
+- `docs/` — 10 files rewritten in English
+
+---
+
 ## [4.1.0] - 2026-03-18 - Dashboard Multi-Project Improvements
 
 ### ✨ Added

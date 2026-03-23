@@ -134,7 +134,7 @@ NEW_SESSION=$(jq -n \
         total: $tot,
         description: $desc,
         estimated: true,
-        estimationSource: "git-diff-lines * 20 + 30k-baseline",
+        estimationSource: "char_count_div4_plus_2386_overhead",
         activity: {
             filesChanged: $files,
             files: $fileList,

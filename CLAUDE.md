@@ -57,9 +57,10 @@ Route: `Task(subagent_type="agent-name", prompt="[CONTEXT]\n...\n[SKILLS]\n...\n
 | 2–3 — moderate | **STOP** → offer sub-agent → wait for user reply |
 | 0–1 — complex, multi-file, architecture | **STOP** → call `Task(subagent_type=...)` immediately |
 
-> **HARD RULE — scores 0–3:** NEVER use Edit/Write/Bash/Read/Grep/Glob to execute the task directly.
+> **HARD RULE — scores 0–3:** NEVER use execution tools to perform the user's task directly.
 > "Dispatching" = calling the `Task()` tool. Announcing dispatch without calling `Task()` is a protocol violation.
 > Score 2–3: wait for user reply → "dispatch" → call `Task()` / "direct" → only then execute.
+> **Exception:** Protocol 4.7 post-change verification (`bash -n`, `jq`, `python -m py_compile`) is always permitted regardless of score.
 
 **Offer format (score 2–3):**
 ```
@@ -118,8 +119,13 @@ Include `LastSession` line to prevent amnesia across dispatches.
 bash .claude/scripts/detect-skills.sh "{task}" {agent} --content
 ```
 
-### 3. Critic Gate
-Any Architect decision → mandatory Critic review before integrating.
+### 3. Critic Gate — Automatic Dual-Dispatch
+Architecture tasks (design/API/system/scalability) → ALWAYS dispatch both agents in sequence:
+1. `Task(subagent_type="architect", prompt=...)` → receive output
+2. `Task(subagent_type="critic", prompt="Review this proposal:\n{output}\n\nApply Tenth Man Rule. Identify risks and failure modes.")`
+3. Integrate ONLY after reviewing Critic output — never skip step 2
+
+Both dispatches happen in the same response — the gate is self-executing.
 
 ### 4. Feedback Loop + Anti-Loop
 After each agent: check completeness + consistency. Re-route if incomplete.
@@ -280,10 +286,9 @@ Files in `.claude/` are **read-only system infrastructure**.
 - Add skills → `project-skill-creator` skill
 - Memory writes → `bash .claude/scripts/add-task.sh` / `add-decision.sh` / `add-pattern.sh`
 
-Any direct modification triggers an integrity alert on the next user prompt.
 
 ---
 
 **Protocols:** `.claude/protocols/` | **Skills:** `.claude/commands/` | **Hooks:** `.claude/scripts/`
 
-**Version:** 4.2.0 | **Platform:** Claude Code | **Updated:** 2026-03-22
+**Version:** 4.3.0 | **Platform:** Claude Code | **Updated:** 2026-03-23

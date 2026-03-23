@@ -3,7 +3,7 @@
 **Intelligent multi-agent orchestration system for Claude Code — 12 specialized agents + 1 orchestrator with automatic routing and persistent memory.**
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Version](https://img.shields.io/badge/version-4.1.0-blue.svg)](https://github.com/jemavidev/BetterAgentX/releases)
+[![Version](https://img.shields.io/badge/version-4.3.0-blue.svg)](https://github.com/jemavidev/BetterAgentX/releases)
 [![Platform](https://img.shields.io/badge/platform-Multi--Platform-orange.svg)](https://github.com/jemavidev/BetterAgentX)
 [![Claude Code](https://img.shields.io/badge/Claude_Code-✓-green.svg)](https://claude.ai/claude-code)
 [![Kiro](https://img.shields.io/badge/Kiro-✓-green.svg)](https://kiro.ai)
@@ -356,5 +356,5 @@ MIT License — see [license](license) file.
 
 ---
 
-**Version:** 4.1.0
+**Version:** 4.3.0
 **Platform:** Multi-Platform (Claude Code + Kiro)

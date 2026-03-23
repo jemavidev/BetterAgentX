@@ -13,14 +13,6 @@ fi
 
 MSG_LEN=${#MSG}
 
-# === System Integrity Check ===
-_INT="$(dirname "${BASH_SOURCE[0]}")/integrity-check.sh"
-if [ -f "$_INT" ]; then
-    _INT_OUT=$(bash "$_INT" 2>&1); _INT_EXIT=$?
-    [ -n "$_INT_OUT" ] && echo "$_INT_OUT"
-    [ "$_INT_EXIT" -ne 0 ] && exit "$_INT_EXIT"
-fi
-
 # Token accumulator — append prompt char count for session-end estimation
 # Final input tokens = sum(all MSG_LEN) / 4 + 2386 (fixed overhead: CLAUDE.md + MEMORY.md)
 TOKENS_TMP="$(dirname "${BASH_SOURCE[0]}")/../memory/.session-tokens-tmp"

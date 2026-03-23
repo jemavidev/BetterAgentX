@@ -1,6 +1,6 @@
 {
   "name": "kiro",
-  "version": "3.7.0",
+  "version": "4.3.0",
   "description": "Kiro IDE integration with AgentX orchestrator, steering files, skills, and memory bridge",
   "requires": {
     "commands": ["jq"],

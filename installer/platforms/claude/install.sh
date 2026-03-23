@@ -203,11 +203,6 @@ if [[ -d "$PLATFORM_DIR/templates/.claude/scripts" ]]; then
         fi
     done
     print_success "Scripts installed ($SCRIPTS_INSTALLED)"
-    if bash ".claude/scripts/generate-integrity-lock.sh" > /dev/null 2>&1; then
-        print_success "Integrity lock created (.claude/integrity.lock)"
-    else
-        print_warning "Could not generate integrity lock — run manually: bash .claude/scripts/generate-integrity-lock.sh"
-    fi
 else
     print_warning "Scripts directory not found in templates — memory protocols will be limited"
 fi

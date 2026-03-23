@@ -92,7 +92,12 @@
       "Bash(cp /home/stk/Documents/GIT/BetterAgents-K/.claude/scripts/generate-central-compose.sh /home/stk/Documents/GIT/BetterAgents-K/installer/platforms/claude/templates/.claude/scripts/generate-central-compose.sh)",
       "Bash(cp /home/stk/Documents/GIT/BetterAgents-K/.claude/scripts/generate-central-compose.sh /home/stk/Documents/GIT/BetterAgents-K/installer/core/templates/.betteragents/scripts/generate-central-compose.sh)",
       "Bash(docker exec:*)",
-      "Bash(/dev/null __NEW_LINE_1e55d39928f8a9aa__ echo echo '4. project-agent-creator.md Spanish examples:' grep -n \"Agrega\\\\|Necesito\\\\|análisis de competidores\\\\|legales de immigration\" /home/stk/Documents/GIT/BetterAgents-K/.claude/commands/project-agent-creator.md)"
+      "Bash(/dev/null __NEW_LINE_1e55d39928f8a9aa__ echo echo '4. project-agent-creator.md Spanish examples:' grep -n \"Agrega\\\\|Necesito\\\\|análisis de competidores\\\\|legales de immigration\" /home/stk/Documents/GIT/BetterAgents-K/.claude/commands/project-agent-creator.md)",
+      "Read(//home/stk/Documents/GIT/BetterAgents/**)",
+      "Bash(cp /home/stk/Documents/GIT/BetterAgents/templates/memory/token-accounting.json /home/stk/Documents/GIT/BetterAgents/.claude/memory/token-accounting.json)",
+      "Bash(cp /home/stk/Documents/GIT/BetterAgents/templates/memory/metrics-analytics.json /home/stk/Documents/GIT/BetterAgents/.claude/memory/metrics-analytics.json)",
+      "Bash(LIVE=\"/home/stk/Documents/GIT/BetterAgents/.claude/commands\" TMPL=\"/home/stk/Documents/GIT/BetterAgents/installer/platforms/claude/templates/.claude/commands\")",
+      "Bash(do cp:*)"
     ],
     "additionalDirectories": [
       "/tmp",
@@ -110,7 +115,8 @@
       "/home/stk/Documents/GIT/BetterAgents-K/installer",
       "/home/stk/Documents/GIT/BetterAgents-K",
       "/home/stk/Documents/GIT/BetterAgents-K/.claude/scripts",
-      "/home/stk/Documents/GIT/BetterAgents-K/.claude/memory"
+      "/home/stk/Documents/GIT/BetterAgents-K/.claude/memory",
+      "/home/stk/Documents/GIT/BetterAgents/.claude/scripts"
     ]
   }
 }

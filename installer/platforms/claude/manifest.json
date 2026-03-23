@@ -1,6 +1,6 @@
 {
   "name": "claude",
-  "version": "3.7.0",
+  "version": "4.3.0",
   "description": "Claude Code IDE integration with AgentX orchestrator, 12 agents, 76+ skills, memory system, and dashboard",
   "requires": {
     "commands": ["jq"],
@@ -36,7 +36,7 @@
   },
   "features": {
     "agents": 12,
-    "commands": 76,
+    "commands": 79,
     "protocols": 7,
     "memory": true,
     "dashboard": true,

@@ -58,48 +58,20 @@ $INPUT_TOKENS tokens this session
 Read this file + MEMORY.md at session start.
 EOF
 
-# ── Ordered pipeline (each step feeds into the next) ──────────────────────────
+# ── Pipeline: Batch A parallel, then project-metrics, then dashboard ──────────
 
-# 1. Track session usage (char-count → llm-usage.json)
-if [ -f "$SCRIPT_DIR/track-usage.sh" ]; then
-    bash "$SCRIPT_DIR/track-usage.sh" "$INPUT_TOKENS" 2>/dev/null || true
-fi
+# Batch A — independent, run in parallel
+[ -f "$SCRIPT_DIR/track-usage.sh" ] && bash "$SCRIPT_DIR/track-usage.sh" "$INPUT_TOKENS" 2>/dev/null &
+[ -f "$SCRIPT_DIR/calculate-project-size.sh" ] && bash "$SCRIPT_DIR/calculate-project-size.sh" 2>/dev/null &
+[ -f "$SCRIPT_DIR/memory-stats.sh" ] && bash "$SCRIPT_DIR/memory-stats.sh" 2>/dev/null &
+[ -f "$SCRIPT_DIR/update-pattern-suggestions.sh" ] && bash "$SCRIPT_DIR/update-pattern-suggestions.sh" 2>/dev/null &
+wait
 
-# 2. Calculate project size (file scan → project-size.json)
-if [ -f "$SCRIPT_DIR/calculate-project-size.sh" ]; then
-    bash "$SCRIPT_DIR/calculate-project-size.sh" 2>/dev/null || true
-fi
+# Batch B — depends on Batch A outputs (llm-usage.json, memory-stats.json, project-size.json)
+[ -f "$SCRIPT_DIR/update-project-metrics.sh" ] && bash "$SCRIPT_DIR/update-project-metrics.sh" 2>/dev/null
 
-# 3. Update memory entry counts (→ memory-stats.json)
-if [ -f "$SCRIPT_DIR/memory-stats.sh" ]; then
-    bash "$SCRIPT_DIR/memory-stats.sh" 2>/dev/null || true
-fi
-
-# 3.5 Pattern learning: update applications counters + detect clusters (→ patterns.json)
-if [ -f "$SCRIPT_DIR/update-pattern-suggestions.sh" ]; then
-    bash "$SCRIPT_DIR/update-pattern-suggestions.sh" 2>/dev/null || true
-fi
-
-# 4. Recalculate real metrics from tasks/decisions/patterns (→ metrics-analytics.json, token-accounting.json)
-#    MUST run AFTER steps 1-3 (reads llm-usage.json and memory-stats.json)
-if [ -f "$SCRIPT_DIR/update-metrics.sh" ]; then
-    bash "$SCRIPT_DIR/update-metrics.sh" 2>/dev/null || true
-fi
-
-# 5. Consolidate all memory files into project-metrics.json
-if [ -f "$SCRIPT_DIR/update-project-metrics.sh" ]; then
-    bash "$SCRIPT_DIR/update-project-metrics.sh" 2>/dev/null || true
-fi
-
-# 5.5 Recalculate trend predictions from historical data (Phase 3.3)
-if [ -f "$SCRIPT_DIR/update-trend-predictions.sh" ]; then
-    bash "$SCRIPT_DIR/update-trend-predictions.sh" 2>/dev/null || true
-fi
-
-# 6. Regenerate dashboard HTML in background (non-blocking, uses all updated files)
-if [ -f "$SCRIPT_DIR/update-dashboard.sh" ]; then
-    bash "$SCRIPT_DIR/update-dashboard.sh" 2>/dev/null &
-fi
+# Dashboard rebuild in background (non-blocking)
+[ -f "$SCRIPT_DIR/update-dashboard.sh" ] && bash "$SCRIPT_DIR/update-dashboard.sh" 2>/dev/null &
 
 # ── Memory Debt Check: warn if no memory was written this session ──────────────
 DEBT_FILE="$MEMORY_DIR/.memory-debt.md"

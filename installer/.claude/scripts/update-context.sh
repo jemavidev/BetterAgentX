@@ -142,24 +142,7 @@ while [[ $# -gt 0 ]]; do
             CHG_FILE="$3"
             CHG_CAT="$4"
             CHG_SUM="$5"
-            apply_jq \
-                --arg name    "$CHG_NAME" \
-                --arg file    "$CHG_FILE" \
-                --arg cat     "$CHG_CAT" \
-                --arg summary "$CHG_SUM" \
-                --arg ts      "$TIMESTAMP" \
-                '
-                [{
-                    name:      $name,
-                    file:      $file,
-                    category:  $cat,
-                    timestamp: $ts,
-                    summary:   $summary
-                }] + (.recentChanges // []) | .[0:6]
-                ' | apply_jq --argjson changes "$(echo "$CURRENT" | jq '[{name:"",file:"",category:"",timestamp:"",summary:""}]')" \
-                '.recentChanges = $changes' 2>/dev/null || true
-
-            # Simpler approach: build the new entry and prepend
+            # Build the new entry and prepend
             CURRENT=$(echo "$CURRENT" | jq \
                 --arg name    "$CHG_NAME" \
                 --arg file    "$CHG_FILE" \
