@@ -1,32 +1,32 @@
 # Memory Usage Guide
 
-BetterAgents memory system lives in `.betteragents/memory/`.
+BetterAgents memory system lives in `.kiro/memory/`.
 
 ## Quick Commands
 
 ```bash
 # Add a completed task
-bash .betteragents/scripts/add-task.sh \
+bash .kiro/scripts/add-task.sh \
   TASK-NN "Title" completed agentx \
   "Outcome description" high "tag1,tag2" 30
 
 # Add an architectural decision
-bash .betteragents/scripts/add-decision.sh \
+bash .kiro/scripts/add-decision.sh \
   DEC-NN "Title" "Context/problem" architect implemented "tag1,tag2"
 
 # Add a reusable pattern
-bash .betteragents/scripts/add-pattern.sh \
+bash .kiro/scripts/add-pattern.sh \
   "pattern-name" architectural "Problem it solves" \
   agentx "How to apply it" "tag1,tag2"
 
 # Update current focus/phase
-bash .betteragents/scripts/update-context.sh \
+bash .kiro/scripts/update-context.sh \
   --focus "Current feature" \
   --objective "One-line goal" \
   --stats-completed N --stats-pending M
 
 # View memory dashboard
-bash .betteragents/scripts/start-dashboard.sh
+bash .kiro/scripts/update-memory.sh status
 ```
 
 ## Memory Files

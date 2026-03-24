@@ -97,7 +97,20 @@
       "Bash(cp /home/stk/Documents/GIT/BetterAgents/templates/memory/token-accounting.json /home/stk/Documents/GIT/BetterAgents/.claude/memory/token-accounting.json)",
       "Bash(cp /home/stk/Documents/GIT/BetterAgents/templates/memory/metrics-analytics.json /home/stk/Documents/GIT/BetterAgents/.claude/memory/metrics-analytics.json)",
       "Bash(LIVE=\"/home/stk/Documents/GIT/BetterAgents/.claude/commands\" TMPL=\"/home/stk/Documents/GIT/BetterAgents/installer/platforms/claude/templates/.claude/commands\")",
-      "Bash(do cp:*)"
+      "Bash(do cp:*)",
+      "Bash(BASE=\"/home/stk/Documents/GIT/BetterAgents\" echo \"━━━ SPANISH CHECK \\(MEMORY.md\\) ━━━\" grep -n \"agente\\\\|skills en\\\\|Fase\\\\|Propósito\\\\|Archivo\\\\|operativo\\\\|obligatoria\\\\|sub-agente\" \"$BASE/.claude/memory/MEMORY.md\")",
+      "Read(//home/stk/Documents/GIT/BetterAgents/$BASE/**)",
+      "Read(//home/stk/Documents/GIT/BetterAgents/$BASE/installer/platforms/kiro/templates/**)",
+      "Read(//home/stk/Documents/GIT/BetterAgents/$BASE/installer/platforms/claude/**)",
+      "Read(//home/stk/Documents/GIT/BetterAgents/$BASE/installer/platforms/kiro/**)",
+      "Bash(HOOKS=\"/home/stk/Documents/GIT/BetterAgents/installer/platforms/kiro/templates/.kiro/hooks\")",
+      "Bash(sed -i 's|\\\\.betteragents/scripts/|.kiro/scripts/|g' \"$HOOKS/agentStop-memory-gate.kiro.hook\")",
+      "Bash(sed -i 's|\\\\.betteragents/scripts/|.kiro/scripts/|g' \"$HOOKS/agentStop-session-stop.kiro.hook\")",
+      "Bash(sed -i 's|\\\\.betteragents/scripts/|.kiro/scripts/|g' \"$HOOKS/postToolUse-file-change.kiro.hook\")",
+      "Read(//home/stk/Documents/GIT/BetterAgents/$HOOKS/**)",
+      "Bash(AGENTS=\"/home/stk/Documents/GIT/BetterAgents/installer/platforms/kiro/templates/AGENTS.md\")",
+      "Bash(sed -i 's|\\\\.betteragents/memory/|.kiro/memory/|g;:*)",
+      "Bash(__NEW_LINE_0ecedd8d126c6813__ echo:*)"
     ],
     "additionalDirectories": [
       "/tmp",

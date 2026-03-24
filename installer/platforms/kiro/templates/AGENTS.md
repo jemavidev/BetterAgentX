@@ -1,6 +1,6 @@
 # BetterAgents - Multi-Agent Orchestration System
 
-**Version:** 4.2.0
+**Version:** 4.3.0
 **Philosophy:** "I am the router, not the executor. I ensure the right expert handles each task."
 
 ---
@@ -108,7 +108,7 @@ Complexity: [score]/5
 
 ### 0. Session Start
 Read project memory at session start (platform-specific location):
-- `.betteragents/memory/MEMORY.md` + `session-last.md` (Claude Code)
+- `.kiro/memory/MEMORY.md` + `session-last.md` (Claude Code)
 - `.kiro/steering/*.md` (Kiro)
 - Platform equivalent for others
 
@@ -181,7 +181,7 @@ After EVERY response where you used Edit/Write/Bash tools, score the work:
 
 ## 🧩 Advanced Features
 
-This project uses **BetterAgents** advanced system located in `.betteragents/`:
+This project uses **BetterAgents** advanced system located in `.kiro/`:
 
 ### Memory System
 - **Purpose:** Persistent cross-session memory
@@ -194,7 +194,7 @@ This project uses **BetterAgents** advanced system located in `.betteragents/`:
 - **Usage:** Auto-injected based on task context (max 3 per dispatch)
 
 ### Dashboard
-- **Location:** `.betteragents/memory/dashboard.html` (or platform equivalent)
+- **Location:** `.kiro/memory/dashboard.html` (or platform equivalent)
 - **Features:** Interactive visualization, session tracking, metrics, safety analysis
 
 ### Protocols
@@ -213,7 +213,7 @@ This project uses **BetterAgents** advanced system located in `.betteragents/`:
 
 ### Claude Code
 - Use `Task(subagent_type="agent-name", prompt="...")` for dispatch
-- Memory auto-loaded from `.betteragents/memory/MEMORY.md`
+- Memory auto-loaded from `.kiro/memory/MEMORY.md`
 - Hooks configured in `.claude/settings.local.json`
 - Full documentation: [docs/platforms/claude.md](docs/platforms/claude.md)
 
@@ -224,9 +224,9 @@ This project uses **BetterAgents** advanced system located in `.betteragents/`:
 - Full documentation: [docs/platforms/kiro.md](docs/platforms/kiro.md)
 
 ### Cursor / Windsurf / Kilo Code / Others
-- Refer to `.betteragents/CORE-REFERENCE.md` for adaptation guide
+- Refer to `.kiro/steering/agentx-identity.md` for adaptation guide
 - Use platform-specific agent invocation mechanisms
-- Memory bridge available via `.betteragents/sync/memory-bridge.js`
+- Memory bridge available via `.kiro/scripts/update-memory.sh`
 
 ---
 
@@ -254,10 +254,10 @@ This project uses **BetterAgents** advanced system located in `.betteragents/`:
 ## 📖 Documentation
 
 For detailed documentation:
-- **Core Reference:** `.betteragents/CORE-REFERENCE.md`
+- **Core Reference:** `.kiro/steering/agentx-identity.md`
 - **Multi-Platform Guide:** [docs/architecture/multi-platform-summary.md](docs/architecture/multi-platform-summary.md)
 - **Migration Plan:** [docs/migration/agents-md-migration-plan.md](docs/migration/agents-md-migration-plan.md)
-- **Memory System:** `.betteragents/memory/MEMORY.md` (or platform equivalent)
+- **Memory System:** `.kiro/memory/MEMORY.md` (or platform equivalent)
 - **Agent Specs:** `.claude/agents/*.md` (or platform equivalent)
 
 ---
@@ -266,7 +266,7 @@ For detailed documentation:
 
 1. **Read this file** - Understand the orchestration philosophy
 2. **Check platform docs** - See platform-specific instructions above
-3. **Explore advanced features** - Review `.betteragents/` directory
+3. **Explore advanced features** - Review `.kiro/` directory
 4. **Start working** - AgentX will route tasks to specialized agents
 
 ---
@@ -281,7 +281,7 @@ For detailed documentation:
 ---
 
 **Last Updated:** 2026-03-23
-**Version:** 4.2.0
+**Version:** 4.3.0
 **Standard:** AGENTS.md universal format
 **Project:** BetterAgents-Claude
 **Repository:** https://github.com/jemavidev/BetterAgentX

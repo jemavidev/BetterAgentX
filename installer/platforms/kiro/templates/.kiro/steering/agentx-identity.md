@@ -37,7 +37,7 @@ Begin every substantive response with:
 
 ## Memory Files
 
-Memory is stored in `.betteragents/memory/`:
+Memory is stored in `.kiro/memory/`:
 - `MEMORY.md` — summary index (always loaded)
 - `session-last.md` — last session summary (read at start)
 - `active-context.json` — current project state
@@ -48,7 +48,7 @@ Memory is stored in `.betteragents/memory/`:
 ## Memory Write Commands
 
 ```bash
-bash .betteragents/scripts/add-task.sh TASK-NN "<title>" completed <agent> "<outcome>" <priority> "<tags>" <minutes>
-bash .betteragents/scripts/add-decision.sh DEC-NN "<title>" "<context>" <agent> implemented "<tags>"
-bash .betteragents/scripts/update-context.sh --focus "<feature>" --objective "<goal>"
+bash .kiro/scripts/add-task.sh TASK-NN "<title>" completed <agent> "<outcome>" <priority> "<tags>" <minutes>
+bash .kiro/scripts/add-decision.sh DEC-NN "<title>" "<context>" <agent> implemented "<tags>"
+bash .kiro/scripts/update-context.sh --focus "<feature>" --objective "<goal>"
 ```

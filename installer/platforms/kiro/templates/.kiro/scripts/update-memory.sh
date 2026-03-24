@@ -1,15 +1,15 @@
 #!/bin/bash
 # BetterAgents — Kiro Memory Update Helper
-# Wrapper to update memory from Kiro IDE context
-# Usage: bash .kiro/scripts/update-memory.sh [task|decision|pattern|context] [args...]
+# Self-contained wrapper for Kiro memory operations
+# Usage: bash .kiro/scripts/update-memory.sh [task|decision|pattern|context|status] [args...]
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
-MEMORY_SCRIPTS="$PROJECT_ROOT/.betteragents/scripts"
+MEMORY_DIR="$PROJECT_ROOT/.kiro/memory"
 
-if [[ ! -d "$MEMORY_SCRIPTS" ]]; then
-    echo "❌ BetterAgents memory scripts not found at $MEMORY_SCRIPTS"
-    echo "   Run the BetterAgents installer first."
+if [[ ! -d "$MEMORY_DIR" ]]; then
+    echo "❌ Memory directory not found at $MEMORY_DIR"
+    echo "   Run the BetterAgents Kiro installer first."
     exit 1
 fi
 
@@ -18,26 +18,25 @@ shift 2>/dev/null
 
 case "$COMMAND" in
     task)
-        bash "$MEMORY_SCRIPTS/add-task.sh" "$@"
+        bash "$SCRIPT_DIR/add-task.sh" "$@"
         ;;
     decision)
-        bash "$MEMORY_SCRIPTS/add-decision.sh" "$@"
+        bash "$SCRIPT_DIR/add-decision.sh" "$@"
         ;;
     pattern)
-        bash "$MEMORY_SCRIPTS/add-pattern.sh" "$@"
+        bash "$SCRIPT_DIR/add-pattern.sh" "$@"
         ;;
     context)
-        bash "$MEMORY_SCRIPTS/update-context.sh" "$@"
-        ;;
-    dashboard)
-        bash "$MEMORY_SCRIPTS/start-dashboard.sh"
+        bash "$SCRIPT_DIR/update-context.sh" "$@"
         ;;
     status)
         echo "📊 Memory Status"
         echo "────────────────"
-        jq -r '"Tasks: " + (.tasks | length | tostring)' "$PROJECT_ROOT/.betteragents/memory/progress.json" 2>/dev/null || echo "Tasks: 0"
-        jq -r '"Decisions: " + (.decisions | length | tostring)' "$PROJECT_ROOT/.betteragents/memory/decision-log.json" 2>/dev/null || echo "Decisions: 0"
-        jq -r '"Patterns: " + (.patterns | length | tostring)' "$PROJECT_ROOT/.betteragents/memory/patterns.json" 2>/dev/null || echo "Patterns: 0"
+        jq -r '"Tasks: " + (.tasks | length | tostring)' "$MEMORY_DIR/progress.json" 2>/dev/null || echo "Tasks: 0"
+        jq -r '"Decisions: " + (.decisions | length | tostring)' "$MEMORY_DIR/decision-log.json" 2>/dev/null || echo "Decisions: 0"
+        jq -r '"Patterns: " + (.patterns | length | tostring)' "$MEMORY_DIR/patterns.json" 2>/dev/null || echo "Patterns: 0"
+        echo ""
+        echo "Memory location: $MEMORY_DIR"
         ;;
     help|*)
         echo "Usage: bash .kiro/scripts/update-memory.sh <command> [args]"
@@ -47,7 +46,8 @@ case "$COMMAND" in
         echo "  decision  <id> <title> <context> <agent> <status> <tags>"
         echo "  pattern   <name> <category> <problem> <agent> <solution> <tags>"
         echo "  context   --focus <feature> --objective <goal> [--phase <phase>]"
-        echo "  dashboard  Open memory dashboard"
-        echo "  status     Show memory counts"
+        echo "  status    Show memory counts"
+        echo ""
+        echo "Memory location: $MEMORY_DIR"
         ;;
 esac

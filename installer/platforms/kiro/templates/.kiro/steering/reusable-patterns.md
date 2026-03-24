@@ -1,7 +1,7 @@
 # Reusable Patterns
 
 This file documents reusable patterns identified in this project.
-Full pattern log is in `.betteragents/memory/patterns.json`.
+Full pattern log is in `.kiro/memory/patterns.json`.
 
 ## Pattern Format
 
@@ -18,4 +18,4 @@ Full pattern log is in `.betteragents/memory/patterns.json`.
 ## Patterns
 
 <!-- Patterns are added here as they are identified -->
-<!-- Also run: bash .betteragents/scripts/add-pattern.sh to log in memory -->
+<!-- Also run: bash .kiro/scripts/add-pattern.sh to log in memory -->

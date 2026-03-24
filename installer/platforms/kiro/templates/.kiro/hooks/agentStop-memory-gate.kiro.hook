@@ -8,6 +8,6 @@
   },
   "then": {
     "type": "askAgent",
-    "prompt": "§5b: Run bash .betteragents/scripts/memory-self-assessment.sh\n- Output contains 'MEMORY GATE' → run the add-task.sh command shown, then '✅ Memory written'\n- No output → respond only '⏭️'"
+    "prompt": "§5b: Run bash .kiro/scripts/memory-self-assessment.sh\n- Output contains 'MEMORY GATE' → run the add-task.sh command shown, then '✅ Memory written'\n- No output → respond only '⏭️'"
   }
 }

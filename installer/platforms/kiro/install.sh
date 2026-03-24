@@ -316,18 +316,35 @@ fi
 echo ""
 
 # ============================================
-# 10. CHECK MEMORY BRIDGE COMPATIBILITY
+# 10. INSTALL MEMORY TEMPLATES
 # ============================================
 
-print_step "Checking memory bridge compatibility..."
+print_step "Installing memory templates..."
 
+MEMORY_INSTALLED=0
 
-# Check if Claude memory system exists
-if [[ -d ".betteragents/memory" ]]; then
-    print_success "BetterAgents core detected — memory system available"
-    print_info "Memory scripts: bash .betteragents/scripts/add-task.sh"
+if [[ -d "$PLATFORM_DIR/templates/.kiro/memory" ]]; then
+    ensure_directory ".kiro/memory"
+
+    for memfile in "$PLATFORM_DIR/templates/.kiro/memory"/*; do
+        if [[ -f "$memfile" ]]; then
+            filename=$(basename "$memfile")
+
+            # Don't overwrite existing memory files
+            if [[ ! -f ".kiro/memory/$filename" ]]; then
+                cp "$memfile" ".kiro/memory/$filename"
+                MEMORY_INSTALLED=$((MEMORY_INSTALLED + 1))
+            fi
+        fi
+    done
+
+    if [[ $MEMORY_INSTALLED -gt 0 ]]; then
+        print_success "Memory templates installed ($MEMORY_INSTALLED files)"
+    else
+        print_info "Memory files already present — preserved"
+    fi
 else
-    print_warning "BetterAgents core not found — run core installer first"
+    print_warning "Memory templates not found in platform — skipping"
 fi
 
 echo ""
@@ -372,7 +389,7 @@ echo ""
 
 print_step "Writing version file..."
 
-VERSION="4.0.0"
+VERSION="4.3.0"
 echo "$VERSION" > ".kiro/.version"
 print_success "Version file created (v$VERSION)"
 
@@ -409,8 +426,8 @@ echo "  1. Open this project in Kiro IDE"
 echo "  2. Read AGENTS.md to understand AgentX orchestrator"
 echo "  3. Steering files: .kiro/steering/"
 echo "  4. Skills: .kiro/skills/"
-echo "  5. Memory: .betteragents/memory/"
-echo "  6. Dashboard: bash .betteragents/scripts/start-dashboard.sh"
+echo "  5. Memory: .kiro/memory/"
+echo "  6. Update memory: bash .kiro/scripts/update-memory.sh status"
 echo ""
 
 exit 0

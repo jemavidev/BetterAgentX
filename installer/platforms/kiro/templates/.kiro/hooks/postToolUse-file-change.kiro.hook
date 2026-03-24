@@ -9,6 +9,6 @@
   },
   "then": {
     "type": "runCommand",
-    "command": "bash .betteragents/scripts/on-file-change.sh"
+    "command": "bash .kiro/scripts/on-file-change.sh"
   }
 }

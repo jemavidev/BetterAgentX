@@ -1,7 +1,7 @@
 # Architecture Decisions
 
 This file tracks significant architectural decisions for this project.
-Full decision log is in `.betteragents/memory/decision-log.json`.
+Full decision log is in `.kiro/memory/decision-log.json`.
 
 ## Decision Format
 
@@ -18,4 +18,4 @@ Full decision log is in `.betteragents/memory/decision-log.json`.
 ## Decisions
 
 <!-- Decisions are added here as the project evolves -->
-<!-- Also run: bash .betteragents/scripts/add-decision.sh to log in memory -->
+<!-- Also run: bash .kiro/scripts/add-decision.sh to log in memory -->
